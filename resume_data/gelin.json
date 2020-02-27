@@ -1,0 +1,121 @@
+{
+  "basics": {
+    "name": "Fernando Gelin",
+    "label": "Senior Research Software Engineer",
+    "picture": "",
+    "email": "fernando@fernandogelin.com",
+    "phone": "(802) 310-6213",
+    "summary": "A summary of John Doe...",
+    "location": {
+      "address": "40 Oakland Ave",
+      "postalCode": "02910",
+      "city": "Cranston",
+      "countryCode": "US",
+      "region": "Rhode Island"
+    }
+  },
+  "work": [
+    {
+      "company": "Brown University",
+      "position": "Senior Research Software Engineer",
+      "website": "https://ccv.brown.edu",
+      "startDate": "2019-11-01",
+      "summary": "Working for the Center for Computation and Visualization I developed, and deployed high-quality web applications, software packages and software engineering solutions that support Brown researchers and their collaborators. Supported researchers with best practices in software engineering and reproducibility. Mentored web development interns. Overhauled CCV's brand by creating a suit of web applications and websites to expand CCV's presence at Brown and across local Universities. Helped with implementation of university-wide software solutions for teaching STEM."
+    },
+    {
+      "company": "Brown University",
+      "position": "Research Software Engineer",
+      "website": "https://ccv.brown.edu",
+      "startDate": "2018-05-01",
+      "endDate": "2019-10-31",
+      "summary": "Description..."
+    },
+    {
+      "company": "Brown University",
+      "position": "Data Science Associate",
+      "website": "https://ccv.brown.edu",
+      "startDate": "2016-11-30",
+      "endDate": "2018-04-30",
+      "summary": "Description..."
+    },
+    {
+      "company": "University of Washington",
+      "position": "Senior Research Fellow",
+      "startDate": "2014-06-01",
+      "endDate": "2016-06-30",
+      "summary": "Description...",
+      "highlights": ["Started the company"]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Vermont",
+      "area": "Ecology and Evolutionary Biology",
+      "studyType": "doctorate",
+      "startDate": "2009-09-01",
+      "endDate": "2014-05-01"
+    },
+    {
+      "institution": "University of California San Diego / University of Washington",
+      "area": "Biotechnology Project Management",
+      "studyType": "certificate",
+      "startDate": "2015-01-01",
+      "endDate": "2016-01-01"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Web Development",
+      "level": "Master",
+      "keywords": [
+        "HTML",
+        "CSS/SASS",
+        "Javascript",
+        "Ember.js",
+        "Vue.js",
+        "Hugo",
+        "Node.js",
+        "REST"
+      ]
+    },
+    {
+      "name": "Data Science",
+      "keywords": ["Python", "Julia", "Jupyter"]
+    },
+    {
+      "name": "Data Visualization",
+      "keywords": ["D3.js", "Vega", "Python", "Julia", "SVG"]
+    },
+    {
+      "name": "Research Software Engineering",
+      "keywords": ["Python", "Julia"]
+    },
+    {
+      "name": "Productivity",
+      "keywords": [
+        "Docker",
+        "Docker Swarm",
+        "GCP",
+        "Github Actions",
+        "Nginx",
+        "Firebase"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Portuguese",
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "English",
+      "fluency": "Fluent speaker"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Wildlife",
+      "keywords": ["Ferrets", "Unicorns"]
+    }
+  ]
+}

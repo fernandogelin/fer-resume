@@ -1,0 +1,11 @@
+<h1>{{t "main.name"}}</h1>
+{{model.education}}
+{{model.work}}
+{{#each model.skills as |skill| }}
+{{skill.name}}
+{{#each skill.keywords as |kw| }}
+{{kw}}
+{{/each}}
+{{/each}}
+{{model.languages}}
+{{model.interests}}
