@@ -10,8 +10,6 @@ export default class ApplicationRoute extends Route.extend(I18nMixin) {
   }
 
   model() {
-    return this.store.findRecord("gist", "fbc7c5a8630ee55274ec7ee89f62dd5f", {
-      include: "resume"
-    });
+    return this.store.findRecord("gist", "fbc7c5a8630ee55274ec7ee89f62dd5f");
   }
 }
