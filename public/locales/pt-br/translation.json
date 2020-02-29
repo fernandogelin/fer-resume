@@ -1,5 +1,8 @@
 {
   "main": {
     "name": "Nome"
+  },
+  "actions": {
+    "choose_language": "Escolha o idioma:"
   }
 }

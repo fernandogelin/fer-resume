@@ -1,5 +1,8 @@
 {
   "main": {
     "name": "Name"
+  },
+  "actions": {
+    "choose_language": "Choose a language:"
   }
 }

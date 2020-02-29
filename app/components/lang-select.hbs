@@ -1,0 +1,8 @@
+<label for="locale">{{t 'actions.choose_language'}}</label>
+
+<select {{on "change" this.changeLocale}} id="locale">
+    <option value="en-se">English (International)</option>
+    <option value="pt-br">Portuguese (Brazilian)</option>
+</select>
+
+{{yield}}
