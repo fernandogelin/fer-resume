@@ -1,0 +1,7 @@
+{{#each @person.profiles as |profile|}}
+<FaIcon @prefix="fab" @icon={{profile.id}} />
+<a href={{profile.url}} aria-label={{profile.network}}>
+    <span>{{profile.username}}</span>
+</a>
+{{/each}}
+{{yield}}
