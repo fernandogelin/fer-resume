@@ -5,5 +5,19 @@
             <ProfileCard @person={{@model.person}} />
         </section>
     </div>
-    <div class="three"></div>
+    <div class="three">
+        <div class="columns">
+            <ResumeBlock @type="work" as |item|>
+                {{#each @model.work as |model|}}
+                <item.work @model={{model}} />
+                {{/each}}
+            </ResumeBlock>
+            <ResumeBlock @type="education" as |item|>
+                {{#each @model.education as |model|}}
+                <item.education @model={{model}} />
+                {{/each}}
+            </ResumeBlock>
+
+        </div>
+    </div>
 </section>

@@ -1,0 +1,6 @@
+<div class="resume-block">
+    <h1>{{t (concat "main." @type )}}</h1>
+    {{yield (hash work=(component "work-item")
+                  education=(component "education-item")
+                  )}}
+</div>

@@ -1,6 +1,11 @@
 {
   "main": {
-    "name": "Nome"
+    "name": "Nome",
+    "education": "Educação",
+    "work": "Experiência Profissional",
+    "skills": "Habilidades",
+    "interests": "Interesses",
+    "languages": "Idiomas"
   },
   "actions": {
     "choose_language": "Escolha o idioma:"
