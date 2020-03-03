@@ -5,4 +5,5 @@ export default class ProfileModel extends Model {
   @attr("string") username;
   @attr("string") url;
   @belongsTo("person") person;
+  @belongsTo("resume") resume;
 }

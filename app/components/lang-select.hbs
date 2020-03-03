@@ -1,11 +1,11 @@
 <div class="control has-icons-left">
     <div class="select is-rounded is-small">
         <select {{on "change" this.changeLocale}} id="locale" aria-label="{{t 'actions.choose_language'}}">
-            <option value="en-se">{{t 'locales.en-se'}}</option>
-            <option value="pt-br">{{t 'locales.pt-br'}}</option>
+            <option selected={{this.isEn}} value="en-se">{{t 'locales.en-se'}}</option>
+            <option selected={{this.isPt}} value="pt-br">{{t 'locales.pt-br'}}</option>
         </select>
     </div>
     <span class="icon is-left">
-        <FaIcon @prefix="fas" @icon="globe" @size="2x" />
+        {{inline-svg (concat "icons/" this.i18n.locale) class="icon-padding"}}
     </span>
 </div>
