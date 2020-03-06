@@ -15,7 +15,13 @@ export default class ApplicationSerializer extends JSONSerializer.extend(
 
   normalizeResponse(store, primaryModelClass, payload, id, requestType) {
     const resume = payload.files["resume.json"];
-    resume.id = "1";
+    if (payload.id === "fbc7c5a8630ee55274ec7ee89f62dd5f") {
+      payload.locale = "en-se";
+    }
+    if (payload.id === "da99c3da93c806d4d6319279c844ad72") {
+      payload.locale = "pt-br";
+    }
+    resume.id = payload.locale;
     payload.resume = resume;
 
     return super.normalizeResponse(
