@@ -1,0 +1,48 @@
+<section class="one-three-split">
+    <div class="one">
+        <section class="person">
+            <LangSelect />
+            <ProfileCard @person="blankblank" />
+            <SkillsBox>
+                <div class="blank-lines">
+                    <span class="line">blank</span>
+                    <span class="line">blankblank</span>
+                    <span class="line">blank</span>
+                    <span class="line">blankbla</span>
+                    <span class="line">blank</span>
+                    <span class="line">blankblank</span>
+                    <span class="line">blankkk</span>
+                    <span class="line">blankss</span>
+                    <span class="line">blankblank</span>
+                    <span class="line">blanksa</span>
+                    <span class="line">blankblank</span>
+                    <span class="line">blank</span>
+                    <span class="line">blankblank</span>
+                    <span class="line">blankkkk</span>
+                    <span class="line">blank</span>
+                    <span class="line">blalank</span>
+                    <span class="line">blank</span>
+                    <span class="line">blankblank</span>
+                    <span class="line">blank</span>
+                    <span class="line">blankblank</span>
+                    <span class="line">blankw</span>
+                </div>
+            </SkillsBox>
+        </section>
+    </div>
+    <div class="three">
+        <div class="columns">
+            <ResumeBlock @type="work" as |item|>
+                {{#each @model.work as |model|}}
+                <item.work @model={{model}} />
+                {{/each}}
+            </ResumeBlock>
+            <ResumeBlock @type="education" as |item|>
+                {{#each @model.education as |model|}}
+                <item.education @model={{model}} />
+                {{/each}}
+            </ResumeBlock>
+
+        </div>
+    </div>
+</section>
