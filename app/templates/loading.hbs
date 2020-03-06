@@ -1,47 +1,36 @@
-<section class="one-three-split">
+<section class="one-three-split has-100vh">
     <div class="one">
         <section class="person">
             <LangSelect />
-            <ProfileCard @person="blankblank" />
+            <Blank::Block as |block|>
+                <block.h3 @color="light" />
+                <block.p @color="light" />
+            </Blank::Block>
+
+            <ProfileCard />
             <SkillsBox>
-                <div class="blank-lines">
-                    <span class="line">blank</span>
-                    <span class="line">blankblank</span>
-                    <span class="line">blank</span>
-                    <span class="line">blankbla</span>
-                    <span class="line">blank</span>
-                    <span class="line">blankblank</span>
-                    <span class="line">blankkk</span>
-                    <span class="line">blankss</span>
-                    <span class="line">blankblank</span>
-                    <span class="line">blanksa</span>
-                    <span class="line">blankblank</span>
-                    <span class="line">blank</span>
-                    <span class="line">blankblank</span>
-                    <span class="line">blankkkk</span>
-                    <span class="line">blank</span>
-                    <span class="line">blalank</span>
-                    <span class="line">blank</span>
-                    <span class="line">blankblank</span>
-                    <span class="line">blank</span>
-                    <span class="line">blankblank</span>
-                    <span class="line">blankw</span>
-                </div>
+                <Blank::Block as |block|>
+                    <block.p @color="light" />
+                </Blank::Block>
             </SkillsBox>
         </section>
     </div>
     <div class="three">
         <div class="columns">
-            <ResumeBlock @type="work" as |item|>
-                {{#each @model.work as |model|}}
-                <item.work @model={{model}} />
-                {{/each}}
-            </ResumeBlock>
-            <ResumeBlock @type="education" as |item|>
-                {{#each @model.education as |model|}}
-                <item.education @model={{model}} />
-                {{/each}}
-            </ResumeBlock>
+            <div class="column">
+                <Blank::Block as |block|>
+                    <block.h1 @color="white" />
+                    <block.h3 @color="white" />
+                    <block.p @color="white" @many={{true}} />
+                </Blank::Block>
+            </div>
+            <div class="column">
+                <Blank::Block as |block|>
+                    <block.h1 @color="white" />
+                    <block.h3 @color="white" />
+                    <block.p @color="white" @many={{true}} />
+                </Blank::Block>
+            </div>
 
         </div>
     </div>
