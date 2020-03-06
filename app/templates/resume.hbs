@@ -3,6 +3,11 @@
         <section class="person">
             <LangSelect />
             <ProfileCard @person={{@model.person}} />
+            <SkillsBox as |skill|>
+                {{#each @model.skills as |item|}}
+                <skill.item @item={{item}} />
+                {{/each}}
+            </SkillsBox>
         </section>
     </div>
     <div class="three">

@@ -1,0 +1,35 @@
+<section class="one-three-split has-100vh">
+    <div class="one">
+        <section class="person">
+            <LangSelect />
+            <Blank::Block as |block|>
+                <block.h3 @color="light" />
+                <block.p @color="light" />
+            </Blank::Block>
+            <SkillsBox>
+                <Blank::Block as |block|>
+                    <block.p @color="light" />
+                </Blank::Block>
+            </SkillsBox>
+        </section>
+    </div>
+    <div class="three">
+        <div class="columns">
+            <div class="column">
+                <Blank::Block as |block|>
+                    <block.h1 @color="white" />
+                    <block.h3 @color="white" />
+                    <block.p @color="white" @many={{true}} />
+                </Blank::Block>
+            </div>
+            <div class="column">
+                <Blank::Block as |block|>
+                    <block.h1 @color="white" />
+                    <block.h3 @color="white" />
+                    <block.p @color="white" @many={{true}} />
+                </Blank::Block>
+            </div>
+
+        </div>
+    </div>
+</section>
