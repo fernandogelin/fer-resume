@@ -1,4 +1,6 @@
-<h4>{{@model.institution}}</h4>
-<p>{{@model.area}}</p>
-<p>{{@model.studyType}}</p>
-{{yield}}
+<h4>
+    <FaIcon @prefix="fal" @icon="university" />{{@model.institution}}</h4>
+<p class="subheading">
+    <FaIcon @prefix="fal" @icon="file-certificate" />{{@model.area}}, {{@model.studyType}}</p>
+<Date class="subheading" @startDate={{@model.startDate}} @endDate={{@model.endDate}} />
+<hr />

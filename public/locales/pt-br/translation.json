@@ -9,5 +9,8 @@
   },
   "actions": {
     "choose_language": "Escolha o idioma:"
+  },
+  "time": {
+    "present": "presente"
   }
 }

@@ -12,12 +12,12 @@
     </div>
     <div class="three">
         <div class="columns">
-            <ResumeBlock @type="work" as |item|>
+            <ResumeBlock @type="work" @icon="laptop-code" as |item|>
                 {{#each @model.work as |model|}}
                 <item.work @model={{model}} />
                 {{/each}}
             </ResumeBlock>
-            <ResumeBlock @type="education" as |item|>
+            <ResumeBlock @type="education" @icon="graduation-cap" as |item|>
                 {{#each @model.education as |model|}}
                 <item.education @model={{model}} />
                 {{/each}}

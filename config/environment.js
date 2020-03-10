@@ -32,10 +32,14 @@ module.exports = function(environment) {
       "default-src": ["'none'"],
       "script-src": ["'self'"],
       "frame-src": ["'self'"],
-      "font-src": ["'self'"],
+      "font-src": ["'self'", " https://use.typekit.net"],
       "connect-src": ["'self'", "https://api.github.com"],
       "img-src": ["'self'"],
-      "style-src": ["'self'"],
+      "style-src": [
+        "'self'",
+        " https://use.typekit.net/ojh0dfq.css",
+        "https://p.typekit.net/p.css?s=1&k=ojh0dfq&ht=tk&f=28031.30222.30223&a=8261510&app=typekit&e=css "
+      ],
       "media-src": ["'self'"],
       "manifest-src": ["'self'"]
     }

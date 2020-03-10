@@ -1,4 +1,7 @@
-<h4>{{@model.company}}</h4>
-<p>{{@model.position}}</p>
+<h4>
+    <FaIcon @prefix="fal" @icon="building" />{{@model.company}}</h4>
+<p class="subheading">
+    <FaIcon @prefix="fal" @icon="user-ninja" />{{@model.position}}</p>
+<Date class="subheading mb-1" @startDate={{@model.startDate}} @endDate={{@model.endDate}} />
 <p>{{@model.summary}}</p>
 {{yield}}
