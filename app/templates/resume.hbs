@@ -1,5 +1,5 @@
-<section class="one-three-split">
-    <div class="one">
+<section class="application-grid">
+    <div class="application-grid-sidebar">
         <section class="person">
             <LangSelect />
             <ProfileCard @person={{@model.person}} />
@@ -10,7 +10,7 @@
             </SkillsBox>
         </section>
     </div>
-    <div class="three">
+    <div class="application-grid-content">
         <div class="columns">
             <ResumeBlock @type="work" @icon="laptop-code" as |item|>
                 {{#each @model.work as |model|}}

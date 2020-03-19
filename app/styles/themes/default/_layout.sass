@@ -1,12 +1,12 @@
-.one-three-split
-    min-height: 100vh
-    @extend .columns
-    .one
-        @extend .is-one-quarter
-        @extend .column
-    .three
+.application-grid
+    display: grid
+    grid-template-areas: "sidebar content"
+    grid-template-columns: 1fr 3fr
+
+    &-sidebar
+        grid-area: sidebar
+    &-content
+        grid-area: content
         padding: $size-1
         @extend .content
-        @extend .is-three-quarters
-        @extend .column
         @extend .has-background-light
