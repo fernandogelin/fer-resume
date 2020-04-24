@@ -9,7 +9,8 @@ module.exports = function() {
       "laptop-code",
       "university",
       "history",
-      "user-ninja"
+      "user-ninja",
+      "book"
     ]
   };
 };

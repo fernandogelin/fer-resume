@@ -1,6 +1,17 @@
-<h4>
-    <FaIcon @prefix="fal" @icon="university" />{{@model.institution}}</h4>
-<p class="subheading">
-    <FaIcon @prefix="fal" @icon="file-certificate" />{{@model.area}}, {{@model.studyType}}</p>
-<Date class="subheading" @startDate={{@model.startDate}} @endDate={{@model.endDate}} />
-<hr />
+<div class="resume-block-item">
+  <h4>
+    <FaIcon @prefix="fal" @icon="university" />
+    <span>{{@model.institution}}</span>
+  </h4>
+  <p class="subheading">
+    <FaIcon @prefix="fal" @icon="file-certificate" />
+    <span>{{@model.area}}, {{@model.studyType}}</span>
+  </p>
+  <Date class="subheading" @startDate={{@model.startDate}} @endDate={{@model.endDate}} />
+  {{#if @model.thesis}}
+  <p>
+    <FaIcon @prefix="fal" @icon="book" />
+    <span>{{t 'thesis'}}: {{@model.thesis}}</span>
+  </p>
+  {{/if}}
+</div>

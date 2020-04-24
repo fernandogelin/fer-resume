@@ -1,8 +1,13 @@
 <div class="resume-block">
+  <header>
     <h1>
-        <FaIcon @prefix="fal" @icon={{@icon}} class="icon-large" />
-        {{t (concat "main." @type )}}</h1>
-    {{yield (hash work=(component "work-item")
-                  education=(component "education-item")
-                  )}}
+      <FaIcon @prefix="fal" @icon={{@icon}} class="icon-large" />
+      {{t (concat "main." @type )}}
+    </h1>
+  </header>
+  <main class="resume-block-main">
+    {{yield (
+      hash work=(component "work-item") education=(component "education-item")
+      )}}
+  </main>
 </div>
