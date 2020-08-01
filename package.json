@@ -16,7 +16,8 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "ember test",
+    "deploy": "firebase deploy"
   },
   "devDependencies": {
     "@ember/optional-features": "^1.3.0",
@@ -63,6 +64,7 @@
     "ember-welcome-page": "^4.0.0",
     "eslint-plugin-ember": "^7.7.2",
     "eslint-plugin-node": "^11.0.0",
+    "firebase-tools": "^8.6.0",
     "git-cz": "^4.3.1",
     "loader.js": "^4.7.0",
     "qunit-dom": "^1.0.0",
