@@ -6,6 +6,8 @@
         </select>
     </div>
     <span class="icon is-left">
-        {{inline-svg (concat "icons/" this.i18n.locale) class="icon-padding"}}
+        <FaIcon @prefix="fas" @icon="globe"/>
+        {{!-- Inline SVG not sowing on Safari and Chrome, style looks different in Firefox --}}
+        {{!-- {{inline-svg (concat "icons/" this.i18n.locale) class="icon-padding"}} --}}
     </span>
 </div>
