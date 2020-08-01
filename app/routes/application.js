@@ -6,6 +6,7 @@ export default class ApplicationRoute extends Route.extend(I18nMixin) {
   async beforeModel() {
     super.beforeModel(...arguments)
     await this.i18n.i18next.use(LngDetector)
+    this.transitionTo('resume');
     return this.i18n.initLibraryAsync()
   }
 }
