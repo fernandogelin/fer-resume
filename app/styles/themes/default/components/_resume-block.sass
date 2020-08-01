@@ -1,4 +1,22 @@
-.resume-block
+
+.resume-block-main
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+
+.subheading
+    margin-top: -0.8rem
+
+.mb-1
+    margin-bottom: 1rem
+
+.resume-block-item
+  margin-right: 2rem
+  margin-bottom: 2rem
+
++tablet
+  .resume-block
     padding-right: $size-1 * 1.5
-    @extend .column
-    @extend .is-half
+
+  .resume-block-item
+    padding: 1rem

@@ -1,13 +1,13 @@
-import RESTAdapter from "@ember-data/adapter/rest";
-import { computed } from "@ember/object";
+import RESTAdapter from '@ember-data/adapter/rest'
+import { computed } from '@ember/object'
 
 export default class ApplicationAdapter extends RESTAdapter {
   @computed
   get headers() {
     return {
-      ACCEPT: "application/vnd.github.v3+json"
-    };
+      ACCEPT: 'application/vnd.github.v3+json'
+    }
   }
 
-  host = "https://api.github.com";
+  host = 'https://api.github.com'
 }

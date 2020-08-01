@@ -13,5 +13,9 @@
   "locales": {
     "en-se": "English (International)",
     "pt-br": "Português (Brasil)"
-  }
+  },
+  "time": {
+    "present": "present"
+  },
+  "thesis": "Thesis"
 }

@@ -1,5 +1,5 @@
-<section class="one-three-split">
-    <div class="one">
+<section class="application-grid">
+    <div class="application-grid-sidebar">
         <section class="person">
             <LangSelect />
             <ProfileCard @person={{@model.person}} />
@@ -10,19 +10,16 @@
             </SkillsBox>
         </section>
     </div>
-    <div class="three">
-        <div class="columns">
-            <ResumeBlock @type="work" as |item|>
-                {{#each @model.work as |model|}}
-                <item.work @model={{model}} />
-                {{/each}}
-            </ResumeBlock>
-            <ResumeBlock @type="education" as |item|>
-                {{#each @model.education as |model|}}
-                <item.education @model={{model}} />
-                {{/each}}
-            </ResumeBlock>
-
-        </div>
+    <div class="application-grid-content">
+        <ResumeBlock @type="work" @icon="laptop-code" as |item|>
+            {{#each @model.work as |model|}}
+            <item.work @model={{model}} />
+            {{/each}}
+        </ResumeBlock>
+        <ResumeBlock @type="education" @icon="graduation-cap" as |item|>
+            {{#each @model.education as |model|}}
+            <item.education @model={{model}} />
+            {{/each}}
+        </ResumeBlock>
     </div>
 </section>
