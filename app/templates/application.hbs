@@ -3,15 +3,17 @@
       <section class="person">
           <div class="control has-icons-left">
               <div class="select is-rounded is-small">
-                  <select {{on "change" (route-action "switchLocale")}} id="locale" aria-label="{{t 'actions.choose_language'}}">
+                  <select
+                    id="locale"
+                    aria-label="{{t 'actions.choose_language'}}"
+                    {{on "change" (route-action "switchLocale")}}
+                  >
                       <option selected={{this.isEN}} value="en-se">{{t 'locales.en-se'}}</option>
                       <option selected={{this.isPT}} value="pt-br">{{t 'locales.pt-br'}}</option>
                   </select>
               </div>
               <span class="icon is-left">
                   <FaIcon @prefix="fas" @icon="globe"/>
-                  {{!-- Inline SVG not sowing on Safari and Chrome, style looks different in Firefox --}}
-                  {{!-- {{inline-svg (concat "icons/" this.i18n.locale) class="icon-padding"}} --}}
               </span>
           </div>
 

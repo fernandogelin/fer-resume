@@ -9,11 +9,6 @@ module.exports = function(environment) {
     'ember-local-storage': {
       includeEmberDataSupport: true
     },
-    i18nextOptions: {
-      lowerCaseLng: true,
-      fallbackLng: "en-se",
-      whitelist: ["en-se", "pt-br"]
-    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -27,6 +22,7 @@ module.exports = function(environment) {
 
     resumeIDs: {
       'en-se': 'fbc7c5a8630ee55274ec7ee89f62dd5f',
+      'en-us': 'fbc7c5a8630ee55274ec7ee89f62dd5f',
       'pt-br': 'da99c3da93c806d4d6319279c844ad72'
     },
 

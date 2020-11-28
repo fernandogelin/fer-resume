@@ -1,0 +1,15 @@
+main:
+  name: Name
+  education: Education
+  work: Work
+  skills: Skills
+  interests: Interests
+  languages: Languages
+actions:
+  choose_language: "Choose a language:"
+locales:
+  en-se: English (International)
+  pt-br: Português (Brasil)
+time:
+  present: present
+thesis: Thesis

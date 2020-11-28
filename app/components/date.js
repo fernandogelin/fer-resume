@@ -1,21 +1,16 @@
 import Component from "@glimmer/component";
 import { inject as service } from "@ember/service";
 
-const options = {
-  year: "numeric",
-  month: "long"
-};
-
 export default class DateComponent extends Component {
-  @service i18n;
+  @service intl;
   get start() {
-    const start = new Date(this.args.startDate)
-    return start.toLocaleDateString(this.i18n.locale, options);
+    const start = this.intl.formatDate(this.args.startDate)
+    return start
   }
   get end() {
     if (this.args.endDate) {
-      const end = new Date(this.args.endDate)
-      return end.toLocaleDateString(this.i18n.locale, options);
+      const end = this.intl.formatDate(this.args.endDate)
+      return end
     } else {
       return "present";
     }
