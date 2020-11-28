@@ -8,16 +8,20 @@ export default class ApplicationRoute extends Route {
 
   async beforeModel() {
     super.beforeModel(...arguments)
+    this.intl.setLocale([this.intl.get('primaryLocale'), 'en-se']);
   }
 
   model() {
-    return this.store.findRecord('resume', ENV.resumeIDs[this.intl.get('primaryLocale')]);
+    const primaryLocale = this.intl.get('primaryLocale')
+    const locales = this.intl.get('locales')
+    const fallbackLocale = locales.includes(primaryLocale) ? primaryLocale : 'en-se'
+    return this.store.findRecord('resume', ENV.resumeIDs[fallbackLocale]);
   }
 
   @action
   switchLocale(context) {
     console.log(context.target.value);
-    this.intl.setLocale(context.target.value);
+    this.intl.setLocale([context.target.value, 'en-se']);
     this.refresh();
   }
 }

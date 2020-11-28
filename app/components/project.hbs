@@ -7,7 +7,11 @@
   </ul>
   <p>{{{@project.description}}}</p>
   <div class="is-flex-direction-column is-flex">
+    {{#if @project.repo}}
     <a class="project-link" href="{{@project.repo}}"><FaIcon @prefix="fab" @icon="github" />GitHub repository</a>
+    {{/if}}
+    {{#if @project.url}}
     <a class="project-link" href="{{@project.url}}"><FaIcon @prefix="fal" @icon="external-link-square-alt" />Preview</a>
+    {{/if}}
   </div>
 </div>

@@ -7,9 +7,6 @@ main:
   languages: Idiomas
 actions:
   choose_language: "Escolha o idioma:"
-locales:
-  en-se: English (International)
-  pt-br: Português (Brasil)
 time:
   present: presente
 thesis: Tese

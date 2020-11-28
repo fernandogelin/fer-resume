@@ -19,10 +19,8 @@ module.exports = function(environment) {
         Date: false
       }
     },
-
     resumeIDs: {
       'en-se': 'fbc7c5a8630ee55274ec7ee89f62dd5f',
-      'en-us': 'fbc7c5a8630ee55274ec7ee89f62dd5f',
       'pt-br': 'da99c3da93c806d4d6319279c844ad72'
     },
 
