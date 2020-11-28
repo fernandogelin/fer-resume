@@ -1,38 +1,15 @@
-<section class="application-grid">
-    <div class="application-grid-sidebar">
-        <section class="person">
-            <div class="control has-icons-left">
-                <div class="select is-rounded is-small">
-                    <select {{on "change" (route-action "switchLocale")}} id="locale" aria-label="{{t 'actions.choose_language'}}">
-                        <option selected={{this.isEN}} value="en-se">{{t 'locales.en-se'}}</option>
-                        <option selected={{this.isPT}} value="pt-br">{{t 'locales.pt-br'}}</option>
-                    </select>
-                </div>
-                <span class="icon is-left">
-                    <FaIcon @prefix="fas" @icon="globe"/>
-                    {{!-- Inline SVG not sowing on Safari and Chrome, style looks different in Firefox --}}
-                    {{!-- {{inline-svg (concat "icons/" this.i18n.locale) class="icon-padding"}} --}}
-                </span>
-            </div>
-
-            <ProfileCard @person={{@model.basics}} />
-            <SkillsBox as |skill|>
-                {{#each @model.skills as |item|}}
-                <skill.item @item={{item}} />
-                {{/each}}
-            </SkillsBox>
-        </section>
-    </div>
-    <div class="application-grid-content">
-        <ResumeBlock @type="work" @icon="laptop-code" as |item|>
-            {{#each @model.work as |work|}}
-            <item.work @model={{work}} />
-            {{/each}}
-        </ResumeBlock>
-        <ResumeBlock @type="education" @icon="graduation-cap" as |item|>
-            {{#each @model.education as |education|}}
-            <item.education @model={{education}} />
-            {{/each}}
-        </ResumeBlock>
-    </div>
-</section>
+<div class="download-button">
+  <a href="https://docs.google.com/document/d/1xgQX06X59O_I3htzhjGkd4P7_AemZ-VtVOt2KbmSoIQ/edit?usp=sharing">
+    <FaIcon @prefix="fal" @icon="file-download" />Download Resume
+  </a>
+</div>
+<ResumeBlock @type="work" @icon="laptop-code" as |item|>
+    {{#each @model.work as |work|}}
+    <item.work @model={{work}} />
+    {{/each}}
+</ResumeBlock>
+<ResumeBlock @type="education" @icon="graduation-cap" as |item|>
+    {{#each @model.education as |education|}}
+    <item.education @model={{education}} />
+    {{/each}}
+</ResumeBlock>

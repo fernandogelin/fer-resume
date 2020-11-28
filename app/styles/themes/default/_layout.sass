@@ -1,16 +1,21 @@
 .application-grid-content
-    padding: $size-1 * 0.5
-    @extend .content
-    @extend .has-background-light
+  padding: $size-1 * 0.5
+  @extend .content
+  @extend .has-background-light
 
 +tablet
-    .application-grid
-        display: grid
-        grid-template-areas: "sidebar content"
-        grid-template-columns: 1fr 3fr
+  .application-grid
+    display: grid
+    grid-template-areas: "sidebar content"
+    grid-template-columns: 1fr 3fr
 
-        &-sidebar
-            grid-area: sidebar
-        &-content
-            grid-area: content
-            padding: $size-1
+    &-sidebar
+      grid-area: sidebar
+    &-content
+      grid-area: content
+      padding: $size-1
+
+.projects
+  @extend .is-flex
+  flex-wrap: wrap
+  justify-content: space-between

@@ -10,7 +10,9 @@ module.exports = function() {
       "university",
       "history",
       "user-ninja",
-      "book"
+      "book",
+      "external-link-square-alt",
+      "file-download"
     ]
   };
 };

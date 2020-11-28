@@ -5,4 +5,5 @@ export default class ResumeModel extends Model {
   @attr() skills;
   @attr() education;
   @attr() work;
+  @attr() projects;
 }
