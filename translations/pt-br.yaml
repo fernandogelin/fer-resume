@@ -5,6 +5,8 @@ main:
   skills: Habilidades
   interests: Interesses
   languages: Idiomas
+  resume: Resume
+  projects: Projetos
 actions:
   choose_language: "Escolha o idioma:"
   download: Abaixe o Resume
@@ -13,3 +15,5 @@ actions:
 time:
   present: presente
 thesis: Tese
+labels:
+  file_pdf: pdf arquivo ícone

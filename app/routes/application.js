@@ -20,7 +20,6 @@ export default class ApplicationRoute extends Route {
 
   @action
   switchLocale(context) {
-    console.log(context.target.value);
     this.intl.setLocale([context.target.value, 'en-se']);
     this.refresh();
   }
