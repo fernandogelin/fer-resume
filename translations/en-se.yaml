@@ -7,6 +7,9 @@ main:
   languages: Languages
 actions:
   choose_language: "Choose a language:"
+  download: Download Resume
+  go_to_github_repo: "Go to Github Repository"
+  view_site: "View Site"
 locales:
   en-se: English (International)
   pt-br: Português (Brasil)
