@@ -9,8 +9,11 @@ jobs:
     name: Build & Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
       - name: Install Dependencies
         run: npm install
       - name: Build Production
@@ -19,7 +22,7 @@ jobs:
         run: |
           npm run build
       - name: Deploy to Firebase
-        env: 
+        env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: |
-          npm run deploy 
+          npm run deploy
