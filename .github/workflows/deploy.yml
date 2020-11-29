@@ -15,14 +15,14 @@ jobs:
         with:
           node-version: '12.x'
       - name: Install Dependencies
-        run: npm install
+        run: yarn
       - name: Build Production
         env:
           NODE_ENV: production
         run: |
-          npm run build
+          yarn build
       - name: Deploy to Firebase
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: |
-          npm run deploy
+          yarn deploy

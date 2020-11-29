@@ -33,7 +33,7 @@
     "clean-css": ">=4.1.11",
     "cz-conventional-changelog": "^3.1.0",
     "ember-a11y-testing": "^2.0.0",
-    "ember-auto-import": "^1.5.3",
+    "ember-auto-import": "^1.7.0",
     "ember-bulma": "^0.4.3",
     "ember-cli": "^3.22.0",
     "ember-cli-app-version": "^3.2.0",
@@ -82,7 +82,5 @@
   "ember": {
     "edition": "octane"
   },
-  "dependencies": {
-    "fast-memoize": "^2.5.2"
-  }
+  "dependencies": {}
 }
