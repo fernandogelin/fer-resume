@@ -12,7 +12,8 @@ module.exports = function() {
       "user-ninja",
       "book",
       "external-link-square-alt",
-      "file-pdf"
+      "file-pdf",
+      "tv-alt"
     ]
   };
 };

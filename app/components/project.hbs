@@ -13,5 +13,8 @@
     {{#if @project.url}}
     <a class="project-link" href="{{@project.url}}"><FaIcon @prefix="fal" @icon="external-link-square-alt" />{{t 'actions.view_site'}}</a>
     {{/if}}
+    {{#if @project.preview}}
+    <LinkTo @route="project" @model="{{@project.id}}"><FaIcon @prefix="fal" @icon="tv-alt" /> {{t 'main.preview'}}</LinkTo>
+    {{/if}}
   </div>
 </div>
