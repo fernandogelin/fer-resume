@@ -28,7 +28,8 @@
     "lint:js:fix": "eslint . --fix",
     "lint:types": "ember-tsc --noEmit",
     "start": "vite",
-    "test": "vite build --mode development && ember test --path dist"
+    "test": "vite build --mode development && ember test --path dist",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
@@ -77,6 +78,8 @@
     "eslint-plugin-n": "^17.24.0",
     "eslint-plugin-qunit": "^8.2.6",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.8.1",
     "prettier-plugin-ember-template-tag": "^2.1.3",
     "qunit": "^2.25.0",
@@ -92,6 +95,20 @@
   },
   "engines": {
     "node": ">= 20"
+  },
+  "lint-staged": {
+    "*.{ts,gts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{js,gjs,mjs,cjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.css": [
+      "stylelint --fix",
+      "prettier --write"
+    ]
   },
   "ember": {
     "edition": "octane"
