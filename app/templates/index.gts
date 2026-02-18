@@ -2,22 +2,9 @@ import ResumeSection from 'fer-resume/components/resume-section';
 import WorkItem from 'fer-resume/components/work-item';
 import EducationItem from 'fer-resume/components/education-item';
 import PublicationItem from 'fer-resume/components/publication-item';
-import Icon from 'fer-resume/components/icon';
-import { FileDown, Laptop, GraduationCap, BookOpen } from 'lucide-static';
-import { t } from 'ember-intl';
+import { Laptop, GraduationCap, BookOpen } from 'lucide-static';
 
 <template>
-  <div class="mb-6">
-    <a
-      href="assets/pdf/fernando-gelin-senior-software-engineer-resume.pdf"
-      download
-      class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-    >
-      <Icon @svg={{FileDown}} @size={{18}} />
-      {{t "actions.download"}}
-    </a>
-  </div>
-
   <ResumeSection @titleKey="main.work" @icon={{Laptop}}>
     {{#each @model.work as |work|}}
       <WorkItem @model={{work}} />
