@@ -1,0 +1,123 @@
+{
+  "basics": {
+    "name": "Fernando Gelin",
+    "phonetic_name": "fɚˈnændoʊ ʒeˈlĩ",
+    "label": "Responsable Ingénierie Frontend",
+    "location": "San Francisco, CA",
+    "email": "fernando@fernandogelin.com",
+    "profiles": [
+      {
+        "network": "github",
+        "username": "fernandogelin",
+        "url": "https://github.com/fernandogelin"
+      },
+      {
+        "network": "linkedin",
+        "username": "fernandogelin",
+        "url": "https://linkedin.com/in/fernandogelin"
+      }
+    ]
+  },
+  "work": [
+    {
+      "company": "Xplor Technologies",
+      "position": "Responsable Senior Ingénierie | Architecte Logiciel Frontend",
+      "location": "Télétravail",
+      "startDate": "2023-08-01",
+      "endDate": null,
+      "highlights": [
+        "Dirige une équipe de 9 ingénieurs full-stack développant des applications web évolutives pour des studios de fitness boutique, offrant des expériences intégrées de planification, paiements et gestion clients",
+        "Définis la stratégie d'architecture frontend incluant l'adoption de microfrontends, permettant des déploiements indépendants et des cycles d'itération plus rapides",
+        "Conçois et implémente des fonctionnalités natives d'IA et des interfaces conversationnelles, intégrant des capacités LLM dans les flux de production",
+        "Collabore avec Produit, Design et la direction exécutive pour traduire les objectifs business en feuilles de route techniques, équilibrant livraison de features et stabilité de la plateforme",
+        "Promeut les meilleures pratiques frontend incluant l'accessibilité (WCAG), la cohérence du design system et l'optimisation des performances",
+        "Mentore des ingénieurs à tous les niveaux, conduit des revues d'architecture et favorise une culture d'excellence technique"
+      ]
+    },
+    {
+      "company": "Xplor Technologies",
+      "position": "Ingénieur Frontend Senior",
+      "location": "Télétravail",
+      "startDate": "2021-01-01",
+      "endDate": "2023-07-31",
+      "highlights": [
+        "Dirigé les améliorations d'architecture frontend, migrant le monolithe Ember.js vers des frameworks modernes (React, TypeScript)",
+        "Conçu et maintenu un design system évolutif avec Storybook, améliorant la cohérence UI sur plusieurs applications",
+        "Dirigé les initiatives d'optimisation de performance, améliorant significativement les temps de chargement et la réactivité",
+        "Collaboré avec Produit, Design et QA pour améliorer l'accessibilité et l'utilisabilité"
+      ]
+    },
+    {
+      "company": "Brown University – Centre de Calcul et Visualisation",
+      "position": "Ingénieur Senior en Logiciel de Recherche",
+      "location": "Providence, RI",
+      "startDate": "2018-04-01",
+      "endDate": "2021-01-31",
+      "highlights": [
+        "Développé des outils interactifs de visualisation de données et des applications web en collaboration avec des scientifiques de données et des équipes de recherche",
+        "Développé Honeycomb, un framework open-source pour la collecte de données psychophysiologiques en temps réel, soutenant les recherches de l'Initiative BRAIN du NIH",
+        "Implémenté des pipelines de streaming de données en temps réel pour des enregistrements synchronisés comportementaux et neurophysiologiques",
+        "Créé des visualisations basées sur D3.js pour des ensembles de données de recherche complexes, permettant aux chercheurs d'explorer et analyser les résultats expérimentaux",
+        "Publié des recherches évaluées par des pairs sur des frameworks reproductibles de tâches psychophysiologiques (Nature Medicine, Brazilian Journal of Psychiatry)"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Brown University",
+      "area": "Sciences Cognitives, Linguistiques et Psychologiques",
+      "studyType": "Sc.M.",
+      "startDate": "2015-09-01",
+      "endDate": "2018-05-01",
+      "thesis": "Investigation des schémas de comportement trompeur dans un jeu social multijoueur"
+    },
+    {
+      "institution": "Indiana University",
+      "area": "Sciences Cognitives, Mineure en Informatique",
+      "studyType": "B.S.",
+      "startDate": "2010-09-01",
+      "endDate": "2015-05-01"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Frontend",
+      "keywords": ["React", "Svelte", "Vue", "TypeScript", "JavaScript", "Ember.js", "Web Components", "D3.js", "HTML", "CSS", "Tailwind CSS", "Storybook", "APIs Web Natives", "Design Systems", "Accessibilité (WCAG)"]
+    },
+    {
+      "name": "Infrastructure",
+      "keywords": ["Node.js", "REST APIs", "GraphQL", "AWS", "Docker", "Pipelines CI/CD", "Git"]
+    },
+    {
+      "name": "Architecture",
+      "keywords": ["Microfrontends", "Stratégies Monorepo", "Optimisation des Performances"]
+    },
+    {
+      "name": "Leadership",
+      "keywords": ["Agile/Scrum", "Collaboration Transversale", "Recrutement et Mentorat", "Feuilles de Route Techniques"]
+    }
+  ],
+  "publications": [
+    {
+      "title": "Long-term ecological assessment of intracranial electrophysiology synchronized to behavioral markers in obsessive-compulsive disorder",
+      "journal": "Nature Medicine",
+      "year": 2021,
+      "url": "https://www.nature.com/articles/s41591-021-01550-z",
+      "authors": "Provenza NR, Sheth SA, Dastin-van Rijn EM, Mathura RK, Ding Y, Vogt GS, Aber M, Gelin LFF, et al."
+    },
+    {
+      "title": "Honeycomb: a template for reproducible psychophysiological tasks for clinic, laboratory, and home use",
+      "journal": "Brazilian Journal of Psychiatry",
+      "year": 2022,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34320125/",
+      "authors": "Provenza NR, Gelin LFF, Mahaphanit W, McGrath MC, Dastin-van Rijn EM, Fan Y, et al."
+    },
+    {
+      "title": "Identifying Herbal Adverse Events From Spontaneous Reporting Systems Using Taxonomic Name Resolution Approach",
+      "journal": "Evolutionary Bioinformatics",
+      "year": 2020,
+      "url": "https://journals.sagepub.com/doi/full/10.1177/1177932220921350",
+      "authors": "Sharma V, Gelin LFF, Sarkar IN"
+    }
+  ]
+}

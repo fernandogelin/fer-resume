@@ -9,8 +9,10 @@ actions:
   choose_language: "Choose a language:"
   download: Download Resume
 locales:
-  en-se: English (International)
-  pt-br: "Portugu\xEAs (Brasil)"
+  en-se: English
+  pt-br: "Portugu\xEAs"
+  es: "Espa\xF1ol"
+  fr: "Fran\xE7ais"
 time:
   present: present
 thesis: Thesis

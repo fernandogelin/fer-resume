@@ -5,13 +5,10 @@ import { action } from '@ember/object';
 export default class ApplicationController extends Controller {
   @service declare intl: Services['intl'];
   @service declare router: Services['router'];
+  @service declare resume: Services['resume'];
 
-  get isEN(): boolean {
-    return this.intl.primaryLocale === 'en-se';
-  }
-
-  get isPT(): boolean {
-    return this.intl.primaryLocale === 'pt-br';
+  get currentLocale(): string {
+    return this.intl.primaryLocale ?? 'en-se';
   }
 
   @action
@@ -19,6 +16,7 @@ export default class ApplicationController extends Controller {
     const target = event.target as HTMLSelectElement;
     const locale = target.value;
     this.intl.setLocale([locale, 'en-se']);
+    this.resume.setLocale(locale);
     this.router.refresh();
   }
 }

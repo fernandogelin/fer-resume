@@ -1,0 +1,18 @@
+main:
+  name: Nom
+  education: "Formation"
+  work: "Exp\xE9rience Professionnelle"
+  skills: "Comp\xE9tences"
+  publications: Publications
+  resume: CV
+actions:
+  choose_language: "Choisir une langue :"
+  download: "T\xE9l\xE9charger le CV"
+locales:
+  en-se: English
+  pt-br: "Portugu\xEAs"
+  es: "Espa\xF1ol"
+  fr: "Fran\xE7ais"
+time:
+  present: "pr\xE9sent"
+thesis: "Th\xE8se"

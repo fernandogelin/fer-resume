@@ -1,0 +1,123 @@
+{
+  "basics": {
+    "name": "Fernando Gelin",
+    "phonetic_name": "fɚˈnændoʊ ʒeˈlĩ",
+    "label": "Gerente de Ingeniería Frontend",
+    "location": "San Francisco, CA",
+    "email": "fernando@fernandogelin.com",
+    "profiles": [
+      {
+        "network": "github",
+        "username": "fernandogelin",
+        "url": "https://github.com/fernandogelin"
+      },
+      {
+        "network": "linkedin",
+        "username": "fernandogelin",
+        "url": "https://linkedin.com/in/fernandogelin"
+      }
+    ]
+  },
+  "work": [
+    {
+      "company": "Xplor Technologies",
+      "position": "Gerente Senior de Ingeniería | Arquitecto de Software Frontend",
+      "location": "Remoto",
+      "startDate": "2023-08-01",
+      "endDate": null,
+      "highlights": [
+        "Lidero un equipo de 9 ingenieros full-stack construyendo aplicaciones web escalables para estudios de fitness boutique, ofreciendo experiencias integradas en programación, pagos y gestión de clientes",
+        "Defino la estrategia de arquitectura frontend incluyendo adopción de microfrontends, habilitando despliegues independientes y ciclos de iteración más rápidos",
+        "Diseño e implemento funcionalidades nativas de IA e interfaces conversacionales, integrando capacidades de LLM en flujos de producción",
+        "Colaboro con Producto, Diseño y liderazgo ejecutivo para traducir objetivos de negocio en hojas de ruta técnicas, equilibrando entrega de features con estabilidad de plataforma",
+        "Promuevo mejores prácticas de frontend incluyendo accesibilidad (WCAG), consistencia de design system y optimización de rendimiento",
+        "Mentoreo ingenieros de todos los niveles, conduzco revisiones de arquitectura y fomento una cultura de excelencia técnica"
+      ]
+    },
+    {
+      "company": "Xplor Technologies",
+      "position": "Ingeniero Frontend Senior",
+      "location": "Remoto",
+      "startDate": "2021-01-01",
+      "endDate": "2023-07-31",
+      "highlights": [
+        "Lideré mejoras en la arquitectura frontend, migrando monolito legado Ember.js a frameworks modernos (React, TypeScript)",
+        "Diseñé y mantuve un design system escalable con Storybook, mejorando la consistencia de UI en múltiples aplicaciones",
+        "Lideré iniciativas de optimización de rendimiento, mejorando significativamente tiempos de carga y capacidad de respuesta",
+        "Colaboré entre equipos con Producto, Diseño y QA para mejorar accesibilidad y usabilidad"
+      ]
+    },
+    {
+      "company": "Brown University – Centro de Computación y Visualización",
+      "position": "Ingeniero Senior de Software de Investigación",
+      "location": "Providence, RI",
+      "startDate": "2018-04-01",
+      "endDate": "2021-01-31",
+      "highlights": [
+        "Construí herramientas interactivas de visualización de datos y aplicaciones web en colaboración con científicos de datos y equipos de investigación",
+        "Desarrollé Honeycomb, un framework open-source para recolección de datos psicofisiológicos en tiempo real, apoyando investigaciones de la Iniciativa BRAIN del NIH",
+        "Implementé pipelines de streaming de datos en tiempo real para grabaciones sincronizadas conductuales y neurofisiológicas",
+        "Creé visualizaciones basadas en D3.js para conjuntos de datos de investigación complejos, permitiendo a investigadores explorar y analizar resultados experimentales",
+        "Publiqué investigación revisada por pares sobre frameworks reproducibles de tareas psicofisiológicas (Nature Medicine, Brazilian Journal of Psychiatry)"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Brown University",
+      "area": "Ciencias Cognitivas, Lingüísticas y Psicológicas",
+      "studyType": "Sc.M.",
+      "startDate": "2015-09-01",
+      "endDate": "2018-05-01",
+      "thesis": "Investigando patrones de comportamiento engañoso en un juego social multijugador"
+    },
+    {
+      "institution": "Indiana University",
+      "area": "Ciencia Cognitiva, Minor en Ciencias de la Computación",
+      "studyType": "B.S.",
+      "startDate": "2010-09-01",
+      "endDate": "2015-05-01"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Frontend",
+      "keywords": ["React", "Svelte", "Vue", "TypeScript", "JavaScript", "Ember.js", "Web Components", "D3.js", "HTML", "CSS", "Tailwind CSS", "Storybook", "APIs Web Nativas", "Design Systems", "Accesibilidad (WCAG)"]
+    },
+    {
+      "name": "Infraestructura",
+      "keywords": ["Node.js", "REST APIs", "GraphQL", "AWS", "Docker", "Pipelines CI/CD", "Git"]
+    },
+    {
+      "name": "Arquitectura",
+      "keywords": ["Microfrontends", "Estrategias de Monorepo", "Optimización de Rendimiento"]
+    },
+    {
+      "name": "Liderazgo",
+      "keywords": ["Agile/Scrum", "Colaboración Multifuncional", "Contratación y Mentoría", "Hojas de Ruta Técnicas"]
+    }
+  ],
+  "publications": [
+    {
+      "title": "Long-term ecological assessment of intracranial electrophysiology synchronized to behavioral markers in obsessive-compulsive disorder",
+      "journal": "Nature Medicine",
+      "year": 2021,
+      "url": "https://www.nature.com/articles/s41591-021-01550-z",
+      "authors": "Provenza NR, Sheth SA, Dastin-van Rijn EM, Mathura RK, Ding Y, Vogt GS, Aber M, Gelin LFF, et al."
+    },
+    {
+      "title": "Honeycomb: a template for reproducible psychophysiological tasks for clinic, laboratory, and home use",
+      "journal": "Brazilian Journal of Psychiatry",
+      "year": 2022,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34320125/",
+      "authors": "Provenza NR, Gelin LFF, Mahaphanit W, McGrath MC, Dastin-van Rijn EM, Fan Y, et al."
+    },
+    {
+      "title": "Identifying Herbal Adverse Events From Spontaneous Reporting Systems Using Taxonomic Name Resolution Approach",
+      "journal": "Evolutionary Bioinformatics",
+      "year": 2020,
+      "url": "https://journals.sagepub.com/doi/full/10.1177/1177932220921350",
+      "authors": "Sharma V, Gelin LFF, Sarkar IN"
+    }
+  ]
+}
