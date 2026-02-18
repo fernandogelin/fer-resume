@@ -25,3 +25,5 @@ dist
 /package.json.ember-try
 
 .vscode
+.claude/
+.eslintcache

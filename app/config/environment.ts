@@ -1,7 +1,7 @@
 import loadConfigFromMeta from '@embroider/config-meta-loader';
 import { assert } from '@ember/debug';
 
-const config = loadConfigFromMeta('fer-resume-new') as unknown;
+const config = loadConfigFromMeta('fer-resume') as unknown;
 
 assert(
   'config is not an object',
