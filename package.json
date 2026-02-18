@@ -118,6 +118,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "ember-intl": "^8.1.0",
+    "html2pdf.js": "^0.14.0",
     "lucide-static": "^0.574.0",
     "tailwind-merge": "^3.4.1"
   }

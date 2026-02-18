@@ -19,6 +19,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
+          if (id.includes('html2pdf') || id.includes('jspdf') || id.includes('html2canvas')) {
+            return undefined; // let Vite handle these as dynamic imports
+          }
           if (id.includes('node_modules')) {
             return 'vendor';
           }
