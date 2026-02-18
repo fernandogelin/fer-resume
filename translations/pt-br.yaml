@@ -1,0 +1,20 @@
+main:
+  name: Nome
+  education: "Educa\xE7\xE3o"
+  work: "Experi\xEAncia Profissional"
+  skills: Habilidades
+  interests: Interesses
+  languages: Idiomas
+  resume: Resume
+  projects: Projetos
+  preview: "Pr\xE9via"
+actions:
+  choose_language: "Escolha o idioma:"
+  download: Abaixe o Resume
+  go_to_github_repo: "Abra o Github Reposit\xF3rio"
+  view_site: "Visite o Site"
+time:
+  present: presente
+thesis: Tese
+labels:
+  file_pdf: "pdf arquivo \xEDcone"
