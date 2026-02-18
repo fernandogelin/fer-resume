@@ -3,7 +3,7 @@ import type { WorkEntry } from 'fer-resume/types/resume';
 import { Card, CardContent } from 'fer-resume/components/ui/card';
 import DateRange from 'fer-resume/components/date-range';
 import Icon from 'fer-resume/components/icon';
-import { Building2, User } from 'lucide-static';
+import { Building2, User, MapPin } from 'lucide-static';
 
 interface WorkItemSignature {
   Args: {
@@ -22,8 +22,18 @@ const WorkItem: TOC<WorkItemSignature> = <template>
         <Icon @svg={{User}} @size={{16}} />
         {{@model.position}}
       </p>
-      <DateRange class="mt-1" @startDate={{@model.startDate}} @endDate={{@model.endDate}} />
-      <p class="text-sm mt-2">{{@model.summary}}</p>
+      <div class="flex items-center gap-3 mt-1">
+        <DateRange @startDate={{@model.startDate}} @endDate={{@model.endDate}} />
+        <span class="flex items-center gap-1 text-xs text-muted-foreground">
+          <Icon @svg={{MapPin}} @size={{14}} />
+          {{@model.location}}
+        </span>
+      </div>
+      <ul class="text-sm mt-2 space-y-1 list-disc list-inside">
+        {{#each @model.highlights as |highlight|}}
+          <li>{{highlight}}</li>
+        {{/each}}
+      </ul>
     </CardContent>
   </Card>
 </template>;

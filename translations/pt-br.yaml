@@ -3,18 +3,14 @@ main:
   education: "Educa\xE7\xE3o"
   work: "Experi\xEAncia Profissional"
   skills: Habilidades
-  interests: Interesses
-  languages: Idiomas
+  publications: "Publica\xE7\xF5es"
   resume: Resume
-  projects: Projetos
-  preview: "Pr\xE9via"
 actions:
   choose_language: "Escolha o idioma:"
   download: Abaixe o Resume
-  go_to_github_repo: "Abra o Github Reposit\xF3rio"
-  view_site: "Visite o Site"
+locales:
+  en-se: English (International)
+  pt-br: "Portugu\xEAs (Brasil)"
 time:
   present: presente
 thesis: Tese
-labels:
-  file_pdf: "pdf arquivo \xEDcone"

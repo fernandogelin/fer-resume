@@ -7,6 +7,5 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route('projects');
-  this.route('project', { path: '/project/:project_id' });
+  // index route is implicit
 });

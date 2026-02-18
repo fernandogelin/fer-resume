@@ -13,4 +13,6 @@ declare module 'lucide-static' {
   export const GraduationCap: string;
   export const ExternalLink: string;
   export const MonitorPlay: string;
+  export const MapPin: string;
+  export const Mail: string;
 }

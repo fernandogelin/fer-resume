@@ -8,15 +8,18 @@ export interface Basics {
   name: string;
   phonetic_name: string;
   label: string;
+  location: string;
+  email: string;
   profiles: Profile[];
 }
 
 export interface WorkEntry {
   company: string;
   position: string;
+  location: string;
   startDate: string;
   endDate: string | null;
-  summary: string;
+  highlights: string[];
 }
 
 export interface EducationEntry {
@@ -33,14 +36,12 @@ export interface Skill {
   keywords: string[];
 }
 
-export interface Project {
-  id: string;
-  name: string;
-  description: string;
-  labels: string[];
-  repo?: string;
+export interface Publication {
+  title: string;
+  journal: string;
+  year: number;
   url?: string;
-  preview?: string;
+  authors: string;
 }
 
 export interface ResumeData {
@@ -48,5 +49,5 @@ export interface ResumeData {
   work: WorkEntry[];
   education: EducationEntry[];
   skills: Skill[];
-  projects: Project[];
+  publications: Publication[];
 }

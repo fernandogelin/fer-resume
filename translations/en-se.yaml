@@ -3,21 +3,14 @@ main:
   education: Education
   work: Work
   skills: Skills
-  interests: Interests
-  languages: Languages
+  publications: Publications
   resume: Resume
-  projects: Projects
-  preview: Preview
 actions:
   choose_language: "Choose a language:"
   download: Download Resume
-  go_to_github_repo: "Go to Github Repository"
-  view_site: "View Site"
 locales:
   en-se: English (International)
   pt-br: "Portugu\xEAs (Brasil)"
 time:
   present: present
 thesis: Thesis
-labels:
-  file_pdf: pdf file icon

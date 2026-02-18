@@ -1,6 +1,4 @@
 import { pageTitle } from 'ember-page-title';
-import { LinkTo } from '@ember/routing';
-import { t } from 'ember-intl';
 import ProfileCard from 'fer-resume/components/profile-card';
 import SkillsSection from 'fer-resume/components/skills-section';
 import LocaleSwitcher from 'fer-resume/components/locale-switcher';
@@ -15,28 +13,10 @@ import LocaleSwitcher from 'fer-resume/components/locale-switcher';
         @isPT={{@controller.isPT}}
         @onSwitch={{@controller.switchLocale}}
       />
-      {{#if @model.basics}}
-        <ProfileCard @person={{@model.basics}} />
-      {{/if}}
-      {{#if @model.skills}}
-        <SkillsSection @skills={{@model.skills}} />
-      {{/if}}
+      <ProfileCard @person={{@model.basics}} />
+      <SkillsSection @skills={{@model.skills}} />
     </aside>
     <main>
-      <nav class="flex gap-2 mb-6">
-        <LinkTo
-          @route="index"
-          class="inline-flex items-center justify-center rounded-md text-sm font-medium px-4 py-2 bg-card border border-border hover:bg-muted transition-colors"
-        >
-          {{t "main.resume"}}
-        </LinkTo>
-        <LinkTo
-          @route="projects"
-          class="inline-flex items-center justify-center rounded-md text-sm font-medium px-4 py-2 bg-card border border-border hover:bg-muted transition-colors"
-        >
-          {{t "main.projects"}}
-        </LinkTo>
-      </nav>
       {{outlet}}
     </main>
   </div>

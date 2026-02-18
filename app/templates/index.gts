@@ -1,8 +1,9 @@
 import ResumeSection from 'fer-resume/components/resume-section';
 import WorkItem from 'fer-resume/components/work-item';
 import EducationItem from 'fer-resume/components/education-item';
+import PublicationItem from 'fer-resume/components/publication-item';
 import Icon from 'fer-resume/components/icon';
-import { FileDown, Laptop, GraduationCap } from 'lucide-static';
+import { FileDown, Laptop, GraduationCap, BookOpen } from 'lucide-static';
 import { t } from 'ember-intl';
 
 <template>
@@ -26,6 +27,12 @@ import { t } from 'ember-intl';
   <ResumeSection @titleKey="main.education" @icon={{GraduationCap}}>
     {{#each @model.education as |education|}}
       <EducationItem @model={{education}} />
+    {{/each}}
+  </ResumeSection>
+
+  <ResumeSection @titleKey="main.publications" @icon={{BookOpen}}>
+    {{#each @model.publications as |pub|}}
+      <PublicationItem @model={{pub}} />
     {{/each}}
   </ResumeSection>
 </template>

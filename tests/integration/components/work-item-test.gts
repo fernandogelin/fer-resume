@@ -11,15 +11,16 @@ module('Integration | Component | work-item', function (hooks) {
     const work: WorkEntry = {
       company: 'Acme Corp',
       position: 'Senior Engineer',
+      location: 'Remote',
       startDate: '2020-01-01',
       endDate: '2023-12-31',
-      summary: 'Built amazing things',
+      highlights: ['Built amazing things', 'Led a team'],
     };
 
     await render(<template><WorkItem @model={{work}} /></template>);
 
     assert.dom('h4').hasText(/Acme Corp/);
     assert.dom('p').includesText('Senior Engineer');
-    assert.dom('.text-sm.mt-2').hasText('Built amazing things');
+    assert.dom('li').exists({ count: 2 });
   });
 });

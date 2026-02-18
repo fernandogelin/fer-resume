@@ -14,8 +14,7 @@ export default class ApplicationRoute extends Route {
     this.intl.setLocale(['en-se']);
   }
 
-  async model(): Promise<ResumeData> {
-    const locale = this.intl.primaryLocale ?? 'en-se';
-    return this.resume.load(locale);
+  model(): ResumeData {
+    return this.resume.data;
   }
 }

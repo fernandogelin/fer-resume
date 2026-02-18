@@ -10,10 +10,12 @@ module('Unit | Service | resume', function (hooks) {
     assert.ok(service);
   });
 
-  test('it starts with null data', function (assert) {
+  test('it has resume data loaded', function (assert) {
     const service = this.owner.lookup('service:resume') as ResumeService;
-    assert.strictEqual(service.data, null);
-    assert.false(service.isLoading);
-    assert.strictEqual(service.error, null);
+    assert.ok(service.data);
+    assert.strictEqual(service.data.basics.name, 'Fernando Gelin');
+    assert.ok(service.data.work.length > 0);
+    assert.ok(service.data.skills.length > 0);
+    assert.ok(service.data.publications.length > 0);
   });
 });
