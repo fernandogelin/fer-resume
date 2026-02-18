@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { type Registry as Services, service } from '@ember/service';
 import Icon from 'fer-resume/components/icon';
-import { Clock } from 'lucide';
+import { Clock } from 'lucide-static';
 import { t } from 'ember-intl';
 
 interface DateRangeSignature {
@@ -34,7 +34,7 @@ export default class DateRange extends Component<DateRangeSignature> {
 
   <template>
     <span class="flex items-center gap-1 text-xs text-muted-foreground" ...attributes>
-      <Icon @icon={{Clock}} @size={{14}} />
+      <Icon @svg={{Clock}} @size={{14}} />
       {{this.start}} – {{this.end}}
     </span>
   </template>

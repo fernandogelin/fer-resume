@@ -1,9 +1,9 @@
 import type { TOC } from '@ember/component/template-only';
 import type { Profile } from 'fer-resume/types/resume';
 import Icon from 'fer-resume/components/icon';
-import { Github, Linkedin, Globe } from 'lucide';
+import { Github, Linkedin, Globe } from 'lucide-static';
 
-function iconForNetwork(network: string) {
+function iconForNetwork(network: string): string {
   const lower = network.toLowerCase();
   if (lower === 'github') return Github;
   if (lower === 'linkedin') return Linkedin;
@@ -26,7 +26,7 @@ const ProfileLinks: TOC<ProfileLinksSignature> = <template>
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Icon @icon={{iconForNetwork profile.network}} @size={{16}} />
+        <Icon @svg={{iconForNetwork profile.network}} @size={{16}} />
         <span>{{profile.username}}</span>
       </a>
     {{/each}}

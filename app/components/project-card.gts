@@ -3,7 +3,7 @@ import type { Project } from 'fer-resume/types/resume';
 import { Card, CardContent, CardHeader, CardTitle } from 'fer-resume/components/ui/card';
 import { Badge } from 'fer-resume/components/ui/badge';
 import Icon from 'fer-resume/components/icon';
-import { Github, ExternalLink, MonitorPlay } from 'lucide';
+import { Github, ExternalLink, MonitorPlay } from 'lucide-static';
 import { t } from 'ember-intl';
 import { LinkTo } from '@ember/routing';
 
@@ -33,7 +33,7 @@ const ProjectCard: TOC<ProjectCardSignature> = <template>
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon @icon={{Github}} @size={{16}} />
+            <Icon @svg={{Github}} @size={{16}} />
             {{t "actions.go_to_github_repo"}}
           </a>
         {{/if}}
@@ -44,13 +44,13 @@ const ProjectCard: TOC<ProjectCardSignature> = <template>
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon @icon={{ExternalLink}} @size={{16}} />
+            <Icon @svg={{ExternalLink}} @size={{16}} />
             {{t "actions.view_site"}}
           </a>
         {{/if}}
         {{#if @project.preview}}
           <LinkTo @route="project" @model={{@project.id}} class="flex items-center gap-2 text-sm">
-            <Icon @icon={{MonitorPlay}} @size={{16}} />
+            <Icon @svg={{MonitorPlay}} @size={{16}} />
             {{t "main.preview"}}
           </LinkTo>
         {{/if}}
