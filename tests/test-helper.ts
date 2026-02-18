@@ -1,4 +1,3 @@
-import '@warp-drive/ember/install';
 import Application from 'fer-resume/app';
 import config from 'fer-resume/config/environment';
 import * as QUnit from 'qunit';
