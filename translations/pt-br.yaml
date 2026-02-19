@@ -1,20 +1,18 @@
 main:
   name: Nome
-  education: Educação
-  work: Experiência Profissional
+  education: "Educa\xE7\xE3o"
+  work: "Experi\xEAncia Profissional"
   skills: Habilidades
-  interests: Interesses
-  languages: Idiomas
+  publications: "Publica\xE7\xF5es"
   resume: Resume
-  projects: Projetos
-  preview: Prévia
 actions:
   choose_language: "Escolha o idioma:"
-  download: Abaixe o Resume
-  go_to_github_repo: "Abra o Github Repositório"
-  view_site: "Visite o Site"
+  download: Baixar Resume
+locales:
+  en-se: English
+  pt-br: "Portugu\xEAs"
+  es: "Espa\xF1ol"
+  fr: "Fran\xE7ais"
 time:
   present: presente
 thesis: Tese
-labels:
-  file_pdf: pdf arquivo ícone

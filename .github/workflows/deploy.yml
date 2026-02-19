@@ -6,23 +6,24 @@ on:
 
 jobs:
   build:
-    name: Build & Deploy
+    name: Lint, Test & Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: '12.x'
+          node-version: '22'
+          cache: 'npm'
       - name: Install Dependencies
-        run: yarn
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm test
       - name: Build Production
-        env:
-          NODE_ENV: production
-        run: |
-          yarn build
+        run: npm run build
       - name: Deploy to Firebase
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: |
-          yarn deploy
+        run: npx firebase-tools deploy

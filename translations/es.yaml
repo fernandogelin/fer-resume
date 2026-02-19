@@ -1,0 +1,18 @@
+main:
+  name: Nombre
+  education: "Educaci\xF3n"
+  work: Experiencia Profesional
+  skills: Habilidades
+  publications: Publicaciones
+  resume: Resume
+actions:
+  choose_language: "Elige un idioma:"
+  download: Descargar Resume
+locales:
+  en-se: English
+  pt-br: "Portugu\xEAs"
+  es: "Espa\xF1ol"
+  fr: "Fran\xE7ais"
+time:
+  present: presente
+thesis: Tesis
