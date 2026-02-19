@@ -6,6 +6,8 @@ import { fn } from '@ember/helper';
 import { t } from 'ember-intl';
 import Icon from 'fer-resume/components/icon';
 import SeatMapScene from 'fer-resume/components/seat-map/scene';
+import CpuDemo from 'fer-resume/components/seat-map/cpu-demo';
+import { runSeatRenderingBenchmark } from 'fer-resume/lib/seat-benchmark';
 import type { SeatLayoutType } from 'fer-resume/components/seat-map/scene';
 import { ChevronDown, ChevronUp, Trash2, Armchair } from 'lucide-static';
 
@@ -46,6 +48,17 @@ class SeatMapPage extends Component {
   @tracked selectedCount = 0;
   @tracked isPanelExpanded = true;
   @tracked resetKey = 0;
+  @tracked benchmarkState: 'idle' | 'running' | 'done' | 'error' = 'idle';
+  @tracked benchmarkResult: {
+    seatCount: number;
+    frames: number;
+    gpuMsPerFrame: number;
+    cpuMsPerFrame: number;
+    gpuFps: number;
+    cpuFps: number;
+    speedup: number;
+  } | null = null;
+  @tracked benchmarkError: string | null = null;
 
   get totalSeats(): number {
     return this.rows * this.seatsPerRow;
@@ -61,6 +74,44 @@ class SeatMapPage extends Component {
 
   get totalSeatsLabel(): string {
     return this.totalSeats.toLocaleString();
+  }
+
+  get isBenchmarkRunning(): boolean {
+    return this.benchmarkState === 'running';
+  }
+
+  get benchmarkButtonLabel(): string {
+    return this.isBenchmarkRunning ? 'Running benchmark…' : 'Run GPU vs CPU benchmark';
+  }
+
+  get benchmarkGpuBarWidth(): string {
+    if (!this.benchmarkResult) return '0%';
+    const max = Math.max(
+      this.benchmarkResult.gpuMsPerFrame,
+      this.benchmarkResult.cpuMsPerFrame,
+      0.001,
+    );
+    const width = (this.benchmarkResult.gpuMsPerFrame / max) * 100;
+    return `${Math.max(8, Math.min(100, width)).toFixed(1)}%`;
+  }
+
+  get benchmarkCpuBarWidth(): string {
+    if (!this.benchmarkResult) return '0%';
+    const max = Math.max(
+      this.benchmarkResult.gpuMsPerFrame,
+      this.benchmarkResult.cpuMsPerFrame,
+      0.001,
+    );
+    const width = (this.benchmarkResult.cpuMsPerFrame / max) * 100;
+    return `${Math.max(8, Math.min(100, width)).toFixed(1)}%`;
+  }
+
+  get benchmarkGpuBarStyle(): string {
+    return `width:${this.benchmarkGpuBarWidth};`;
+  }
+
+  get benchmarkCpuBarStyle(): string {
+    return `width:${this.benchmarkCpuBarWidth};`;
   }
 
   @action
@@ -112,6 +163,24 @@ class SeatMapPage extends Component {
   @action
   togglePanel(): void {
     this.isPanelExpanded = !this.isPanelExpanded;
+  }
+
+  @action
+  async runBenchmark(): Promise<void> {
+    this.benchmarkState = 'running';
+    this.benchmarkError = null;
+    this.benchmarkResult = null;
+    try {
+      this.benchmarkResult = await runSeatRenderingBenchmark({
+        rows: this.rows,
+        seatsPerRow: this.seatsPerRow,
+        layout: this.layout,
+      });
+      this.benchmarkState = 'done';
+    } catch (error) {
+      this.benchmarkState = 'error';
+      this.benchmarkError = error instanceof Error ? error.message : 'Benchmark failed';
+    }
   }
 
   <template>
@@ -255,6 +324,107 @@ class SeatMapPage extends Component {
                     <Icon @svg={{Trash2}} @size={{12}} />
                     {{t 'seatMap.clear'}}
                   </button>
+                {{/if}}
+              </div>
+            </section>
+
+            <div class='border-t border-border'></div>
+
+            {{! Technical write-up + benchmark }}
+            <section class='space-y-3'>
+              <h4 class='text-xs font-semibold uppercase tracking-wider text-muted-foreground'>
+                Technical Notes
+              </h4>
+              <p class='text-xs text-muted-foreground leading-relaxed'>
+                GPU rendering uses a single instanced draw for outlines and batched seat updates,
+                which keeps work on the graphics pipeline and reduces CPU layout/paint overhead. A
+                CPU canvas renderer redraws seats in JavaScript each frame, which scales worse as
+                seat counts grow.
+              </p>
+
+              <div class='space-y-2'>
+                <p class='text-xs font-medium'>Non-GPU demo (2D canvas)</p>
+                <div class='h-28 rounded-md border border-border overflow-hidden bg-background'>
+                  <CpuDemo
+                    @rows={{this.rows}}
+                    @seatsPerRow={{this.seatsPerRow}}
+                    @layout={{this.layout}}
+                  />
+                </div>
+              </div>
+
+              <div class='space-y-2'>
+                <button
+                  type='button'
+                  class='w-full h-8 rounded-md border border-border text-sm hover:bg-accent transition-colors disabled:opacity-60'
+                  {{on 'click' this.runBenchmark}}
+                  disabled={{this.isBenchmarkRunning}}
+                >
+                  {{this.benchmarkButtonLabel}}
+                </button>
+
+                {{#if this.benchmarkResult}}
+                  <div
+                    class='rounded-md border border-border p-2 text-xs text-muted-foreground space-y-1'
+                  >
+                    <div class='flex justify-between'>
+                      <span>Seats</span>
+                      <span class='tabular-nums'>{{this.benchmarkResult.seatCount}}</span>
+                    </div>
+                    <div class='flex justify-between'>
+                      <span>GPU</span>
+                      <span class='tabular-nums'>
+                        {{this.benchmarkResult.gpuMsPerFrame}}
+                        ms/frame (~{{this.benchmarkResult.gpuFps}}
+                        fps)
+                      </span>
+                    </div>
+                    <div class='flex justify-between'>
+                      <span>CPU</span>
+                      <span class='tabular-nums'>
+                        {{this.benchmarkResult.cpuMsPerFrame}}
+                        ms/frame (~{{this.benchmarkResult.cpuFps}}
+                        fps)
+                      </span>
+                    </div>
+                    <div class='flex justify-between text-primary font-medium'>
+                      <span>Speedup</span>
+                      <span class='tabular-nums'>{{this.benchmarkResult.speedup}}×</span>
+                    </div>
+
+                    <div class='pt-1 space-y-1.5'>
+                      <div class='space-y-0.5'>
+                        <div class='flex justify-between'>
+                          <span>GPU</span>
+                          <span class='tabular-nums'>{{this.benchmarkResult.gpuMsPerFrame}}
+                            ms</span>
+                        </div>
+                        <div class='h-2 rounded bg-muted overflow-hidden'>
+                          <div
+                            class='h-full bg-primary rounded'
+                            style={{this.benchmarkGpuBarStyle}}
+                          ></div>
+                        </div>
+                      </div>
+                      <div class='space-y-0.5'>
+                        <div class='flex justify-between'>
+                          <span>CPU</span>
+                          <span class='tabular-nums'>{{this.benchmarkResult.cpuMsPerFrame}}
+                            ms</span>
+                        </div>
+                        <div class='h-2 rounded bg-muted overflow-hidden'>
+                          <div
+                            class='h-full bg-slate-400 rounded'
+                            style={{this.benchmarkCpuBarStyle}}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {{/if}}
+
+                {{#if this.benchmarkError}}
+                  <p class='text-xs text-destructive'>{{this.benchmarkError}}</p>
                 {{/if}}
               </div>
             </section>
