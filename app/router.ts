@@ -10,5 +10,6 @@ Router.map(function () {
   // index route is implicit
   this.route('projects', function () {
     this.route('seat-map');
+    this.route('seat-map-benchmark');
   });
 });

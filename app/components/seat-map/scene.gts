@@ -41,16 +41,16 @@ const COLOR_OUTLINE = { r: 0.58, g: 0.64, b: 0.69 }; // slate-400 #94a3b8
 const COLOR_HOVER = { r: 0.79, g: 0.83, b: 0.86 }; // slate-300 #cbd5e1
 
 // Layout constants
-const SEAT_W = 1.0;
-const SEAT_H = 0.9;
-const SEAT_INSET = 0.12;
-const SEAT_RADIUS = 0.14;
-const SEAT_GAP = 0.2;
-const ROW_GAP = 0.25;
+const SEAT_W = 0.82;
+const SEAT_H = 0.74;
+const SEAT_INSET = 0.1;
+const SEAT_RADIUS = 0.12;
+const SEAT_GAP = 0.16;
+const ROW_GAP = 0.2;
 const BASE_RADIUS = 8;
 const STAGE_RADIUS = 3;
 const DRAW_CLOSE_DISTANCE = 1.4;
-const MIN_SEAT_DISTANCE = 0.92;
+const MIN_SEAT_DISTANCE = 0.76;
 
 type RGB = { r: number; g: number; b: number };
 type Point = { x: number; y: number };
@@ -72,6 +72,8 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   private _renderer: WebGLRenderer | null = null;
   private _camera: OrthographicCamera | null = null;
   private _scene: Scene | null = null;
+  private _canvas: HTMLCanvasElement | null = null;
+  private _gridOverlayEl: HTMLDivElement | null = null;
   private _outlineMesh: InstancedMesh | null = null;
   private _fillMeshes: Mesh[] = [];
   private _fillGeometry: BufferGeometry | null = null;
@@ -98,6 +100,17 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
       };
     },
   );
+
+  setupGridOverlay = modifier((element: HTMLDivElement) => {
+    this._gridOverlayEl = element;
+    this.updateGridOverlayStyle();
+
+    return () => {
+      if (this._gridOverlayEl === element) {
+        this._gridOverlayEl = null;
+      }
+    };
+  });
 
   private async initThree(
     canvas: HTMLCanvasElement,
@@ -141,6 +154,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     this._renderer = renderer;
     this._scene = scene;
     this._camera = camera;
+    this._canvas = canvas;
     this._raycaster = raycaster;
 
     this.buildStage(layout);
@@ -152,6 +166,36 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
 
     this._resizeObserver = new ResizeObserver(() => this.onResize(canvas));
     this._resizeObserver.observe(canvas.parentElement ?? canvas);
+    this.updateGridOverlayStyle();
+  }
+
+  private positiveMod(value: number, divisor: number): number {
+    return ((value % divisor) + divisor) % divisor;
+  }
+
+  private updateGridOverlayStyle(): void {
+    if (!this._gridOverlayEl || !this._canvas) return;
+
+    const canvasHeight = this._canvas.clientHeight || 600;
+    const pixelsPerWorld = canvasHeight / (this.frustumHalf * 2);
+    const gridWorld = SEAT_W + SEAT_GAP;
+    const gridPx = Math.max(10, Math.min(48, gridWorld * pixelsPerWorld));
+
+    const dashLength = Math.max(2, Math.round(gridPx * 0.26));
+    const gapLength = Math.max(2, Math.round(gridPx * 0.24));
+    const strokeWidth = 1;
+
+    const offsetX = this.positiveMod(-this.cameraX * pixelsPerWorld, gridPx);
+    const offsetY = this.positiveMod(this.cameraY * pixelsPerWorld, gridPx);
+
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${gridPx}' height='${gridPx}' viewBox='0 0 ${gridPx} ${gridPx}' fill='none'><path d='M0 0H${gridPx} M0 0V${gridPx}' stroke='rgba(162, 154, 146, 0.55)' stroke-width='${strokeWidth}' stroke-dasharray='${dashLength} ${gapLength}' stroke-linecap='round'/></svg>`;
+    const dataUri = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+
+    this._gridOverlayEl.style.backgroundImage = dataUri;
+    this._gridOverlayEl.style.backgroundRepeat = 'repeat';
+    this._gridOverlayEl.style.backgroundSize = `${gridPx}px ${gridPx}px`;
+    this._gridOverlayEl.style.backgroundPosition = `${offsetX}px ${offsetY}px`;
+    this._gridOverlayEl.style.opacity = '0.8';
   }
 
   private rebuildSeats(rows: number, seatsPerRow: number, layout: SeatLayoutType): void {
@@ -633,6 +677,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     this._renderer = null;
     this._scene = null;
     this._camera = null;
+    this._canvas = null;
     this._outlineMesh = null;
     this._fillMeshes = [];
     this._fillGeometry = null;
@@ -657,6 +702,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     this._camera.bottom = -this.frustumHalf;
     this._camera.updateProjectionMatrix();
     this.isDirty = true;
+    this.updateGridOverlayStyle();
   }
 
   private ndcFromPointer(
@@ -790,6 +836,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     this._camera.bottom = -this.frustumHalf;
     this._camera.updateProjectionMatrix();
     this.isDirty = true;
+    this.updateGridOverlayStyle();
   }
 
   @action
@@ -818,6 +865,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     this._camera.position.set(this.cameraX, this.cameraY, 50);
     this._camera.updateProjectionMatrix();
     this.isDirty = true;
+    this.updateGridOverlayStyle();
   }
 
   @action
@@ -842,6 +890,10 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
 
   <template>
     <div class='relative w-full h-full' ...attributes>
+      <div
+        class='absolute inset-0 pointer-events-none'
+        {{this.setupGridOverlay}}
+      ></div>
       <canvas
         class='w-full h-full block'
         style='cursor: grab;'

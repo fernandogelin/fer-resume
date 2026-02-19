@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+@source "../**/*.{gts,gjs,hbs,ts,js}";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -42,8 +44,8 @@
   --secondary-foreground: #ffffff;
   --muted: #f0e6da;
   --muted-foreground: #6b7280;
-  --accent: #5b4b10;
-  --accent-foreground: #ffffff;
+  --accent: #ceb043a6;
+  --accent-foreground: #1a1a2e;
   --destructive: #dc2626;
   --border: #e5d5c5;
   --input: #e5d5c5;
@@ -80,13 +82,7 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family:
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      Roboto,
-      'Helvetica Neue',
-      Arial,
-      sans-serif;
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
   a {
     @apply text-primary hover:text-primary/80 transition-colors;
