@@ -50,6 +50,7 @@ const ROW_GAP = 0.25;
 const BASE_RADIUS = 8;
 const STAGE_RADIUS = 3;
 const DRAW_CLOSE_DISTANCE = 1.4;
+const MIN_SEAT_DISTANCE = 0.92;
 
 type RGB = { r: number; g: number; b: number };
 type Point = { x: number; y: number };
@@ -280,33 +281,88 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   ): SeatTransform[] {
     const safeRows = Math.max(1, rows);
     const safeSeats = Math.max(1, seatsPerRow);
+    let transforms: SeatTransform[] = [];
 
     if (layout === 'square') {
       const side = Math.max(1, Math.round((safeRows + safeSeats) / 2));
-      return this.buildGridTransforms(side, side);
+      transforms = this.buildGridTransforms(side, side);
+      return this.enforceSeatSpacing(transforms);
     }
 
     if (layout === 'rectangle') {
-      return this.buildGridTransforms(safeRows, safeSeats);
+      transforms = this.buildGridTransforms(safeRows, safeSeats);
+      return this.enforceSeatSpacing(transforms);
     }
 
     if (layout === 'arch') {
-      return this.buildArchTransforms(safeRows, safeSeats);
+      transforms = this.buildArchTransforms(safeRows, safeSeats);
+      return this.enforceSeatSpacing(transforms);
     }
 
     if (layout === 'stadium-center') {
-      return this.buildStadiumCenterTransforms(safeRows, safeSeats);
+      transforms = this.buildStadiumCenterTransforms(safeRows, safeSeats);
+      return this.enforceSeatSpacing(transforms);
     }
 
     if (layout === 'stadium-side') {
-      return this.buildStadiumSideTransforms(safeRows, safeSeats);
+      transforms = this.buildStadiumSideTransforms(safeRows, safeSeats);
+      return this.enforceSeatSpacing(transforms);
     }
 
     if (this._drawClosed) {
-      return this.buildCustomDrawTransforms(safeRows, safeSeats);
+      transforms = this.buildCustomDrawTransforms(safeRows, safeSeats);
+      return this.enforceSeatSpacing(transforms);
     }
 
     return [];
+  }
+
+  private enforceSeatSpacing(transforms: SeatTransform[]): SeatTransform[] {
+    if (transforms.length <= 1) return transforms;
+
+    const cellSize = MIN_SEAT_DISTANCE;
+    const minDistanceSq = MIN_SEAT_DISTANCE * MIN_SEAT_DISTANCE;
+    const grid = new Map<string, SeatTransform[]>();
+    const result: SeatTransform[] = [];
+
+    const cellKey = (x: number, y: number): string =>
+      `${Math.floor(x / cellSize)}:${Math.floor(y / cellSize)}`;
+
+    for (const seat of transforms) {
+      const cellX = Math.floor(seat.x / cellSize);
+      const cellY = Math.floor(seat.y / cellSize);
+      let overlaps = false;
+
+      for (let dx = -1; dx <= 1 && !overlaps; dx++) {
+        for (let dy = -1; dy <= 1 && !overlaps; dy++) {
+          const key = `${cellX + dx}:${cellY + dy}`;
+          const bucket = grid.get(key);
+          if (!bucket) continue;
+
+          for (const other of bucket) {
+            const distSq =
+              (seat.x - other.x) * (seat.x - other.x) + (seat.y - other.y) * (seat.y - other.y);
+            if (distSq < minDistanceSq) {
+              overlaps = true;
+              break;
+            }
+          }
+        }
+      }
+
+      if (overlaps) continue;
+
+      const key = cellKey(seat.x, seat.y);
+      const bucket = grid.get(key);
+      if (bucket) {
+        bucket.push(seat);
+      } else {
+        grid.set(key, [seat]);
+      }
+      result.push(seat);
+    }
+
+    return result;
   }
 
   private buildGridTransforms(rows: number, cols: number): SeatTransform[] {

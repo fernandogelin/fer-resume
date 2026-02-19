@@ -7,7 +7,7 @@ import { t } from 'ember-intl';
 import Icon from 'fer-resume/components/icon';
 import SeatMapScene from 'fer-resume/components/seat-map/scene';
 import type { SeatLayoutType } from 'fer-resume/components/seat-map/scene';
-import { ChevronLeft, ChevronRight, Trash2, Armchair } from 'lucide-static';
+import { ChevronDown, ChevronUp, Trash2, Armchair } from 'lucide-static';
 
 interface Preset {
   tKey: string;
@@ -44,7 +44,7 @@ class SeatMapPage extends Component {
   @tracked seatsPerRow = 12;
   @tracked layout: SeatLayoutType = 'arch';
   @tracked selectedCount = 0;
-  @tracked isPanelOpen = true;
+  @tracked isPanelExpanded = true;
   @tracked resetKey = 0;
 
   get totalSeats(): number {
@@ -111,22 +111,51 @@ class SeatMapPage extends Component {
 
   @action
   togglePanel(): void {
-    this.isPanelOpen = !this.isPanelOpen;
+    this.isPanelExpanded = !this.isPanelExpanded;
   }
 
   <template>
-    <div class='flex' style='height: calc(100vh - 49px); overflow: hidden;'>
+    <div class='relative' style='height: calc(100vh - 49px); overflow: hidden;'>
 
-      {{! Collapsible control panel }}
-      {{#if this.isPanelOpen}}
-        <aside class='w-70 shrink-0 border-r border-border bg-card overflow-y-auto flex flex-col'>
-          <div class='p-4 space-y-5 flex-1'>
+      {{! WebGL canvas }}
+      <main class='absolute inset-0 min-w-0'>
+        <SeatMapScene
+          class='absolute inset-0'
+          @rows={{this.rows}}
+          @seatsPerRow={{this.seatsPerRow}}
+          @layout={{this.layout}}
+          @resetKey={{this.resetKey}}
+          @onSelectionChange={{this.onSelectionChange}}
+        />
+      </main>
 
+      {{! Floating control panel }}
+      <aside
+        class='absolute left-4 top-4 z-20 w-70 rounded-md border border-border bg-card/95 backdrop-blur-sm flex flex-col overflow-hidden'
+        style={{if this.isPanelExpanded 'max-height: calc(100vh - 81px);'}}
+      >
+        <div class='h-11 px-4 border-b border-border flex items-center justify-between'>
+          <h3 class='text-xs font-semibold uppercase tracking-wider text-muted-foreground'>
+            {{t 'seatMap.presets'}}
+          </h3>
+          <button
+            type='button'
+            class='h-7 w-7 rounded-md hover:bg-accent flex items-center justify-center transition-colors'
+            {{on 'click' this.togglePanel}}
+            aria-label={{if this.isPanelExpanded 'Collapse panel' 'Expand panel'}}
+          >
+            <Icon
+              @svg={{if this.isPanelExpanded ChevronUp ChevronDown}}
+              @size={{14}}
+              @class='text-muted-foreground'
+            />
+          </button>
+        </div>
+
+        {{#if this.isPanelExpanded}}
+          <div class='p-4 space-y-5 flex-1 overflow-y-auto'>
             {{! Layout presets }}
             <section>
-              <h3 class='text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2'>
-                {{t 'seatMap.presets'}}
-              </h3>
               <div class='space-y-1'>
                 {{#each this.presets as |preset|}}
                   <button
@@ -229,7 +258,6 @@ class SeatMapPage extends Component {
                 {{/if}}
               </div>
             </section>
-
           </div>
 
           {{! Color legend }}
@@ -243,34 +271,28 @@ class SeatMapPage extends Component {
               <span>Selected</span>
             </div>
           </div>
-        </aside>
-      {{/if}}
-
-      {{! Panel collapse toggle }}
-      <button
-        type='button'
-        class='shrink-0 w-6 bg-muted/40 hover:bg-muted border-r border-border flex items-center justify-center transition-colors'
-        {{on 'click' this.togglePanel}}
-        aria-label={{if this.isPanelOpen 'Collapse panel' 'Expand panel'}}
-      >
-        <Icon
-          @svg={{if this.isPanelOpen ChevronLeft ChevronRight}}
-          @size={{14}}
-          @class='text-muted-foreground'
-        />
-      </button>
-
-      {{! WebGL canvas }}
-      <main class='flex-1 min-w-0 relative'>
-        <SeatMapScene
-          class='absolute inset-0'
-          @rows={{this.rows}}
-          @seatsPerRow={{this.seatsPerRow}}
-          @layout={{this.layout}}
-          @resetKey={{this.resetKey}}
-          @onSelectionChange={{this.onSelectionChange}}
-        />
-      </main>
+        {{else}}
+          <div class='p-3 space-y-2'>
+            <div class='flex items-center gap-2 text-xs text-muted-foreground'>
+              <Icon @svg={{Armchair}} @size={{12}} />
+              <span>{{t 'seatMap.totalSeats' count=this.totalSeatsLabel}}</span>
+            </div>
+            <div class='text-xs font-medium text-primary'>
+              {{t 'seatMap.selected' count=this.selectedCount}}
+            </div>
+            <div class='pt-2 border-t border-border space-y-1.5'>
+              <div class='flex items-center gap-2 text-xs text-muted-foreground'>
+                <span class='w-3 h-3 rounded-sm bg-slate-400 inline-block shrink-0'></span>
+                <span>Available</span>
+              </div>
+              <div class='flex items-center gap-2 text-xs text-muted-foreground'>
+                <span class='w-3 h-3 rounded-sm bg-primary inline-block shrink-0'></span>
+                <span>Selected</span>
+              </div>
+            </div>
+          </div>
+        {{/if}}
+      </aside>
 
     </div>
   </template>
