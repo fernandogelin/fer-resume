@@ -64,19 +64,11 @@
   ],
   "education": [
     {
-      "institution": "Brown University",
-      "area": "Sciences Cognitives, Linguistiques et Psychologiques",
-      "studyType": "Sc.M.",
-      "startDate": "2015-09-01",
-      "endDate": "2018-05-01",
-      "thesis": "Investigation des schémas de comportement trompeur dans un jeu social multijoueur"
-    },
-    {
-      "institution": "Indiana University",
-      "area": "Sciences Cognitives, Mineure en Informatique",
-      "studyType": "B.S.",
-      "startDate": "2010-09-01",
-      "endDate": "2015-05-01"
+      "institution": "University of Vermont",
+      "area": "\xC9cologie et Biologie \xC9volutive",
+      "studyType": "Ph.D.",
+      "startDate": "2009-09-01",
+      "endDate": "2014-05-01"
     }
   ],
   "skills": [

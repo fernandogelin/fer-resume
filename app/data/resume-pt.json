@@ -64,19 +64,11 @@
   ],
   "education": [
     {
-      "institution": "Brown University",
-      "area": "Ciências Cognitivas, Linguísticas e Psicológicas",
-      "studyType": "Sc.M.",
-      "startDate": "2015-09-01",
-      "endDate": "2018-05-01",
-      "thesis": "Investigando padrões de comportamento enganoso em um jogo social multiplayer"
-    },
-    {
-      "institution": "Indiana University",
-      "area": "Ciência Cognitiva, Minor em Ciência da Computação",
-      "studyType": "B.S.",
-      "startDate": "2010-09-01",
-      "endDate": "2015-05-01"
+      "institution": "University of Vermont",
+      "area": "Ecologia e Biologia Evolutiva",
+      "studyType": "Ph.D.",
+      "startDate": "2009-09-01",
+      "endDate": "2014-05-01"
     }
   ],
   "skills": [

@@ -64,19 +64,11 @@
   ],
   "education": [
     {
-      "institution": "Brown University",
-      "area": "Cognitive, Linguistic and Psychological Sciences",
-      "studyType": "Sc.M.",
-      "startDate": "2015-09-01",
-      "endDate": "2018-05-01",
-      "thesis": "Investigating patterns of deceptive behavior in a multiplayer social game"
-    },
-    {
-      "institution": "Indiana University",
-      "area": "Cognitive Science, Computer Science Minor",
-      "studyType": "B.S.",
-      "startDate": "2010-09-01",
-      "endDate": "2015-05-01"
+      "institution": "University of Vermont",
+      "area": "Ecology & Evolutionary Biology",
+      "studyType": "Ph.D.",
+      "startDate": "2009-09-01",
+      "endDate": "2014-05-01"
     }
   ],
   "skills": [
