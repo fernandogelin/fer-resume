@@ -8,4 +8,8 @@ export default class Router extends EmberRouter {
 
 Router.map(function () {
   // index route is implicit
+  this.route('projects', function () {
+    this.route('seat-map');
+    this.route('seat-map-benchmark');
+  });
 });

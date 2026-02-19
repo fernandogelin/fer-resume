@@ -16,11 +16,15 @@ export default defineConfig({
     loadTranslations(),
   ],
   build: {
+    chunkSizeWarningLimit: 1100, // three.js and html2pdf are intentionally lazy-loaded
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('html2pdf') || id.includes('jspdf') || id.includes('html2canvas')) {
             return undefined; // let Vite handle these as dynamic imports
+          }
+          if (id.includes('/three/')) {
+            return 'three';
           }
           if (id.includes('node_modules')) {
             return 'vendor';
