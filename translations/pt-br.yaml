@@ -5,8 +5,11 @@ main:
   skills: Habilidades
   publications: "Publica\xE7\xF5es"
   resume: Resume
+nav:
+  resume: Resume
+  seatMap: Mapa de Assentos
 actions:
-  choose_language: "Escolha o idioma:"
+  choose_language: 'Escolha o idioma:'
   download: Baixar Resume
 locales:
   en-se: English
@@ -16,3 +19,15 @@ locales:
 time:
   present: presente
 thesis: Tese
+seatMap:
+  title: Mapa de Assentos
+  presets: 'Layouts Predefinidos'
+  fitness: Academia
+  theater: Teatro Pequeno
+  concert: 'Venue de Show'
+  stadium: "Est\xE1dio"
+  rows: Fileiras
+  seats: Assentos por Fileira
+  selected: 'Selecionados: {count}'
+  clear: Limpar
+  totalSeats: '{count} assentos no total'

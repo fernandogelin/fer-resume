@@ -5,8 +5,11 @@ main:
   skills: Habilidades
   publications: Publicaciones
   resume: Resume
+nav:
+  resume: Resume
+  seatMap: Mapa de Asientos
 actions:
-  choose_language: "Elige un idioma:"
+  choose_language: 'Elige un idioma:'
   download: Descargar Resume
 locales:
   en-se: English
@@ -16,3 +19,15 @@ locales:
 time:
   present: presente
 thesis: Tesis
+seatMap:
+  title: Mapa de Asientos
+  presets: 'Disposiciones Predefinidas'
+  fitness: Gimnasio
+  theater: Teatro Peque\xF1o
+  concert: Sala de Conciertos
+  stadium: Estadio
+  rows: Filas
+  seats: Asientos por Fila
+  selected: 'Seleccionados: {count}'
+  clear: Limpiar
+  totalSeats: '{count} asientos en total'

@@ -1,12 +1,15 @@
 main:
   name: Nom
-  education: "Formation"
+  education: 'Formation'
   work: "Exp\xE9rience Professionnelle"
   skills: "Comp\xE9tences"
   publications: Publications
   resume: CV
+nav:
+  resume: CV
+  seatMap: Plan de Salle
 actions:
-  choose_language: "Choisir une langue :"
+  choose_language: 'Choisir une langue :'
   download: "T\xE9l\xE9charger le CV"
 locales:
   en-se: English
@@ -16,3 +19,15 @@ locales:
 time:
   present: "pr\xE9sent"
 thesis: "Th\xE8se"
+seatMap:
+  title: Plan de Salle
+  presets: "Dispositions Pr\xE9d\xE9finies"
+  fitness: Salle de Sport
+  theater: "Petit Th\xE9\xE2tre"
+  concert: Salle de Concert
+  stadium: Stade
+  rows: "Rang\xE9es"
+  seats: "Si\xE8ges par Rang\xE9e"
+  selected: "S\xE9lectionn\xE9s : {count}"
+  clear: Effacer
+  totalSeats: "{count} si\xE8ges au total"

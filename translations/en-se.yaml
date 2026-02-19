@@ -5,8 +5,11 @@ main:
   skills: Skills
   publications: Publications
   resume: Resume
+nav:
+  resume: Resume
+  seatMap: Seat Map
 actions:
-  choose_language: "Choose a language:"
+  choose_language: 'Choose a language:'
   download: Download Resume
 locales:
   en-se: English
@@ -16,3 +19,15 @@ locales:
 time:
   present: present
 thesis: Thesis
+seatMap:
+  title: Seat Map
+  presets: Layout Presets
+  fitness: Fitness Studio
+  theater: Small Theater
+  concert: Concert Venue
+  stadium: Stadium
+  rows: Rows
+  seats: Seats per Row
+  selected: 'Selected: {count}'
+  clear: Clear
+  totalSeats: '{count} seats total'

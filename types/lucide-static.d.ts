@@ -15,4 +15,9 @@ declare module 'lucide-static' {
   export const MonitorPlay: string;
   export const MapPin: string;
   export const Mail: string;
+  export const ChevronLeft: string;
+  export const ChevronRight: string;
+  export const Trash2: string;
+  export const Armchair: string;
+  export const LayoutGrid: string;
 }

@@ -11,6 +11,10 @@ export default class ApplicationController extends Controller {
     return this.intl.primaryLocale ?? 'en-se';
   }
 
+  get isResumeRoute(): boolean {
+    return this.router.isActive('index');
+  }
+
   @action
   switchLocale(event: Event): void {
     const target = event.target as HTMLSelectElement;
