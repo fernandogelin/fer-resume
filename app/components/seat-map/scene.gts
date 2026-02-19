@@ -8,33 +8,52 @@ import type {
   OrthographicCamera,
   Scene,
   InstancedMesh,
+  Mesh,
+  MeshBasicMaterial,
+  BufferGeometry,
   Raycaster,
-  Color,
   Object3D,
+  Line,
 } from 'three';
+
+export type SeatLayoutType =
+  | 'square'
+  | 'rectangle'
+  | 'arch'
+  | 'stadium-center'
+  | 'stadium-side'
+  | 'custom-draw';
 
 interface SeatMapSceneSignature {
   Element: HTMLDivElement;
   Args: {
     rows: number;
     seatsPerRow: number;
+    layout: SeatLayoutType;
     resetKey: number;
     onSelectionChange: (selected: number[]) => void;
   };
 }
 
 // Seat state colors (sRGB 0-1)
-const COLOR_AVAILABLE = { r: 0.58, g: 0.64, b: 0.69 }; // slate-400 #94a3b8
+const COLOR_BACKGROUND = { r: 0.96, g: 0.97, b: 0.99 }; // slate-50 #f8fafc
+const COLOR_OUTLINE = { r: 0.58, g: 0.64, b: 0.69 }; // slate-400 #94a3b8
 const COLOR_HOVER = { r: 0.79, g: 0.83, b: 0.86 }; // slate-300 #cbd5e1
 
 // Layout constants
 const SEAT_W = 1.0;
 const SEAT_H = 0.9;
+const SEAT_INSET = 0.12;
+const SEAT_RADIUS = 0.14;
 const SEAT_GAP = 0.2;
 const ROW_GAP = 0.25;
 const BASE_RADIUS = 8;
+const STAGE_RADIUS = 3;
+const DRAW_CLOSE_DISTANCE = 1.4;
 
 type RGB = { r: number; g: number; b: number };
+type Point = { x: number; y: number };
+type SeatTransform = { x: number; y: number; rotation: number };
 
 export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   @tracked selectedSeats = new Set<number>();
@@ -52,16 +71,26 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   private _renderer: WebGLRenderer | null = null;
   private _camera: OrthographicCamera | null = null;
   private _scene: Scene | null = null;
-  private _mesh: InstancedMesh | null = null;
+  private _outlineMesh: InstancedMesh | null = null;
+  private _fillMeshes: Mesh[] = [];
+  private _fillGeometry: BufferGeometry | null = null;
+  private _stageMesh: Mesh | null = null;
+  private _drawLine: Line | null = null;
+  private _drawPoints: Point[] = [];
+  private _drawClosed = false;
+  private _seatTransforms: SeatTransform[] = [];
   private _raycaster: Raycaster | null = null;
   private _THREE: typeof import('three') | null = null;
   private _resizeObserver: ResizeObserver | null = null;
 
   setupScene = modifier(
-    (canvas: HTMLCanvasElement, [rows, seatsPerRow]: [number, number, number]) => {
+    (
+      canvas: HTMLCanvasElement,
+      [rows, seatsPerRow, layout]: [number, number, SeatLayoutType, number],
+    ) => {
       this.selectedSeats = new Set();
       this.args.onSelectionChange([]);
-      void this.initThree(canvas, rows, seatsPerRow);
+      void this.initThree(canvas, rows, seatsPerRow, layout);
 
       return () => {
         this.destroyThree();
@@ -73,6 +102,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     canvas: HTMLCanvasElement,
     rows: number,
     seatsPerRow: number,
+    layout: SeatLayoutType,
   ): Promise<void> {
     const THREE = await import('three');
     this._THREE = THREE;
@@ -83,7 +113,10 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     renderer.setSize(width, height, false);
     renderer.setPixelRatio(Math.min(globalThis.devicePixelRatio ?? 1, 2));
-    renderer.setClearColor(0x0f172a, 1);
+    renderer.setClearColor(
+      new THREE.Color(COLOR_BACKGROUND.r, COLOR_BACKGROUND.g, COLOR_BACKGROUND.b),
+      1,
+    );
 
     const aspect = width / height;
     const camera = new THREE.OrthographicCamera(
@@ -101,15 +134,203 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     const raycaster = new THREE.Raycaster();
 
     this.primaryColor = this.readPrimaryColor();
+    this._drawPoints = [];
+    this._drawClosed = false;
 
-    const totalSeats = rows * seatsPerRow;
-    const geometry = new THREE.PlaneGeometry(SEAT_W, SEAT_H);
-    const material = new THREE.MeshBasicMaterial({ vertexColors: true });
-    const mesh = new THREE.InstancedMesh(geometry, material, totalSeats);
+    this._renderer = renderer;
+    this._scene = scene;
+    this._camera = camera;
+    this._raycaster = raycaster;
 
-    const dummy: Object3D = new THREE.Object3D();
-    const color: Color = new THREE.Color();
-    color.setRGB(COLOR_AVAILABLE.r, COLOR_AVAILABLE.g, COLOR_AVAILABLE.b);
+    this.buildStage(layout);
+    this.rebuildSeats(rows, seatsPerRow, layout);
+
+    this.isDirty = true;
+
+    this.startRenderLoop();
+
+    this._resizeObserver = new ResizeObserver(() => this.onResize(canvas));
+    this._resizeObserver.observe(canvas.parentElement ?? canvas);
+  }
+
+  private rebuildSeats(rows: number, seatsPerRow: number, layout: SeatLayoutType): void {
+    if (!this._THREE || !this._scene) return;
+
+    if (this._outlineMesh) {
+      this._scene.remove(this._outlineMesh);
+      this._outlineMesh.geometry.dispose();
+      const outlineMat = this._outlineMesh.material;
+      if (outlineMat && !Array.isArray(outlineMat)) outlineMat.dispose();
+      this._outlineMesh = null;
+    }
+
+    for (const fillMesh of this._fillMeshes) {
+      this._scene.remove(fillMesh);
+      const fillMat = fillMesh.material;
+      if (fillMat && !Array.isArray(fillMat)) fillMat.dispose();
+    }
+    this._fillMeshes = [];
+    this._fillGeometry?.dispose();
+    this._fillGeometry = null;
+
+    const transforms = this.generateSeatTransforms(rows, seatsPerRow, layout);
+    this._seatTransforms = transforms;
+
+    if (transforms.length === 0) {
+      this.selectedSeats = new Set();
+      this.hoveredSeat = null;
+      this.args.onSelectionChange([]);
+      this.isDirty = true;
+      return;
+    }
+
+    const fillWidth = Math.max(0.1, SEAT_W - SEAT_INSET * 2);
+    const fillHeight = Math.max(0.1, SEAT_H - SEAT_INSET * 2);
+    const outlineGeometry = this.createRoundedRectGeometry(
+      this._THREE,
+      SEAT_W,
+      SEAT_H,
+      SEAT_RADIUS,
+    );
+    const roundedFillGeometry = this.createRoundedRectGeometry(
+      this._THREE,
+      fillWidth,
+      fillHeight,
+      Math.max(0.04, SEAT_RADIUS - SEAT_INSET * 0.6),
+    );
+
+    const outlineMaterial = new this._THREE.MeshBasicMaterial({
+      color: new this._THREE.Color(COLOR_OUTLINE.r, COLOR_OUTLINE.g, COLOR_OUTLINE.b),
+    });
+    const outlineMesh = new this._THREE.InstancedMesh(
+      outlineGeometry,
+      outlineMaterial,
+      transforms.length,
+    );
+    const outlineDummy: Object3D = new this._THREE.Object3D();
+    const fillMeshes: Mesh[] = [];
+
+    for (let i = 0; i < transforms.length; i++) {
+      const seat = transforms[i];
+      if (!seat) continue;
+
+      outlineDummy.position.set(seat.x, seat.y, 0);
+      outlineDummy.rotation.set(0, 0, seat.rotation);
+      outlineDummy.updateMatrix();
+      outlineMesh.setMatrixAt(i, outlineDummy.matrix);
+
+      const fillMaterial = new this._THREE.MeshBasicMaterial({
+        color: new this._THREE.Color(COLOR_BACKGROUND.r, COLOR_BACKGROUND.g, COLOR_BACKGROUND.b),
+      });
+      const fillMesh = new this._THREE.Mesh(roundedFillGeometry, fillMaterial);
+      fillMesh.position.set(seat.x, seat.y, 0.001);
+      fillMesh.rotation.set(0, 0, seat.rotation);
+      fillMeshes.push(fillMesh);
+    }
+
+    outlineMesh.instanceMatrix.needsUpdate = true;
+    this._scene.add(outlineMesh);
+    for (const fillMesh of fillMeshes) {
+      this._scene.add(fillMesh);
+    }
+
+    this._outlineMesh = outlineMesh;
+    this._fillMeshes = fillMeshes;
+    this._fillGeometry = roundedFillGeometry;
+    this.selectedSeats = new Set();
+    this.hoveredSeat = null;
+    this.args.onSelectionChange([]);
+    this.isDirty = true;
+  }
+
+  private buildStage(layout: SeatLayoutType): void {
+    if (!this._THREE || !this._scene) return;
+    if (this._stageMesh) {
+      this._scene.remove(this._stageMesh);
+      this._stageMesh.geometry.dispose();
+      const mat = this._stageMesh.material;
+      if (mat && !Array.isArray(mat)) mat.dispose();
+      this._stageMesh = null;
+    }
+
+    if (layout === 'square' || layout === 'rectangle' || layout === 'arch') return;
+
+    if (layout === 'stadium-side') {
+      const geometry = new this._THREE.BoxGeometry(6, 3.5, 0.2);
+      const material = new this._THREE.MeshBasicMaterial({ color: 0x64748b });
+      const mesh = new this._THREE.Mesh(geometry, material);
+      mesh.position.set(-14, 0, 0.03);
+      this._stageMesh = mesh;
+      this._scene.add(mesh);
+      return;
+    }
+
+    const geometry = new this._THREE.CircleGeometry(STAGE_RADIUS, 48);
+    const material = new this._THREE.MeshBasicMaterial({ color: 0x64748b });
+    const mesh = new this._THREE.Mesh(geometry, material);
+    mesh.position.set(0, 0, 0.03);
+    this._stageMesh = mesh;
+    this._scene.add(mesh);
+  }
+
+  private generateSeatTransforms(
+    rows: number,
+    seatsPerRow: number,
+    layout: SeatLayoutType,
+  ): SeatTransform[] {
+    const safeRows = Math.max(1, rows);
+    const safeSeats = Math.max(1, seatsPerRow);
+
+    if (layout === 'square') {
+      const side = Math.max(1, Math.round((safeRows + safeSeats) / 2));
+      return this.buildGridTransforms(side, side);
+    }
+
+    if (layout === 'rectangle') {
+      return this.buildGridTransforms(safeRows, safeSeats);
+    }
+
+    if (layout === 'arch') {
+      return this.buildArchTransforms(safeRows, safeSeats);
+    }
+
+    if (layout === 'stadium-center') {
+      return this.buildStadiumCenterTransforms(safeRows, safeSeats);
+    }
+
+    if (layout === 'stadium-side') {
+      return this.buildStadiumSideTransforms(safeRows, safeSeats);
+    }
+
+    if (this._drawClosed) {
+      return this.buildCustomDrawTransforms(safeRows, safeSeats);
+    }
+
+    return [];
+  }
+
+  private buildGridTransforms(rows: number, cols: number): SeatTransform[] {
+    const transforms: SeatTransform[] = [];
+    const stepX = SEAT_W + SEAT_GAP;
+    const stepY = SEAT_H + ROW_GAP;
+    const startX = -((cols - 1) * stepX) / 2;
+    const startY = ((rows - 1) * stepY) / 2;
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        transforms.push({
+          x: startX + c * stepX,
+          y: startY - r * stepY,
+          rotation: 0,
+        });
+      }
+    }
+
+    return transforms;
+  }
+
+  private buildArchTransforms(rows: number, seatsPerRow: number): SeatTransform[] {
+    const transforms: SeatTransform[] = [];
 
     for (let r = 0; r < rows; r++) {
       const radius = BASE_RADIUS + r * (SEAT_H + ROW_GAP);
@@ -117,33 +338,171 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
       const halfSpan = ((seatsPerRow - 1) * stepArc) / 2;
 
       for (let s = 0; s < seatsPerRow; s++) {
-        const idx = r * seatsPerRow + s;
         const arcOffset = -halfSpan + s * stepArc;
         const angle = arcOffset / radius;
-
-        dummy.position.set(radius * Math.sin(angle), radius * Math.cos(angle) - BASE_RADIUS, 0);
-        dummy.rotation.set(0, 0, -angle);
-        dummy.updateMatrix();
-        mesh.setMatrixAt(idx, dummy.matrix);
-        mesh.setColorAt(idx, color);
+        transforms.push({
+          x: radius * Math.sin(angle),
+          y: radius * Math.cos(angle) - BASE_RADIUS,
+          rotation: -angle,
+        });
       }
     }
 
-    mesh.instanceMatrix.needsUpdate = true;
-    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+    return transforms;
+  }
 
-    scene.add(mesh);
-    this._renderer = renderer;
-    this._scene = scene;
-    this._camera = camera;
-    this._mesh = mesh;
-    this._raycaster = raycaster;
-    this.isDirty = true;
+  private buildStadiumCenterTransforms(rows: number, seatsPerRow: number): SeatTransform[] {
+    const transforms: SeatTransform[] = [];
 
-    this.startRenderLoop();
+    for (let r = 0; r < rows; r++) {
+      const radius = STAGE_RADIUS + 2.2 + r * (SEAT_H + ROW_GAP);
+      const count = Math.max(
+        8,
+        Math.round(((2 * Math.PI * radius) / (SEAT_W + SEAT_GAP)) * (seatsPerRow / 20)),
+      );
 
-    this._resizeObserver = new ResizeObserver(() => this.onResize(canvas));
-    this._resizeObserver.observe(canvas.parentElement ?? canvas);
+      for (let i = 0; i < count; i++) {
+        const theta = (i / count) * Math.PI * 2;
+        const x = radius * Math.cos(theta);
+        const y = radius * Math.sin(theta);
+        const facing = Math.atan2(-y, -x);
+        transforms.push({ x, y, rotation: facing + Math.PI / 2 });
+      }
+    }
+
+    return transforms;
+  }
+
+  private buildStadiumSideTransforms(rows: number, seatsPerRow: number): SeatTransform[] {
+    const transforms: SeatTransform[] = [];
+    const stageX = -14;
+    const stageY = 0;
+
+    for (let r = 0; r < rows; r++) {
+      const radius = 5 + r * (SEAT_H + ROW_GAP);
+
+      for (let s = 0; s < seatsPerRow; s++) {
+        const t = seatsPerRow === 1 ? 0.5 : s / (seatsPerRow - 1);
+        const theta = -Math.PI / 2 + t * Math.PI;
+        const x = stageX + radius * Math.cos(theta) + 2.5;
+        const y = stageY + radius * Math.sin(theta);
+        const facing = Math.atan2(stageY - y, stageX - x);
+        transforms.push({ x, y, rotation: facing + Math.PI / 2 });
+      }
+    }
+
+    return transforms;
+  }
+
+  private buildCustomDrawTransforms(rows: number, seatsPerRow: number): SeatTransform[] {
+    if (this._drawPoints.length < 3) return [];
+
+    let minX = this._drawPoints[0]!.x;
+    let maxX = this._drawPoints[0]!.x;
+    let minY = this._drawPoints[0]!.y;
+    let maxY = this._drawPoints[0]!.y;
+
+    for (const p of this._drawPoints) {
+      minX = Math.min(minX, p.x);
+      maxX = Math.max(maxX, p.x);
+      minY = Math.min(minY, p.y);
+      maxY = Math.max(maxY, p.y);
+    }
+
+    const transforms: SeatTransform[] = [];
+    const stepX = SEAT_W + SEAT_GAP;
+    const stepY = SEAT_H + ROW_GAP;
+    const densityRows = Math.max(1, rows);
+    const densityCols = Math.max(1, seatsPerRow);
+    const xStride = Math.max(stepX, (maxX - minX) / densityCols);
+    const yStride = Math.max(stepY, (maxY - minY) / densityRows);
+    const stageBuffer = STAGE_RADIUS + 1.6;
+
+    for (let y = maxY; y >= minY; y -= yStride) {
+      for (let x = minX; x <= maxX; x += xStride) {
+        if (!this.pointInPolygon({ x, y }, this._drawPoints)) continue;
+        if (Math.hypot(x, y) < stageBuffer) continue;
+        const facing = Math.atan2(-y, -x);
+        transforms.push({ x, y, rotation: facing + Math.PI / 2 });
+      }
+    }
+
+    return transforms;
+  }
+
+  private pointInPolygon(point: Point, polygon: Point[]): boolean {
+    let inside = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+      const xi = polygon[i]!.x;
+      const yi = polygon[i]!.y;
+      const xj = polygon[j]!.x;
+      const yj = polygon[j]!.y;
+      const intersects =
+        yi > point.y !== yj > point.y &&
+        point.x < ((xj - xi) * (point.y - yi)) / (yj - yi || 1e-6) + xi;
+      if (intersects) inside = !inside;
+    }
+    return inside;
+  }
+
+  private updateDrawOverlay(): void {
+    if (!this._THREE || !this._scene) return;
+
+    if (this._drawLine) {
+      this._scene.remove(this._drawLine);
+      this._drawLine.geometry.dispose();
+      const mat = this._drawLine.material;
+      if (mat && !Array.isArray(mat)) mat.dispose();
+      this._drawLine = null;
+    }
+
+    if (this._drawPoints.length === 0) return;
+
+    const points = [...this._drawPoints];
+    if (this._drawClosed) {
+      points.push(this._drawPoints[0]!);
+    }
+
+    const vectors = points.map((p) => new this._THREE!.Vector3(p.x, p.y, 0.02));
+    const geometry = new this._THREE.BufferGeometry().setFromPoints(vectors);
+    const material = new this._THREE.LineBasicMaterial({ color: 0x64748b });
+    this._drawLine = new this._THREE.Line(geometry, material);
+    this._scene.add(this._drawLine);
+  }
+
+  private worldFromPointer(
+    canvas: HTMLCanvasElement,
+    clientX: number,
+    clientY: number,
+  ): Point | null {
+    if (!this._camera || !this._THREE) return null;
+    const ndc = this.ndcFromPointer(canvas, clientX, clientY);
+    const world = new this._THREE.Vector3(ndc.x, ndc.y, 0).unproject(this._camera);
+    return { x: world.x, y: world.y };
+  }
+
+  private createRoundedRectGeometry(
+    THREE: typeof import('three'),
+    width: number,
+    height: number,
+    radius: number,
+  ) {
+    const halfW = width / 2;
+    const halfH = height / 2;
+    const r = Math.max(0, Math.min(radius, halfW, halfH));
+
+    const shape = new THREE.Shape();
+    shape.moveTo(-halfW + r, -halfH);
+    shape.lineTo(halfW - r, -halfH);
+    shape.quadraticCurveTo(halfW, -halfH, halfW, -halfH + r);
+    shape.lineTo(halfW, halfH - r);
+    shape.quadraticCurveTo(halfW, halfH, halfW - r, halfH);
+    shape.lineTo(-halfW + r, halfH);
+    shape.quadraticCurveTo(-halfW, halfH, -halfW, halfH - r);
+    shape.lineTo(-halfW, -halfH + r);
+    shape.quadraticCurveTo(-halfW, -halfH, -halfW + r, -halfH);
+
+    return new THREE.ShapeGeometry(shape);
   }
 
   private readPrimaryColor(): RGB {
@@ -196,14 +555,36 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     }
     this._resizeObserver?.disconnect();
     this._resizeObserver = null;
-    this._mesh?.geometry.dispose();
-    const mat = this._mesh?.material;
-    if (mat && !Array.isArray(mat)) mat.dispose();
+    this._outlineMesh?.geometry.dispose();
+    const outlineMat = this._outlineMesh?.material;
+    if (outlineMat && !Array.isArray(outlineMat)) outlineMat.dispose();
+    for (const fillMesh of this._fillMeshes) {
+      const fillMat = fillMesh.material;
+      if (fillMat && !Array.isArray(fillMat)) fillMat.dispose();
+    }
+    if (this._stageMesh) {
+      this._stageMesh.geometry.dispose();
+      const stageMat = this._stageMesh.material;
+      if (stageMat && !Array.isArray(stageMat)) stageMat.dispose();
+    }
+    if (this._drawLine) {
+      this._drawLine.geometry.dispose();
+      const drawMat = this._drawLine.material;
+      if (drawMat && !Array.isArray(drawMat)) drawMat.dispose();
+    }
+    this._fillGeometry?.dispose();
     this._renderer?.dispose();
     this._renderer = null;
     this._scene = null;
     this._camera = null;
-    this._mesh = null;
+    this._outlineMesh = null;
+    this._fillMeshes = [];
+    this._fillGeometry = null;
+    this._stageMesh = null;
+    this._drawLine = null;
+    this._drawPoints = [];
+    this._drawClosed = false;
+    this._seatTransforms = [];
     this._raycaster = null;
     this._THREE = null;
   }
@@ -235,26 +616,36 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   }
 
   private hitTest(canvas: HTMLCanvasElement, clientX: number, clientY: number): number | null {
-    if (!this._raycaster || !this._camera || !this._mesh || !this._THREE) return null;
+    if (!this._raycaster || !this._camera || !this._outlineMesh || !this._THREE) return null;
     const ndc = this.ndcFromPointer(canvas, clientX, clientY);
     this._raycaster.setFromCamera(new this._THREE.Vector2(ndc.x, ndc.y), this._camera);
-    const hits = this._raycaster.intersectObject(this._mesh);
+    const hits = this._raycaster.intersectObject(this._outlineMesh);
     const first = hits[0];
     return first !== undefined && first.instanceId !== undefined ? first.instanceId : null;
   }
 
   private paintSeat(idx: number): void {
-    if (!this._mesh || !this._THREE) return;
-    const c = new this._THREE.Color();
+    if (!this._THREE) return;
+    const fillMesh = this._fillMeshes[idx];
+    if (!fillMesh) return;
+    const material = fillMesh.material;
+    if (
+      !material ||
+      Array.isArray(material) ||
+      !(material instanceof this._THREE.MeshBasicMaterial)
+    )
+      return;
+
+    const basicMaterial: MeshBasicMaterial = material;
+
     if (this.selectedSeats.has(idx)) {
-      c.setRGB(this.primaryColor.r, this.primaryColor.g, this.primaryColor.b);
+      basicMaterial.color.setRGB(this.primaryColor.r, this.primaryColor.g, this.primaryColor.b);
     } else if (this.hoveredSeat === idx) {
-      c.setRGB(COLOR_HOVER.r, COLOR_HOVER.g, COLOR_HOVER.b);
+      basicMaterial.color.setRGB(COLOR_HOVER.r, COLOR_HOVER.g, COLOR_HOVER.b);
     } else {
-      c.setRGB(COLOR_AVAILABLE.r, COLOR_AVAILABLE.g, COLOR_AVAILABLE.b);
+      basicMaterial.color.setRGB(COLOR_BACKGROUND.r, COLOR_BACKGROUND.g, COLOR_BACKGROUND.b);
     }
-    this._mesh.setColorAt(idx, c);
-    if (this._mesh.instanceColor) this._mesh.instanceColor.needsUpdate = true;
+    basicMaterial.needsUpdate = true;
     this.isDirty = true;
   }
 
@@ -262,6 +653,28 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   onClick(event: MouseEvent): void {
     const canvas = event.currentTarget as HTMLCanvasElement;
     const idx = this.hitTest(canvas, event.clientX, event.clientY);
+
+    if (this.args.layout === 'custom-draw' && idx === null && !this._drawClosed) {
+      const point = this.worldFromPointer(canvas, event.clientX, event.clientY);
+      if (!point) return;
+
+      if (this._drawPoints.length >= 3) {
+        const first = this._drawPoints[0]!;
+        if (Math.hypot(point.x - first.x, point.y - first.y) <= DRAW_CLOSE_DISTANCE) {
+          this._drawClosed = true;
+          this.updateDrawOverlay();
+          this.rebuildSeats(this.args.rows, this.args.seatsPerRow, this.args.layout);
+          this.isDirty = true;
+          return;
+        }
+      }
+
+      this._drawPoints = [...this._drawPoints, point];
+      this.updateDrawOverlay();
+      this.isDirty = true;
+      return;
+    }
+
     if (idx === null) return;
 
     const next = new Set(this.selectedSeats);
@@ -278,6 +691,12 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   @action
   onMouseMove(event: MouseEvent): void {
     const canvas = event.currentTarget as HTMLCanvasElement;
+
+    if (this.args.layout === 'custom-draw' && !this._drawClosed) {
+      canvas.style.cursor = 'crosshair';
+      return;
+    }
+
     const idx = this.hitTest(canvas, event.clientX, event.clientY);
     if (idx === this.hoveredSeat) return;
 
@@ -297,7 +716,8 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
       this.paintSeat(prev);
     }
     if (this.isPanning) this.isPanning = false;
-    canvas.style.cursor = 'default';
+    canvas.style.cursor =
+      this.args.layout === 'custom-draw' && !this._drawClosed ? 'crosshair' : 'default';
   }
 
   @action
@@ -320,6 +740,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   onPointerDown(event: PointerEvent): void {
     const canvas = event.currentTarget as HTMLCanvasElement;
     if (event.button !== 0) return;
+    if (this.args.layout === 'custom-draw' && !this._drawClosed) return;
     const idx = this.hitTest(canvas, event.clientX, event.clientY);
     if (idx !== null) return;
     this.isPanning = true;
@@ -348,7 +769,19 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     if (!this.isPanning) return;
     this.isPanning = false;
     const canvas = event.currentTarget as HTMLCanvasElement;
-    canvas.style.cursor = 'grab';
+    canvas.style.cursor =
+      this.args.layout === 'custom-draw' && !this._drawClosed ? 'crosshair' : 'grab';
+  }
+
+  @action
+  onDoubleClick(): void {
+    if (this.args.layout !== 'custom-draw') return;
+    if (this._drawClosed) return;
+    if (this._drawPoints.length < 3) return;
+    this._drawClosed = true;
+    this.updateDrawOverlay();
+    this.rebuildSeats(this.args.rows, this.args.seatsPerRow, this.args.layout);
+    this.isDirty = true;
   }
 
   <template>
@@ -356,8 +789,9 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
       <canvas
         class='w-full h-full block'
         style='cursor: grab;'
-        {{this.setupScene @rows @seatsPerRow @resetKey}}
+        {{this.setupScene @rows @seatsPerRow @layout @resetKey}}
         {{on 'click' this.onClick}}
+        {{on 'dblclick' this.onDoubleClick}}
         {{on 'mousemove' this.onMouseMove}}
         {{on 'mouseleave' this.onMouseLeave}}
         {{on 'wheel' this.onWheel passive=false}}

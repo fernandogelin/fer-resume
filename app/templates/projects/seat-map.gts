@@ -6,12 +6,18 @@ import { fn } from '@ember/helper';
 import { t } from 'ember-intl';
 import Icon from 'fer-resume/components/icon';
 import SeatMapScene from 'fer-resume/components/seat-map/scene';
+import type { SeatLayoutType } from 'fer-resume/components/seat-map/scene';
 import { ChevronLeft, ChevronRight, Trash2, Armchair } from 'lucide-static';
 
 interface Preset {
   tKey: string;
   rows: number;
   seatsPerRow: number;
+}
+
+interface LayoutOption {
+  value: SeatLayoutType;
+  label: string;
 }
 
 const PRESETS: Preset[] = [
@@ -21,9 +27,22 @@ const PRESETS: Preset[] = [
   { tKey: 'seatMap.stadium', rows: 200, seatsPerRow: 500 },
 ];
 
+const LAYOUT_OPTIONS: LayoutOption[] = [
+  { value: 'square', label: 'Square' },
+  { value: 'rectangle', label: 'Rectangle' },
+  { value: 'arch', label: 'Arch' },
+  { value: 'stadium-center', label: 'Stadium (Center Stage)' },
+  { value: 'stadium-side', label: 'Stadium (Side Stage)' },
+  { value: 'custom-draw', label: 'Custom Draw (Fixed Stage)' },
+];
+
 class SeatMapPage extends Component {
+  readonly presets = PRESETS;
+  readonly layoutOptions = LAYOUT_OPTIONS;
+
   @tracked rows = 8;
   @tracked seatsPerRow = 12;
+  @tracked layout: SeatLayoutType = 'arch';
   @tracked selectedCount = 0;
   @tracked isPanelOpen = true;
   @tracked resetKey = 0;
@@ -36,6 +55,10 @@ class SeatMapPage extends Component {
     return this.selectedCount > 0;
   }
 
+  get isCustomDraw(): boolean {
+    return this.layout === 'custom-draw';
+  }
+
   get totalSeatsLabel(): string {
     return this.totalSeats.toLocaleString();
   }
@@ -44,6 +67,15 @@ class SeatMapPage extends Component {
   applyPreset(preset: Preset): void {
     this.rows = preset.rows;
     this.seatsPerRow = preset.seatsPerRow;
+    if (this.layout === 'custom-draw') this.layout = 'arch';
+    this.selectedCount = 0;
+    this.resetKey++;
+  }
+
+  @action
+  setLayout(layout: SeatLayoutType): void {
+    if (layout === this.layout) return;
+    this.layout = layout;
     this.selectedCount = 0;
     this.resetKey++;
   }
@@ -96,7 +128,7 @@ class SeatMapPage extends Component {
                 {{t 'seatMap.presets'}}
               </h3>
               <div class='space-y-1'>
-                {{#each PRESETS as |preset|}}
+                {{#each this.presets as |preset|}}
                   <button
                     type='button'
                     class='w-full text-left px-3 py-2 rounded-md text-sm transition-colors hover:bg-accent hover:text-accent-foreground flex items-center justify-between group'
@@ -117,6 +149,23 @@ class SeatMapPage extends Component {
 
             {{! Custom row + seat sliders }}
             <section class='space-y-4'>
+              <div>
+                <div class='flex items-center justify-between mb-1'>
+                  <label class='text-sm font-medium'>Layout</label>
+                </div>
+                <div class='space-y-1'>
+                  {{#each this.layoutOptions as |option|}}
+                    <button
+                      type='button'
+                      class='w-full text-left px-3 py-2 rounded-md text-sm transition-colors hover:bg-accent hover:text-accent-foreground'
+                      {{on 'click' (fn this.setLayout option.value)}}
+                    >
+                      {{option.label}}
+                    </button>
+                  {{/each}}
+                </div>
+              </div>
+
               <div>
                 <div class='flex items-center justify-between mb-1'>
                   <label class='text-sm font-medium'>{{t 'seatMap.rows'}}</label>
@@ -147,6 +196,13 @@ class SeatMapPage extends Component {
                   {{on 'input' this.updateSeatsPerRow}}
                 />
               </div>
+
+              {{#if this.isCustomDraw}}
+                <p class='text-xs text-muted-foreground leading-relaxed'>
+                  Click to add boundary points around the fixed center stage. Double-click or click
+                  near the first point to close and generate seats.
+                </p>
+              {{/if}}
             </section>
 
             <div class='border-t border-border'></div>
@@ -210,6 +266,7 @@ class SeatMapPage extends Component {
           class='absolute inset-0'
           @rows={{this.rows}}
           @seatsPerRow={{this.seatsPerRow}}
+          @layout={{this.layout}}
           @resetKey={{this.resetKey}}
           @onSelectionChange={{this.onSelectionChange}}
         />
