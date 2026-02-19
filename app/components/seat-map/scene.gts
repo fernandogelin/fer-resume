@@ -8,8 +8,8 @@ import type {
   OrthographicCamera,
   Scene,
   InstancedMesh,
+  Color,
   Mesh,
-  MeshBasicMaterial,
   BufferGeometry,
   Raycaster,
   Object3D,
@@ -68,6 +68,9 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   private animFrameId: number | null = null;
   private isDirty = false;
   private primaryColor: RGB = { r: 0.09, g: 0.39, b: 0.24 };
+  private hoverFrameId: number | null = null;
+  private pendingHover: { canvas: HTMLCanvasElement; clientX: number; clientY: number } | null =
+    null;
 
   private _renderer: WebGLRenderer | null = null;
   private _camera: OrthographicCamera | null = null;
@@ -75,7 +78,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   private _canvas: HTMLCanvasElement | null = null;
   private _gridOverlayEl: HTMLDivElement | null = null;
   private _outlineMesh: InstancedMesh | null = null;
-  private _fillMeshes: Mesh[] = [];
+  private _fillMesh: InstancedMesh | null = null;
   private _fillGeometry: BufferGeometry | null = null;
   private _stageMesh: Mesh | null = null;
   private _drawLine: Line | null = null;
@@ -84,6 +87,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   private _seatTransforms: SeatTransform[] = [];
   private _raycaster: Raycaster | null = null;
   private _THREE: typeof import('three') | null = null;
+  private _scratchColor: Color | null = null;
   private _resizeObserver: ResizeObserver | null = null;
 
   setupScene = modifier(
@@ -120,6 +124,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   ): Promise<void> {
     const THREE = await import('three');
     this._THREE = THREE;
+    this._scratchColor = new THREE.Color();
 
     const width = canvas.clientWidth || 800;
     const height = canvas.clientHeight || 600;
@@ -209,12 +214,12 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
       this._outlineMesh = null;
     }
 
-    for (const fillMesh of this._fillMeshes) {
-      this._scene.remove(fillMesh);
-      const fillMat = fillMesh.material;
+    if (this._fillMesh) {
+      this._scene.remove(this._fillMesh);
+      const fillMat = this._fillMesh.material;
       if (fillMat && !Array.isArray(fillMat)) fillMat.dispose();
+      this._fillMesh = null;
     }
-    this._fillMeshes = [];
     this._fillGeometry?.dispose();
     this._fillGeometry = null;
 
@@ -252,8 +257,21 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
       outlineMaterial,
       transforms.length,
     );
+    const fillMaterial = new this._THREE.MeshBasicMaterial({
+      color: new this._THREE.Color(COLOR_BACKGROUND.r, COLOR_BACKGROUND.g, COLOR_BACKGROUND.b),
+    });
+    const fillMesh = new this._THREE.InstancedMesh(
+      roundedFillGeometry,
+      fillMaterial,
+      transforms.length,
+    );
     const outlineDummy: Object3D = new this._THREE.Object3D();
-    const fillMeshes: Mesh[] = [];
+    const fillDummy: Object3D = new this._THREE.Object3D();
+    const initialFillColor = new this._THREE.Color(
+      COLOR_BACKGROUND.r,
+      COLOR_BACKGROUND.g,
+      COLOR_BACKGROUND.b,
+    );
 
     for (let i = 0; i < transforms.length; i++) {
       const seat = transforms[i];
@@ -264,23 +282,23 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
       outlineDummy.updateMatrix();
       outlineMesh.setMatrixAt(i, outlineDummy.matrix);
 
-      const fillMaterial = new this._THREE.MeshBasicMaterial({
-        color: new this._THREE.Color(COLOR_BACKGROUND.r, COLOR_BACKGROUND.g, COLOR_BACKGROUND.b),
-      });
-      const fillMesh = new this._THREE.Mesh(roundedFillGeometry, fillMaterial);
-      fillMesh.position.set(seat.x, seat.y, 0.001);
-      fillMesh.rotation.set(0, 0, seat.rotation);
-      fillMeshes.push(fillMesh);
+      fillDummy.position.set(seat.x, seat.y, 0.001);
+      fillDummy.rotation.set(0, 0, seat.rotation);
+      fillDummy.updateMatrix();
+      fillMesh.setMatrixAt(i, fillDummy.matrix);
+      fillMesh.setColorAt(i, initialFillColor);
     }
 
     outlineMesh.instanceMatrix.needsUpdate = true;
-    this._scene.add(outlineMesh);
-    for (const fillMesh of fillMeshes) {
-      this._scene.add(fillMesh);
+    fillMesh.instanceMatrix.needsUpdate = true;
+    if (fillMesh.instanceColor) {
+      fillMesh.instanceColor.needsUpdate = true;
     }
+    this._scene.add(outlineMesh);
+    this._scene.add(fillMesh);
 
     this._outlineMesh = outlineMesh;
-    this._fillMeshes = fillMeshes;
+    this._fillMesh = fillMesh;
     this._fillGeometry = roundedFillGeometry;
     this.selectedSeats = new Set();
     this.hoveredSeat = null;
@@ -648,20 +666,39 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     tick();
   }
 
+  private flushHoverHitTest(): void {
+    this.hoverFrameId = null;
+    const pending = this.pendingHover;
+    if (!pending) return;
+
+    this.pendingHover = null;
+    const idx = this.hitTest(pending.canvas, pending.clientX, pending.clientY);
+    if (idx === this.hoveredSeat) return;
+
+    const prev = this.hoveredSeat;
+    this.hoveredSeat = idx;
+    if (prev !== null) this.paintSeat(prev);
+    if (idx !== null) this.paintSeat(idx);
+    pending.canvas.style.cursor = idx !== null ? 'pointer' : 'grab';
+  }
+
   private destroyThree(): void {
     if (this.animFrameId !== null) {
       cancelAnimationFrame(this.animFrameId);
       this.animFrameId = null;
     }
+    if (this.hoverFrameId !== null) {
+      cancelAnimationFrame(this.hoverFrameId);
+      this.hoverFrameId = null;
+    }
+    this.pendingHover = null;
     this._resizeObserver?.disconnect();
     this._resizeObserver = null;
     this._outlineMesh?.geometry.dispose();
     const outlineMat = this._outlineMesh?.material;
     if (outlineMat && !Array.isArray(outlineMat)) outlineMat.dispose();
-    for (const fillMesh of this._fillMeshes) {
-      const fillMat = fillMesh.material;
-      if (fillMat && !Array.isArray(fillMat)) fillMat.dispose();
-    }
+    const fillMat = this._fillMesh?.material;
+    if (fillMat && !Array.isArray(fillMat)) fillMat.dispose();
     if (this._stageMesh) {
       this._stageMesh.geometry.dispose();
       const stageMat = this._stageMesh.material;
@@ -679,7 +716,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     this._camera = null;
     this._canvas = null;
     this._outlineMesh = null;
-    this._fillMeshes = [];
+    this._fillMesh = null;
     this._fillGeometry = null;
     this._stageMesh = null;
     this._drawLine = null;
@@ -688,6 +725,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
     this._seatTransforms = [];
     this._raycaster = null;
     this._THREE = null;
+    this._scratchColor = null;
   }
 
   private onResize(canvas: HTMLCanvasElement): void {
@@ -727,27 +765,20 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
   }
 
   private paintSeat(idx: number): void {
-    if (!this._THREE) return;
-    const fillMesh = this._fillMeshes[idx];
-    if (!fillMesh) return;
-    const material = fillMesh.material;
-    if (
-      !material ||
-      Array.isArray(material) ||
-      !(material instanceof this._THREE.MeshBasicMaterial)
-    )
-      return;
-
-    const basicMaterial: MeshBasicMaterial = material;
+    if (!this._fillMesh || !this._scratchColor) return;
 
     if (this.selectedSeats.has(idx)) {
-      basicMaterial.color.setRGB(this.primaryColor.r, this.primaryColor.g, this.primaryColor.b);
+      this._scratchColor.setRGB(this.primaryColor.r, this.primaryColor.g, this.primaryColor.b);
     } else if (this.hoveredSeat === idx) {
-      basicMaterial.color.setRGB(COLOR_HOVER.r, COLOR_HOVER.g, COLOR_HOVER.b);
+      this._scratchColor.setRGB(COLOR_HOVER.r, COLOR_HOVER.g, COLOR_HOVER.b);
     } else {
-      basicMaterial.color.setRGB(COLOR_BACKGROUND.r, COLOR_BACKGROUND.g, COLOR_BACKGROUND.b);
+      this._scratchColor.setRGB(COLOR_BACKGROUND.r, COLOR_BACKGROUND.g, COLOR_BACKGROUND.b);
     }
-    basicMaterial.needsUpdate = true;
+
+    this._fillMesh.setColorAt(idx, this._scratchColor);
+    if (this._fillMesh.instanceColor) {
+      this._fillMesh.instanceColor.needsUpdate = true;
+    }
     this.isDirty = true;
   }
 
@@ -799,19 +830,20 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
       return;
     }
 
-    const idx = this.hitTest(canvas, event.clientX, event.clientY);
-    if (idx === this.hoveredSeat) return;
-
-    const prev = this.hoveredSeat;
-    this.hoveredSeat = idx;
-    if (prev !== null) this.paintSeat(prev);
-    if (idx !== null) this.paintSeat(idx);
-    canvas.style.cursor = idx !== null ? 'pointer' : 'grab';
+    this.pendingHover = { canvas, clientX: event.clientX, clientY: event.clientY };
+    if (this.hoverFrameId === null) {
+      this.hoverFrameId = requestAnimationFrame(() => this.flushHoverHitTest());
+    }
   }
 
   @action
   onMouseLeave(event: MouseEvent): void {
     const canvas = event.currentTarget as HTMLCanvasElement;
+    if (this.hoverFrameId !== null) {
+      cancelAnimationFrame(this.hoverFrameId);
+      this.hoverFrameId = null;
+    }
+    this.pendingHover = null;
     if (this.hoveredSeat !== null) {
       const prev = this.hoveredSeat;
       this.hoveredSeat = null;
@@ -890,10 +922,7 @@ export default class SeatMapScene extends Component<SeatMapSceneSignature> {
 
   <template>
     <div class='relative w-full h-full' ...attributes>
-      <div
-        class='absolute inset-0 pointer-events-none'
-        {{this.setupGridOverlay}}
-      ></div>
+      <div class='absolute inset-0 pointer-events-none' {{this.setupGridOverlay}}></div>
       <canvas
         class='w-full h-full block'
         style='cursor: grab;'
