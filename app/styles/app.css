@@ -309,6 +309,14 @@
   font-weight: 700;
   font-size: 0.7rem;
   padding: 0.15rem 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.olv-species-badge-icon {
+  color: currentcolor;
+  opacity: 0.9;
 }
 
 .eqv-feed-item .badge.m1,
@@ -769,7 +777,7 @@
   position: relative;
   height: 100%;
   overflow: hidden;
-  background: radial-gradient(circle at 40% 20%, #0f2f4a, #051629 60%);
+  background: radial-gradient(circle at 50% 50%, #071e36 0%, #020d1a 70%);
 }
 
 .olv-ocean-canvas,
@@ -785,7 +793,23 @@
 }
 
 .olv-sphere {
-  fill: rgb(3 20 38 / 28%);
+  fill: rgb(3 20 38 / 32%);
+  stroke: #1e4a6a;
+  stroke-width: 1.5;
+}
+
+.olv-globe-mask {
+  position: absolute;
+  inset: 0;
+
+  /* Transparent inside the globe circle, dark outside — masks the canvas overflow */
+  background: radial-gradient(
+    circle closest-side at center,
+    transparent calc(100% - 12px),
+    #020d1a calc(100% - 8px)
+  );
+  pointer-events: none;
+  z-index: 8;
 }
 
 .olv-graticule {
@@ -827,11 +851,65 @@
   stroke: #fff2d8;
 }
 
-.olv-animal-glyph {
-  font-size: 9px;
-  text-anchor: middle;
-  fill: #031a2d;
+.olv-animal-ripple {
+  fill: none;
+  stroke: #22d3ee;
+  stroke-width: 1;
   pointer-events: none;
+
+  --base-r: 7px;
+  animation: eq-ripple 2.2s ease-out infinite;
+}
+
+.olv-animal.active .olv-animal-ripple {
+  stroke: #f59e0b;
+}
+
+.olv-animal-glyph {
+  pointer-events: none;
+}
+
+/* Storm markers */
+.olv-storm-ring {
+  fill: none;
+  stroke: #f97316;
+  stroke-width: 1.5;
+  opacity: 0.75;
+}
+
+.olv-storm.major .olv-storm-ring {
+  stroke: #ef4444;
+  stroke-width: 2;
+  opacity: 0.9;
+}
+
+.olv-storm-eye {
+  fill: #fbbf24;
+  stroke: none;
+}
+
+.olv-storm-track {
+  stroke: #f97316;
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+  marker-end: url('#arrowhead');
+}
+
+.olv-storm.major .olv-storm-track {
+  stroke: #ef4444;
+}
+
+.olv-storm-label {
+  font-size: 10px;
+  fill: #fed7aa;
+  paint-order: stroke;
+  stroke: #1a0a00;
+  stroke-width: 2px;
+  pointer-events: none;
+}
+
+.olv-storm.major .olv-storm-label {
+  fill: #fca5a5;
 }
 
 .olv-animal-label {
@@ -908,12 +986,28 @@
   stroke-linecap: round;
 }
 
+.olv-buoy-tooltip-station {
+  font-weight: 700;
+  font-size: 0.88rem;
+  margin-bottom: 0.3rem;
+}
+
 .olv-animal-profile {
   margin-top: 0.75rem;
   padding-top: 0.6rem;
   border-top: 1px solid var(--border);
   display: grid;
   gap: 0.3rem;
+}
+
+.olv-loading {
+  margin-bottom: 0.5rem;
+}
+
+.olv-empty-state {
+  margin: 0.45rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted-foreground);
 }
 
 .olv-animal-profile h4 {

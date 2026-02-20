@@ -1,8 +1,18 @@
-import { ATLANTIC_BUOYS, OCEAN_LIVE_POLL_MS } from './config';
-import type { BuoyReading, OceanLiveUpdate, Species, TrackedAnimal } from './types';
+import { ALL_BUOYS, OCEAN_LIVE_POLL_MS, OCEAN_SAMPLE_GRID } from './config';
+import type {
+  BuoyReading,
+  OceanLayerType,
+  OceanLayersUpdate,
+  OceanLiveUpdate,
+  OceanSample,
+  Species,
+  StormCenter,
+  TrackedAnimal,
+} from './types';
 
 interface OceanLiveArgs {
   onUpdate: (update: OceanLiveUpdate) => void;
+  onAnimalsLoadingChange?: (isLoading: boolean) => void;
 }
 
 const OCEARCH_MAP_ID = 3413;
@@ -343,47 +353,233 @@ export class OceanLiveSource {
   }
 
   private async poll(): Promise<void> {
-    const [stationResults, animals] = await Promise.all([
-      Promise.all(
-        ATLANTIC_BUOYS.map(async (station) => ({
-          station,
-          reading: await fetchStation(station.id),
-        })),
-      ),
-      fetchOcearchAnimals(),
-    ]);
+    this.args.onAnimalsLoadingChange?.(true);
 
-    const liveBuoys: BuoyReading[] = stationResults.reduce<BuoyReading[]>((acc, item) => {
-      if (!item.reading) return acc;
+    try {
+      const [stationResults, animals] = await Promise.all([
+        Promise.all(
+          ALL_BUOYS.map(async (station) => ({
+            station,
+            reading: await fetchStation(station.id),
+          })),
+        ),
+        fetchOcearchAnimals(),
+      ]);
 
-      acc.push({
-        stationId: item.station.id,
-        lat: item.station.lat,
-        lng: item.station.lng,
-        waveHeightM: item.reading.waveHeightM ?? 0,
-        wavePeriodS: item.reading.wavePeriodS ?? 0,
-        windSpeedMs: item.reading.windSpeedMs ?? 0,
-        windDirDeg: item.reading.windDirDeg ?? 0,
-        waterTempC: item.reading.waterTempC ?? 0,
-        observedAt: item.reading.observedAt ?? Date.now(),
+      const liveBuoys: BuoyReading[] = stationResults.reduce<BuoyReading[]>((acc, item) => {
+        if (!item.reading) return acc;
+
+        acc.push({
+          stationId: item.station.id,
+          lat: item.station.lat,
+          lng: item.station.lng,
+          waveHeightM: item.reading.waveHeightM ?? 0,
+          wavePeriodS: item.reading.wavePeriodS ?? 0,
+          windSpeedMs: item.reading.windSpeedMs ?? 0,
+          windDirDeg: item.reading.windDirDeg ?? 0,
+          waterTempC: item.reading.waterTempC ?? 0,
+          observedAt: item.reading.observedAt ?? Date.now(),
+        });
+
+        return acc;
+      }, []);
+
+      const buoys = liveBuoys;
+
+      const buoyUpdatedAt = buoys.reduce((max, row) => Math.max(max, row.observedAt), 0) || null;
+      const animalUpdatedAt =
+        animals
+          .flatMap((animal) => animal.pings)
+          .reduce((max, row) => Math.max(max, row.timestamp), 0) || null;
+
+      this.args.onUpdate({
+        buoys,
+        animals,
+        buoyUpdatedAt,
+        animalUpdatedAt,
       });
+    } finally {
+      this.args.onAnimalsLoadingChange?.(false);
+    }
+  }
+}
 
-      return acc;
-    }, []);
+// ---------------------------------------------------------------------------
+// Ocean Layers: Marine grid + NHC storms
+// ---------------------------------------------------------------------------
 
-    const buoys = liveBuoys;
+const OPENMETEO_MARINE_BASE = 'https://marine-api.open-meteo.com/v1/marine';
+const OPENMETEO_WEATHER_BASE = 'https://api.open-meteo.com/v1/forecast';
+const NHC_STORMS_URL = '/api/nhc/CurrentStorms.json';
+const OCEAN_LAYERS_POLL_MS = 3 * 60 * 60_000; // 3 hours
 
-    const buoyUpdatedAt = buoys.reduce((max, row) => Math.max(max, row.observedAt), 0) || null;
-    const animalUpdatedAt =
-      animals
-        .flatMap((animal) => animal.pings)
-        .reduce((max, row) => Math.max(max, row.timestamp), 0) || null;
+async function fetchMarineGrid(): Promise<OceanSample[]> {
+  const lats = OCEAN_SAMPLE_GRID.map((p) => p.lat).join(',');
+  const lngs = OCEAN_SAMPLE_GRID.map((p) => p.lng).join(',');
+  const marineFields =
+    'wave_height,wave_direction,wave_period,sea_surface_temperature,ocean_current_velocity,ocean_current_direction';
+  const weatherFields = 'wind_speed_10m,wind_direction_10m';
 
-    this.args.onUpdate({
-      buoys,
-      animals,
-      buoyUpdatedAt,
-      animalUpdatedAt,
+  const [marineRes, weatherRes] = await Promise.all([
+    fetch(
+      `${OPENMETEO_MARINE_BASE}?latitude=${lats}&longitude=${lngs}&current=${marineFields}&timezone=UTC`,
+      { cache: 'no-store' },
+    ),
+    fetch(
+      `${OPENMETEO_WEATHER_BASE}?latitude=${lats}&longitude=${lngs}&current=${weatherFields}&timezone=UTC`,
+      { cache: 'no-store' },
+    ),
+  ]);
+
+  if (!marineRes.ok || !weatherRes.ok) {
+    throw new Error(
+      `OpenMeteo fetch failed: marine=${marineRes.status} weather=${weatherRes.status}`,
+    );
+  }
+
+  // When multiple locations are requested, OpenMeteo returns an array; single location returns an object.
+  const marineJson = (await marineRes.json()) as unknown;
+  const weatherJson = (await weatherRes.json()) as unknown;
+
+  // These are always objects with a 'current' property, but types are unknown
+  const marineArr = Array.isArray(marineJson) ? marineJson : [marineJson];
+  const weatherArr = Array.isArray(weatherJson) ? weatherJson : [weatherJson];
+
+  const fetchedAt = Date.now();
+  const samples: OceanSample[] = [];
+
+  for (let i = 0; i < OCEAN_SAMPLE_GRID.length; i++) {
+    const point = OCEAN_SAMPLE_GRID[i];
+    if (!point) continue;
+
+    const marineRaw: unknown = marineArr[i];
+    const weatherRaw: unknown = weatherArr[i];
+    let marine: Record<string, number> | undefined = undefined;
+    let weather: Record<string, number> | undefined = undefined;
+    if (
+      marineRaw &&
+      typeof marineRaw === 'object' &&
+      Object.prototype.hasOwnProperty.call(marineRaw, 'current') &&
+      typeof (marineRaw as { current?: unknown }).current === 'object'
+    ) {
+      marine = (marineRaw as { current: Record<string, number> }).current;
+    }
+    if (
+      weatherRaw &&
+      typeof weatherRaw === 'object' &&
+      Object.prototype.hasOwnProperty.call(weatherRaw, 'current') &&
+      typeof (weatherRaw as { current?: unknown }).current === 'object'
+    ) {
+      weather = (weatherRaw as { current: Record<string, number> }).current;
+    }
+    if (!marine || !weather) continue;
+
+    samples.push({
+      lat: point.lat,
+      lng: point.lng,
+      sstC: marine['sea_surface_temperature'] ?? 15,
+      waveHeightM: marine['wave_height'] ?? 0,
+      waveDirDeg: marine['wave_direction'] ?? 0,
+      wavePeriodS: marine['wave_period'] ?? 8,
+      windSpeedMs: weather['wind_speed_10m'] ?? 0,
+      windDirDeg: weather['wind_direction_10m'] ?? 0,
+      currentSpeedMs: marine['ocean_current_velocity'] ?? 0,
+      currentDirDeg: marine['ocean_current_direction'] ?? 0,
+      fetchedAt,
     });
+  }
+
+  return samples;
+}
+
+interface NhcStormJson {
+  activeStorms?: {
+    id?: string;
+    name?: string;
+    centerLat?: number | string;
+    centerLon?: number | string;
+    intensity?: number | string;
+    category?: number | string;
+    movementDir?: number | string;
+  }[];
+}
+
+async function fetchNhcStorms(): Promise<StormCenter[]> {
+  const res = await fetch(NHC_STORMS_URL, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`NHC storms ${res.status}`);
+
+  const json = (await res.json()) as NhcStormJson;
+  const fetchedAt = Date.now();
+
+  return (json.activeStorms ?? []).flatMap((s) => {
+    const lat = Number(s.centerLat);
+    const lng = Number(s.centerLon);
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) return [];
+    return [
+      {
+        id: s.id ?? `storm-${lat}-${lng}`,
+        name: s.name ?? 'Unknown',
+        lat,
+        lng,
+        category: Number(s.category ?? 0),
+        maxWindKt: Number(s.intensity ?? 0),
+        movementDirDeg: Number(s.movementDir ?? 0),
+        fetchedAt,
+      } satisfies StormCenter,
+    ];
+  });
+}
+
+interface OceanLayersArgs {
+  onUpdate: (update: OceanLayersUpdate) => void;
+}
+
+export class OceanLayersSource {
+  private timer: number | null = null;
+  private activeLayers = new Set<OceanLayerType>();
+
+  constructor(private readonly args: OceanLayersArgs) {}
+
+  setLayers(layers: Set<OceanLayerType>): void {
+    const hadAny = this.activeLayers.size > 0;
+    this.activeLayers = new Set(layers);
+    const hasAny = this.activeLayers.size > 0;
+
+    if (!hadAny && hasAny) {
+      this.stop();
+      void this.poll();
+      this.timer = window.setInterval(() => void this.poll(), OCEAN_LAYERS_POLL_MS);
+    } else if (hadAny && !hasAny) {
+      this.stop();
+    }
+  }
+
+  stop(): void {
+    if (this.timer !== null) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+  }
+
+  private async poll(): Promise<void> {
+    if (this.activeLayers.size === 0) return;
+
+    try {
+      const needsGrid =
+        this.activeLayers.has('temperature') ||
+        this.activeLayers.has('swell') ||
+        this.activeLayers.has('wind') ||
+        this.activeLayers.has('currents');
+      const needsStorms = this.activeLayers.has('storms');
+
+      const [samples, storms] = await Promise.all([
+        needsGrid ? fetchMarineGrid() : Promise.resolve([]),
+        needsStorms ? fetchNhcStorms() : Promise.resolve([]),
+      ]);
+
+      this.args.onUpdate({ samples, storms, fetchedAt: Date.now() });
+    } catch {
+      // Non-fatal — leave previous data in place
+    }
   }
 }

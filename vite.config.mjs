@@ -21,6 +21,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/mapotic/, ''),
       },
+      '/api/nhc': {
+        target: 'https://www.nhc.noaa.gov',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/nhc/, ''),
+      },
     },
   },
   preview: {
@@ -34,6 +39,11 @@ export default defineConfig({
         target: 'https://www.mapotic.com/api/v1',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/mapotic/, ''),
+      },
+      '/api/nhc': {
+        target: 'https://www.nhc.noaa.gov',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/nhc/, ''),
       },
     },
   },
