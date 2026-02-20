@@ -1233,8 +1233,8 @@ export default class OceanLive extends Component {
 
         if (trailPoints.length > 1) {
           // To keep the trail anchored, translate to the first point, scale, then shift path back
-          const [x0, y0] = trailPoints[0];
-          const shiftedPoints = trailPoints.map(([x, y]) => [x - x0, y - y0]);
+          const [x0, y0] = trailPoints[0]!;
+          const shiftedPoints = trailPoints.map(([x, y]): [number, number] => [x - x0, y - y0]);
           const trailGroup = trailRoot
             .append('g')
             .attr('transform', `translate(${x0},${y0}) scale(${1 / scale})`);
@@ -1300,40 +1300,41 @@ export default class OceanLive extends Component {
     if (this.layerBuoys) {
       for (const buoy of this.buoys) {
         const projected = this.projection([buoy.lng, buoy.lat]);
-        if (!projected) continue;
-        const [x, y] = projected;
-        const windLen = Math.min(18, 4 + buoy.windSpeedMs * 0.8);
-        const rad = ((buoy.windDirDeg - 90) * Math.PI) / 180;
-        // Use local coords (origin = buoy center) so scale(1/scale) keeps screen size constant
-        const lx2 = Math.cos(rad) * windLen;
-        const ly2 = Math.sin(rad) * windLen;
+        if (projected) {
+          const [x, y] = projected;
+          const windLen = Math.min(18, 4 + buoy.windSpeedMs * 0.8);
+          const rad = ((buoy.windDirDeg - 90) * Math.PI) / 180;
+          // Use local coords (origin = buoy center) so scale(1/scale) keeps screen size constant
+          const lx2 = Math.cos(rad) * windLen;
+          const ly2 = Math.sin(rad) * windLen;
 
-        const buoyGroup = buoyRoot
-          .append('g')
-          .attr('transform', `translate(${x},${y}) scale(${1 / scale})`);
-        buoyGroup
-          .append('circle')
-          .attr('cx', 0)
-          .attr('cy', 0)
-          .attr('r', 2.8)
-          .attr('class', 'olv-buoy-dot')
-          .style('cursor', 'pointer')
-          .on('mouseover', (event: MouseEvent) => {
-            this.buoyTooltip = { buoy, x: event.clientX, y: event.clientY };
-          })
-          .on('mousemove', (event: MouseEvent) => {
-            this.buoyTooltip = { buoy, x: event.clientX, y: event.clientY };
-          })
-          .on('mouseleave', () => {
-            this.buoyTooltip = null;
-          });
-        buoyGroup
-          .append('line')
-          .attr('x1', 0)
-          .attr('y1', 0)
-          .attr('x2', lx2)
-          .attr('y2', ly2)
-          .attr('class', 'olv-buoy-wind');
+          const buoyGroup = buoyRoot
+            .append('g')
+            .attr('transform', `translate(${x},${y}) scale(${1 / scale})`);
+          buoyGroup
+            .append('circle')
+            .attr('cx', 0)
+            .attr('cy', 0)
+            .attr('r', 2.8)
+            .attr('class', 'olv-buoy-dot')
+            .style('cursor', 'pointer')
+            .on('mouseover', (event: MouseEvent) => {
+              this.buoyTooltip = { buoy, x: event.clientX, y: event.clientY };
+            })
+            .on('mousemove', (event: MouseEvent) => {
+              this.buoyTooltip = { buoy, x: event.clientX, y: event.clientY };
+            })
+            .on('mouseleave', () => {
+              this.buoyTooltip = null;
+            });
+          buoyGroup
+            .append('line')
+            .attr('x1', 0)
+            .attr('y1', 0)
+            .attr('x2', lx2)
+            .attr('y2', ly2)
+            .attr('class', 'olv-buoy-wind');
+        }
       }
     }
 
