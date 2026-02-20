@@ -13,6 +13,7 @@ exports.apiProxy = onRequest(
   {
     cors: true,
     timeoutSeconds: 60,
+    invoker: 'public',
   },
   async (req, res) => {
     const path = (req.url || '').split('?')[0];

@@ -67,6 +67,13 @@ The deploy service account needs permission to call the Firebase Extensions API.
 
 If that role is not available, ensure the [Firebase Extensions API](https://console.cloud.google.com/apis/library/firebaseextensions.googleapis.com?project=fer-resume) is enabled for the project and the deploy account has a role that can list extension instances.
 
+**If deploy reports "Unable to set the invoker for the IAM policy"**
+
+The `apiProxy` function is configured with `invoker: 'public'` in code so it is created as publicly invokable (needed for Hosting rewrites). If the error persists, the deploy account may need **Cloud Functions Admin** (`roles/functions.admin`); **Cloud Functions Developer** alone cannot change IAM policies.
+
+**Cleanup policy (optional)**  
+To reduce artifact storage cost, run once: `npx firebase-tools functions:artifacts:setpolicy --project fer-resume` or deploy with `--force` (already used in CI).
+
 ## Further Reading / Useful Links
 
 * [ember.js](https://emberjs.com/)
