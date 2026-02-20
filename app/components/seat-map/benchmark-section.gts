@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
 import CpuDemo from 'fer-resume/components/seat-map/cpu-demo';
 import type { SeatLayoutType } from 'fer-resume/components/seat-map/scene';
+import { t } from 'ember-intl';
 
 interface BenchmarkResult {
   seatCount: number;
@@ -19,9 +20,8 @@ interface BenchmarkSectionSignature {
     seatsPerRow: number;
     layout: SeatLayoutType;
     isBenchmarkRunning: boolean;
-    benchmarkButtonLabel: string;
     benchmarkResult: BenchmarkResult | null;
-    benchmarkError: string | null;
+    benchmarkError?: string | null;
     benchmarkGpuBarStyle: string;
     benchmarkCpuBarStyle: string;
     onRunBenchmark: () => void;
@@ -36,16 +36,14 @@ export default class BenchmarkSection extends Component<BenchmarkSectionSignatur
   <template>
     <section class='space-y-3'>
       <h4 class='text-xs font-semibold uppercase tracking-wider text-muted-foreground'>
-        Technical Notes
+        {{t 'seatMap.benchmark.technicalNotes'}}
       </h4>
       <p class='text-xs text-muted-foreground leading-relaxed'>
-        GPU rendering uses a single instanced draw for outlines and batched seat updates, which
-        keeps work on the graphics pipeline and reduces CPU layout/paint overhead. A CPU canvas
-        renderer redraws seats in JavaScript each frame, which scales worse as seat counts grow.
+        {{t 'seatMap.benchmark.notesBody'}}
       </p>
 
       <div class='space-y-2'>
-        <p class='text-xs font-medium'>Non-GPU demo (2D canvas)</p>
+        <p class='text-xs font-medium'>{{t 'seatMap.benchmark.nonGpuDemo'}}</p>
         <div class='h-28 rounded-md border border-border overflow-hidden bg-background'>
           <CpuDemo @rows={{@rows}} @seatsPerRow={{@seatsPerRow}} @layout={{@layout}} />
         </div>
@@ -58,40 +56,38 @@ export default class BenchmarkSection extends Component<BenchmarkSectionSignatur
           {{on 'click' @onRunBenchmark}}
           disabled={{@isBenchmarkRunning}}
         >
-          {{@benchmarkButtonLabel}}
+          {{if @isBenchmarkRunning (t 'seatMap.benchmark.running') (t 'seatMap.benchmark.run')}}
         </button>
 
         {{#if this.hasBenchmarkResult}}
           <div class='rounded-md border border-border p-2 text-xs text-muted-foreground space-y-1'>
             <div class='flex justify-between'>
-              <span>Seats</span>
+              <span>{{t 'seatMap.benchmark.seats'}}</span>
               <span class='tabular-nums'>{{@benchmarkResult.seatCount}}</span>
             </div>
             <div class='flex justify-between'>
-              <span>GPU</span>
+              <span>{{t 'seatMap.benchmark.gpu'}}</span>
               <span class='tabular-nums'>
                 {{@benchmarkResult.gpuMsPerFrame}}
-                ms/frame (~{{@benchmarkResult.gpuFps}}
-                fps)
+                {{t 'seatMap.benchmark.msPerFrame' fps=@benchmarkResult.gpuFps}}
               </span>
             </div>
             <div class='flex justify-between'>
-              <span>CPU</span>
+              <span>{{t 'seatMap.benchmark.cpu'}}</span>
               <span class='tabular-nums'>
                 {{@benchmarkResult.cpuMsPerFrame}}
-                ms/frame (~{{@benchmarkResult.cpuFps}}
-                fps)
+                {{t 'seatMap.benchmark.msPerFrame' fps=@benchmarkResult.cpuFps}}
               </span>
             </div>
             <div class='flex justify-between text-primary font-medium'>
-              <span>Speedup</span>
+              <span>{{t 'seatMap.benchmark.speedup'}}</span>
               <span class='tabular-nums'>{{@benchmarkResult.speedup}}×</span>
             </div>
 
             <div class='pt-1 space-y-1.5'>
               <div class='space-y-0.5'>
                 <div class='flex justify-between'>
-                  <span>GPU</span>
+                  <span>{{t 'seatMap.benchmark.gpu'}}</span>
                   <span class='tabular-nums'>{{@benchmarkResult.gpuMsPerFrame}}
                     ms</span>
                 </div>
@@ -101,7 +97,7 @@ export default class BenchmarkSection extends Component<BenchmarkSectionSignatur
               </div>
               <div class='space-y-0.5'>
                 <div class='flex justify-between'>
-                  <span>CPU</span>
+                  <span>{{t 'seatMap.benchmark.cpu'}}</span>
                   <span class='tabular-nums'>{{@benchmarkResult.cpuMsPerFrame}}
                     ms</span>
                 </div>

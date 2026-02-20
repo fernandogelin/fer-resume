@@ -7,6 +7,7 @@ import BenchmarkSection from 'fer-resume/components/seat-map/benchmark-section';
 import { Card, CardHeader, CardTitle, CardContent } from 'fer-resume/components/ui/card';
 import type { SeatLayoutType } from 'fer-resume/components/seat-map/scene';
 import { runSeatRenderingBenchmark } from 'fer-resume/lib/seat-benchmark';
+import { t } from 'ember-intl';
 
 class SeatMapBenchmarkPage extends Component {
   readonly layout: SeatLayoutType = 'arch';
@@ -28,10 +29,6 @@ class SeatMapBenchmarkPage extends Component {
 
   get isBenchmarkRunning(): boolean {
     return this.benchmarkState === 'running';
-  }
-
-  get benchmarkButtonLabel(): string {
-    return this.isBenchmarkRunning ? 'Running benchmark…' : 'Run GPU vs CPU benchmark';
   }
 
   get benchmarkGpuBarWidth(): string {
@@ -92,7 +89,7 @@ class SeatMapBenchmarkPage extends Component {
       this.benchmarkState = 'done';
     } catch (error) {
       this.benchmarkState = 'error';
-      this.benchmarkError = error instanceof Error ? error.message : 'Benchmark failed';
+      this.benchmarkError = error instanceof Error ? error.message : 'seatMap.benchmark.failed';
     }
   }
 
@@ -101,12 +98,12 @@ class SeatMapBenchmarkPage extends Component {
       <Card @class='w-180'>
         <CardHeader @class='border-b border-border pb-4'>
           <div class='flex items-center justify-between gap-3'>
-            <CardTitle @class='text-lg'>Seat Map Benchmark Lab</CardTitle>
+            <CardTitle @class='text-lg'>{{t 'seatMap.benchmark.title'}}</CardTitle>
             <LinkTo
               @route='projects.seat-map'
               class='inline-flex items-center h-8 px-3 rounded-md border border-border text-sm hover:bg-accent hover:text-accent-foreground transition-colors'
             >
-              Back to Seat Map
+              {{t 'seatMap.benchmark.backToSeatMap'}}
             </LinkTo>
           </div>
         </CardHeader>
@@ -114,7 +111,7 @@ class SeatMapBenchmarkPage extends Component {
         <CardContent @class='pt-4 space-y-4'>
           <div class='grid grid-cols-1 sm:grid-cols-3 gap-3'>
             <label class='text-sm space-y-1'>
-              <span class='text-muted-foreground'>Rows</span>
+              <span class='text-muted-foreground'>{{t 'seatMap.rows'}}</span>
               <input
                 type='range'
                 min='1'
@@ -127,7 +124,7 @@ class SeatMapBenchmarkPage extends Component {
             </label>
 
             <label class='text-sm space-y-1'>
-              <span class='text-muted-foreground'>Seats/row</span>
+              <span class='text-muted-foreground'>{{t 'seatMap.benchmark.seatsPerRowShort'}}</span>
               <input
                 type='range'
                 min='1'
@@ -140,11 +137,11 @@ class SeatMapBenchmarkPage extends Component {
             </label>
 
             <div class='text-sm space-y-1'>
-              <span class='text-muted-foreground'>Layout</span>
+              <span class='text-muted-foreground'>{{t 'seatMap.layout'}}</span>
               <div
                 class='h-8 px-2 rounded-md border border-border text-xs flex items-center bg-muted/40'
               >
-                Arch
+                {{t 'seatMap.layoutArch'}}
               </div>
             </div>
           </div>
@@ -154,9 +151,8 @@ class SeatMapBenchmarkPage extends Component {
             @seatsPerRow={{this.seatsPerRow}}
             @layout={{this.layout}}
             @isBenchmarkRunning={{this.isBenchmarkRunning}}
-            @benchmarkButtonLabel={{this.benchmarkButtonLabel}}
             @benchmarkResult={{this.benchmarkResult}}
-            @benchmarkError={{this.benchmarkError}}
+            @benchmarkError={{if this.benchmarkError (t this.benchmarkError)}}
             @benchmarkGpuBarStyle={{this.benchmarkGpuBarStyle}}
             @benchmarkCpuBarStyle={{this.benchmarkCpuBarStyle}}
             @onRunBenchmark={{this.runBenchmark}}

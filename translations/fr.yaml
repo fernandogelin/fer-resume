@@ -6,11 +6,16 @@ main:
   publications: Publications
   resume: CV
 nav:
+  home: Accueil
   resume: CV
+  projects: Projets
   seatMap: Plan de Salle
+  seatMapBenchmark: Benchmark du Plan de Salle
 actions:
-  choose_language: 'Choisir une langue :'
+  choose_language: 'Choisir une langue'
   download: "T\xE9l\xE9charger le CV"
+  collapse_panel: Réduire le panneau
+  expand_panel: Développer le panneau
 locales:
   en-se: English
   pt-br: "Portugu\xEAs"
@@ -22,6 +27,13 @@ thesis: "Th\xE8se"
 seatMap:
   title: Plan de Salle
   presets: "Dispositions Pr\xE9d\xE9finies"
+  layout: Disposition
+  layoutSquare: Carré
+  layoutRectangle: Rectangulaire
+  layoutArch: Arche
+  layoutStadiumCenter: Stade (Scène Centrale)
+  layoutStadiumSide: Stade (Scène Latérale)
+  layoutCustomDraw: Dessin Personnalisé (Scène Fixe)
   fitness: Salle de Sport
   theater: "Petit Th\xE9\xE2tre"
   concert: Salle de Concert
@@ -31,3 +43,22 @@ seatMap:
   selected: "S\xE9lectionn\xE9s : {count}"
   clear: Effacer
   totalSeats: "{count} si\xE8ges au total"
+  customDrawHelp: Cliquez pour ajouter des points de contour autour de la scène centrale fixe. Double-cliquez ou cliquez près du premier point pour fermer et générer les sièges.
+  openBenchmarkLab: Ouvrir le Laboratoire de Benchmark
+  legendAvailable: Disponible
+  legendSelected: Sélectionné
+  benchmark:
+    title: Laboratoire de Benchmark du Plan de Salle
+    backToSeatMap: Retour au Plan de Salle
+    technicalNotes: Notes Techniques
+    notesBody: Le rendu GPU utilise un seul draw instancié pour les contours et des mises à jour groupées des sièges, ce qui maintient le travail dans le pipeline graphique et réduit la surcharge CPU de layout/paint. Un rendu canvas CPU redessine les sièges en JavaScript à chaque frame, ce qui passe moins bien à l’échelle lorsque le nombre de sièges augmente.
+    nonGpuDemo: Démo sans GPU (canvas 2D)
+    run: Lancer le benchmark GPU vs CPU
+    running: Benchmark en cours…
+    failed: Échec du benchmark
+    seats: Sièges
+    seatsPerRowShort: Sièges/rangée
+    gpu: GPU
+    cpu: CPU
+    msPerFrame: ms/frame (~{fps} fps)
+    speedup: Accélération

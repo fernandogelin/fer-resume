@@ -15,7 +15,7 @@ export default class ApplicationRoute extends Route {
     this.intl.addTranslations('pt-br', translationsForPtBr);
     this.intl.addTranslations('es', translationsForEs);
     this.intl.addTranslations('fr', translationsForFr);
-    this.intl.setLocale(['en-se']);
+    this.intl.setLocale([this.resume.locale, 'en-se']);
   }
 
   model(): ResumeData {

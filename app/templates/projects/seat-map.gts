@@ -13,7 +13,7 @@ interface Preset {
 
 interface LayoutOption {
   value: SeatLayoutType;
-  label: string;
+  tKey: string;
 }
 
 const PRESETS: Preset[] = [
@@ -24,12 +24,12 @@ const PRESETS: Preset[] = [
 ];
 
 const LAYOUT_OPTIONS: LayoutOption[] = [
-  { value: 'square', label: 'Square' },
-  { value: 'rectangle', label: 'Rectangle' },
-  { value: 'arch', label: 'Arch' },
-  { value: 'stadium-center', label: 'Stadium (Center Stage)' },
-  { value: 'stadium-side', label: 'Stadium (Side Stage)' },
-  { value: 'custom-draw', label: 'Custom Draw (Fixed Stage)' },
+  { value: 'square', tKey: 'seatMap.layoutSquare' },
+  { value: 'rectangle', tKey: 'seatMap.layoutRectangle' },
+  { value: 'arch', tKey: 'seatMap.layoutArch' },
+  { value: 'stadium-center', tKey: 'seatMap.layoutStadiumCenter' },
+  { value: 'stadium-side', tKey: 'seatMap.layoutStadiumSide' },
+  { value: 'custom-draw', tKey: 'seatMap.layoutCustomDraw' },
 ];
 
 class SeatMapPage extends Component {
@@ -58,7 +58,6 @@ class SeatMapPage extends Component {
   get totalSeatsLabel(): string {
     return this.totalSeats.toLocaleString();
   }
-
 
   @action
   applyPreset(preset: Preset): void {

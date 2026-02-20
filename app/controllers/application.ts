@@ -1,14 +1,17 @@
 import Controller from '@ember/controller';
 import { type Registry as Services, service } from '@ember/service';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class ApplicationController extends Controller {
   @service declare intl: Services['intl'];
   @service declare router: Services['router'];
   @service declare resume: Services['resume'];
 
+  @tracked localeOverride: string | null = null;
+
   get currentLocale(): string {
-    return this.intl.primaryLocale ?? 'en-se';
+    return this.localeOverride ?? this.intl.primaryLocale ?? 'en-se';
   }
 
   get isResumeRoute(): boolean {
@@ -16,12 +19,17 @@ export default class ApplicationController extends Controller {
   }
 
   @action
-  switchLocale(event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    const locale = target.value;
+  setLocale(locale: string): void {
+    this.localeOverride = locale;
     this.intl.setLocale([locale, 'en-se']);
     this.resume.setLocale(locale);
     this.router.refresh();
+  }
+
+  @action
+  switchLocale(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    this.setLocale(target.value);
   }
 
   @action
@@ -40,7 +48,6 @@ export default class ApplicationController extends Controller {
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
       })
       .from(content as HTMLElement)
       .save();

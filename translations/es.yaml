@@ -6,11 +6,16 @@ main:
   publications: Publicaciones
   resume: Resume
 nav:
+  home: Inicio
   resume: Resume
+  projects: Proyectos
   seatMap: Mapa de Asientos
+  seatMapBenchmark: Benchmark de Mapa de Asientos
 actions:
-  choose_language: 'Elige un idioma:'
+  choose_language: 'Elige un idioma'
   download: Descargar Resume
+  collapse_panel: Contraer panel
+  expand_panel: Expandir panel
 locales:
   en-se: English
   pt-br: "Portugu\xEAs"
@@ -22,6 +27,13 @@ thesis: Tesis
 seatMap:
   title: Mapa de Asientos
   presets: 'Disposiciones Predefinidas'
+  layout: Diseño
+  layoutSquare: Cuadrado
+  layoutRectangle: Rectangular
+  layoutArch: Arco
+  layoutStadiumCenter: Estadio (Escenario Central)
+  layoutStadiumSide: Estadio (Escenario Lateral)
+  layoutCustomDraw: Dibujo Personalizado (Escenario Fijo)
   fitness: Gimnasio
   theater: Teatro Peque\xF1o
   concert: Sala de Conciertos
@@ -31,3 +43,22 @@ seatMap:
   selected: 'Seleccionados: {count}'
   clear: Limpiar
   totalSeats: '{count} asientos en total'
+  customDrawHelp: Haz clic para añadir puntos de contorno alrededor del escenario central fijo. Haz doble clic o clic cerca del primer punto para cerrar y generar asientos.
+  openBenchmarkLab: Abrir Laboratorio de Benchmark
+  legendAvailable: Disponible
+  legendSelected: Seleccionado
+  benchmark:
+    title: Laboratorio de Benchmark de Mapa de Asientos
+    backToSeatMap: Volver al Mapa de Asientos
+    technicalNotes: Notas Técnicas
+    notesBody: El renderizado por GPU usa un único draw instanciado para contornos y actualizaciones por lotes de asientos, manteniendo el trabajo en el pipeline gráfico y reduciendo la sobrecarga de layout/paint en CPU. Un renderizador de canvas en CPU redibuja los asientos en JavaScript en cada frame, lo que escala peor a medida que crece la cantidad de asientos.
+    nonGpuDemo: Demo sin GPU (canvas 2D)
+    run: Ejecutar benchmark GPU vs CPU
+    running: Ejecutando benchmark…
+    failed: Falló el benchmark
+    seats: Asientos
+    seatsPerRowShort: Asientos/fila
+    gpu: GPU
+    cpu: CPU
+    msPerFrame: ms/frame (~{fps} fps)
+    speedup: Aceleración

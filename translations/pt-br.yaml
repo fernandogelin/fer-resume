@@ -6,11 +6,16 @@ main:
   publications: "Publica\xE7\xF5es"
   resume: Resume
 nav:
+  home: Início
   resume: Resume
+  projects: Projetos
   seatMap: Mapa de Assentos
+  seatMapBenchmark: Benchmark de Mapa de Assentos
 actions:
-  choose_language: 'Escolha o idioma:'
+  choose_language: 'Escolha o idioma'
   download: Baixar Resume
+  collapse_panel: Recolher painel
+  expand_panel: Expandir painel
 locales:
   en-se: English
   pt-br: "Portugu\xEAs"
@@ -22,6 +27,13 @@ thesis: Tese
 seatMap:
   title: Mapa de Assentos
   presets: 'Layouts Predefinidos'
+  layout: Layout
+  layoutSquare: Quadrado
+  layoutRectangle: Retangular
+  layoutArch: Arco
+  layoutStadiumCenter: Estádio (Palco Central)
+  layoutStadiumSide: Estádio (Palco Lateral)
+  layoutCustomDraw: Desenho Personalizado (Palco Fixo)
   fitness: Academia
   theater: Teatro Pequeno
   concert: 'Venue de Show'
@@ -31,3 +43,22 @@ seatMap:
   selected: 'Selecionados: {count}'
   clear: Limpar
   totalSeats: '{count} assentos no total'
+  customDrawHelp: Clique para adicionar pontos de contorno ao redor do palco central fixo. Dê duplo clique ou clique perto do primeiro ponto para fechar e gerar assentos.
+  openBenchmarkLab: Abrir Laboratório de Benchmark
+  legendAvailable: Disponível
+  legendSelected: Selecionado
+  benchmark:
+    title: Laboratório de Benchmark de Mapa de Assentos
+    backToSeatMap: Voltar ao Mapa de Assentos
+    technicalNotes: Notas Técnicas
+    notesBody: A renderização em GPU usa um único draw instanciado para contornos e atualizações em lote dos assentos, mantendo o trabalho no pipeline gráfico e reduzindo overhead de layout/paint na CPU. Um renderizador de canvas CPU redesenha os assentos em JavaScript a cada frame, o que escala pior com o crescimento da quantidade de assentos.
+    nonGpuDemo: Demo sem GPU (canvas 2D)
+    run: Executar benchmark GPU vs CPU
+    running: Executando benchmark…
+    failed: Falha no benchmark
+    seats: Assentos
+    seatsPerRowShort: Assentos/fileira
+    gpu: GPU
+    cpu: CPU
+    msPerFrame: ms/frame (~{fps} fps)
+    speedup: Ganho

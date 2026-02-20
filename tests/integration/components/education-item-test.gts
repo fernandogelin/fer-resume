@@ -16,9 +16,7 @@ module('Integration | Component | education-item', function (hooks) {
       endDate: '2020-05-15',
     };
 
-    await render(
-      <template><EducationItem @model={{education}} /></template>,
-    );
+    await render(<template><EducationItem @model={{education}} /></template>);
 
     assert.dom('h4').hasText(/MIT/);
     assert.dom('p').includesText('Computer Science');
@@ -35,11 +33,9 @@ module('Integration | Component | education-item', function (hooks) {
       thesis: 'On the nature of computation',
     };
 
-    await render(
-      <template><EducationItem @model={{education}} /></template>,
-    );
+    await render(<template><EducationItem @model={{education}} /></template>);
 
-    const text = this.element.textContent ?? '';
+    const text = document.body.textContent ?? '';
     assert.ok(text.includes('On the nature of computation'));
   });
 });

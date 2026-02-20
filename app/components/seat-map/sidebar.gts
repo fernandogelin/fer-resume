@@ -15,7 +15,7 @@ interface Preset {
 
 interface LayoutOption {
   value: SeatLayoutType;
-  label: string;
+  tKey: string;
 }
 
 interface SeatMapSidebarSignature {
@@ -56,7 +56,7 @@ export default class SeatMapSidebar extends Component<SeatMapSidebarSignature> {
           type='button'
           class='h-7 w-7 rounded-md hover:bg-accent flex items-center justify-center transition-colors'
           {{on 'click' @onTogglePanel}}
-          aria-label={{if this.isExpanded 'Collapse panel' 'Expand panel'}}
+          aria-label={{if this.isExpanded (t 'actions.collapse_panel') (t 'actions.expand_panel')}}
         >
           <Icon
             @svg={{if this.isExpanded ChevronUp ChevronDown}}
@@ -92,7 +92,7 @@ export default class SeatMapSidebar extends Component<SeatMapSidebarSignature> {
           <section class='space-y-4'>
             <div>
               <div class='flex items-center justify-between mb-1'>
-                <label class='text-sm font-medium'>Layout</label>
+                <label class='text-sm font-medium'>{{t 'seatMap.layout'}}</label>
               </div>
               <div class='space-y-1'>
                 {{#each @layoutOptions as |option|}}
@@ -101,7 +101,7 @@ export default class SeatMapSidebar extends Component<SeatMapSidebarSignature> {
                     class='w-full text-left px-3 py-2 rounded-md text-sm transition-colors hover:bg-accent hover:text-accent-foreground'
                     {{on 'click' (fn @onSetLayout option.value)}}
                   >
-                    {{option.label}}
+                    {{t option.tKey}}
                   </button>
                 {{/each}}
               </div>
@@ -138,8 +138,7 @@ export default class SeatMapSidebar extends Component<SeatMapSidebarSignature> {
 
             {{#if @isCustomDraw}}
               <p class='text-xs text-muted-foreground leading-relaxed'>
-                Click to add boundary points around the fixed center stage. Double-click or click
-                near the first point to close and generate seats.
+                {{t 'seatMap.customDrawHelp'}}
               </p>
             {{/if}}
           </section>
@@ -175,7 +174,7 @@ export default class SeatMapSidebar extends Component<SeatMapSidebarSignature> {
               @route='projects.seat-map-benchmark'
               class='w-full inline-flex items-center justify-center h-8 rounded-md border border-border text-sm hover:bg-accent hover:text-accent-foreground transition-colors'
             >
-              Open Benchmark Lab
+              {{t 'seatMap.openBenchmarkLab'}}
             </LinkTo>
           </section>
         </div>
@@ -183,11 +182,11 @@ export default class SeatMapSidebar extends Component<SeatMapSidebarSignature> {
         <div class='p-4 border-t border-border space-y-1.5'>
           <div class='flex items-center gap-2 text-xs text-muted-foreground'>
             <span class='w-3 h-3 rounded-sm bg-slate-400 inline-block shrink-0'></span>
-            <span>Available</span>
+            <span>{{t 'seatMap.legendAvailable'}}</span>
           </div>
           <div class='flex items-center gap-2 text-xs text-muted-foreground'>
             <span class='w-3 h-3 rounded-sm bg-primary inline-block shrink-0'></span>
-            <span>Selected</span>
+            <span>{{t 'seatMap.legendSelected'}}</span>
           </div>
         </div>
       {{else}}
@@ -202,11 +201,11 @@ export default class SeatMapSidebar extends Component<SeatMapSidebarSignature> {
           <div class='pt-2 border-t border-border space-y-1.5'>
             <div class='flex items-center gap-2 text-xs text-muted-foreground'>
               <span class='w-3 h-3 rounded-sm bg-slate-400 inline-block shrink-0'></span>
-              <span>Available</span>
+              <span>{{t 'seatMap.legendAvailable'}}</span>
             </div>
             <div class='flex items-center gap-2 text-xs text-muted-foreground'>
               <span class='w-3 h-3 rounded-sm bg-primary inline-block shrink-0'></span>
-              <span>Selected</span>
+              <span>{{t 'seatMap.legendSelected'}}</span>
             </div>
           </div>
         </div>

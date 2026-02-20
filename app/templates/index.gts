@@ -1,12 +1,20 @@
 import ProfileCard from 'fer-resume/components/profile-card';
+import type { TOC } from '@ember/component/template-only';
 import SkillsSection from 'fer-resume/components/skills-section';
 import ResumeSection from 'fer-resume/components/resume-section';
 import WorkItem from 'fer-resume/components/work-item';
 import EducationItem from 'fer-resume/components/education-item';
 import PublicationItem from 'fer-resume/components/publication-item';
+import type { ResumeData } from 'fer-resume/types/resume';
 import { Laptop, GraduationCap, BookOpen } from 'lucide-static';
 
-<template>
+interface IndexTemplateSignature {
+  Args: {
+    model: ResumeData;
+  };
+}
+
+const IndexTemplate: TOC<IndexTemplateSignature> = <template>
   <div
     class='resume-content grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6 max-w-5xl mx-auto min-h-screen'
   >
@@ -34,4 +42,6 @@ import { Laptop, GraduationCap, BookOpen } from 'lucide-static';
       </ResumeSection>
     </main>
   </div>
-</template>
+</template>;
+
+export default IndexTemplate;

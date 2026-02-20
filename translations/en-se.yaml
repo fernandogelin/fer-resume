@@ -6,11 +6,16 @@ main:
   publications: Publications
   resume: Resume
 nav:
+  home: Home
   resume: Resume
+  projects: Projects
   seatMap: Seat Map
+  seatMapBenchmark: Seat Map Benchmark
 actions:
-  choose_language: 'Choose a language:'
+  choose_language: 'Choose a language'
   download: Download Resume
+  collapse_panel: Collapse panel
+  expand_panel: Expand panel
 locales:
   en-se: English
   pt-br: "Portugu\xEAs"
@@ -22,6 +27,13 @@ thesis: Thesis
 seatMap:
   title: Seat Map
   presets: Layout Presets
+  layout: Layout
+  layoutSquare: Square
+  layoutRectangle: Rectangle
+  layoutArch: Arch
+  layoutStadiumCenter: Stadium (Center Stage)
+  layoutStadiumSide: Stadium (Side Stage)
+  layoutCustomDraw: Custom Draw (Fixed Stage)
   fitness: Fitness Studio
   theater: Small Theater
   concert: Concert Venue
@@ -31,3 +43,22 @@ seatMap:
   selected: 'Selected: {count}'
   clear: Clear
   totalSeats: '{count} seats total'
+  customDrawHelp: Click to add boundary points around the fixed center stage. Double-click or click near the first point to close and generate seats.
+  openBenchmarkLab: Open Benchmark Lab
+  legendAvailable: Available
+  legendSelected: Selected
+  benchmark:
+    title: Seat Map Benchmark Lab
+    backToSeatMap: Back to Seat Map
+    technicalNotes: Technical Notes
+    notesBody: GPU rendering uses a single instanced draw for outlines and batched seat updates, which keeps work on the graphics pipeline and reduces CPU layout/paint overhead. A CPU canvas renderer redraws seats in JavaScript each frame, which scales worse as seat counts grow.
+    nonGpuDemo: Non-GPU demo (2D canvas)
+    run: Run GPU vs CPU benchmark
+    running: Running benchmark…
+    failed: Benchmark failed
+    seats: Seats
+    seatsPerRowShort: Seats/row
+    gpu: GPU
+    cpu: CPU
+    msPerFrame: ms/frame (~{fps} fps)
+    speedup: Speedup

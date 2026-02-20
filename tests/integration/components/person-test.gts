@@ -12,6 +12,8 @@ module('Integration | Component | person', function (hooks) {
       name: 'John Doe',
       phonetic_name: 'jɑːn doʊ',
       label: 'Software Engineer',
+      location: 'San Francisco, CA',
+      email: 'john.doe@example.com',
       profiles: [],
     };
 
