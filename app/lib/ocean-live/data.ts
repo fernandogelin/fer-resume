@@ -16,8 +16,15 @@ interface OceanLiveArgs {
 }
 
 const OCEARCH_MAP_ID = 3413;
-const OCEARCH_BASE_URL = `/api/mapotic/maps/${OCEARCH_MAP_ID}`;
-const NDBC_REALTIME_BASE_URL = '/api/ndbc/data/realtime2';
+// In dev, Vite proxy rewrites /api/mapotic -> mapotic.com; in production (e.g. Firebase Hosting) there is no proxy, so call Mapotic directly.
+const OCEARCH_BASE_URL =
+  typeof import.meta !== 'undefined' && import.meta.env?.DEV
+    ? `/api/mapotic/maps/${OCEARCH_MAP_ID}`
+    : `https://www.mapotic.com/api/v1/maps/${OCEARCH_MAP_ID}`;
+const NDBC_REALTIME_BASE_URL =
+  typeof import.meta !== 'undefined' && import.meta.env?.DEV
+    ? '/api/ndbc/data/realtime2'
+    : 'https://www.ndbc.noaa.gov/data/realtime2';
 const OCEARCH_PAGE_SIZE = 50;
 const OCEARCH_MAX_ANIMALS = 500;
 const OCEARCH_MOTION_CHUNK = 20;
@@ -410,7 +417,10 @@ export class OceanLiveSource {
 
 const OPENMETEO_MARINE_BASE = 'https://marine-api.open-meteo.com/v1/marine';
 const OPENMETEO_WEATHER_BASE = 'https://api.open-meteo.com/v1/forecast';
-const NHC_STORMS_URL = '/api/nhc/CurrentStorms.json';
+const NHC_STORMS_URL =
+  typeof import.meta !== 'undefined' && import.meta.env?.DEV
+    ? '/api/nhc/CurrentStorms.json'
+    : 'https://www.nhc.noaa.gov/CurrentStorms.json';
 const OCEAN_LAYERS_POLL_MS = 3 * 60 * 60_000; // 3 hours
 
 async function fetchMarineGrid(): Promise<OceanSample[]> {
