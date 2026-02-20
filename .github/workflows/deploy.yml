@@ -32,4 +32,4 @@ jobs:
             exit 1
           fi
 
-          npx firebase-tools deploy --non-interactive --only hosting:fer-resume --project fer-resume --token "$FIREBASE_TOKEN"
+          npx firebase-tools deploy --non-interactive --only hosting --project fer-resume --token "$FIREBASE_TOKEN"
