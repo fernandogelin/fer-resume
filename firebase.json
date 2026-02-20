@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "fer-resume",
     "public": "dist",
     "ignore": [
       "firebase.json",
