@@ -745,37 +745,91 @@
 
 @media (width <= 980px) {
   .eqv-title {
-    position: static;
-    transform: none;
-    margin: 0.6rem auto;
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
     width: max-content;
     max-width: calc(100% - 1rem);
+    z-index: 15;
   }
 
   .eqv-panel {
-    position: static;
-    width: auto;
-    max-height: none;
-    margin: 0.6rem;
+    position: absolute;
+    inset: auto auto 0 0.5rem;
+    width: min(45vw, 18rem);
+    max-height: 70vh;
+    margin: 0 0 0.5rem;
+    display: flex;
+    flex-direction: column-reverse;
+    border-radius: 0.6rem;
+    overflow: hidden;
+  }
+
+  .eqv-panel-right {
+    inset: auto 0.5rem 0 auto;
+  }
+
+  .eqv-panel-head {
+    border-bottom: none;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .eqv-panel-body {
+    max-height: 60vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-shrink: 1;
   }
 
   .eqv-map-wrap.full-height {
-    height: auto;
-    display: grid;
+    height: 100%;
+    display: block;
   }
 
   .eqv-map {
     min-height: 55vh;
   }
+
+  /* Ocean Live: stack globe then panels vertically so panels don’t overlap */
+  .olv-app .olv-map-wrap {
+    display: block;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .olv-app .olv-ocean-canvas,
+  .olv-app .olv-map-svg {
+    inset: 0;
+    height: 100%;
+    min-height: 0;
+    grid-row: unset;
+  }
+
+  .olv-app .olv-title {
+    top: 0.5rem;
+    grid-row: unset;
+  }
+
+  .olv-app .eqv-reset {
+    grid-row: unset;
+    bottom: 0.9rem;
+  }
 }
 
 .olv-app {
   height: calc(100vh - 49px);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .olv-map-wrap {
   position: relative;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
   background: radial-gradient(circle at 50% 50%, #071e36 0%, #020d1a 70%);
 }
@@ -788,8 +842,20 @@
   height: 100%;
 }
 
+.olv-ocean-canvas {
+  z-index: 1;
+}
+
 .olv-map-svg {
   z-index: 5;
+}
+
+.olv-app .eqv-panel {
+  z-index: 25;
+}
+
+.olv-title {
+  z-index: 15;
 }
 
 .olv-sphere {

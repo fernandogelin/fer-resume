@@ -1388,6 +1388,11 @@ export default class OceanLive extends Component {
         <canvas class='olv-ocean-canvas'></canvas>
         <svg class='olv-map-svg'></svg>
 
+        <div class='eqv-title olv-title'>
+          <h1>Ocean Live</h1>
+          <p>Buoys, animals &amp; ocean layers</p>
+        </div>
+
         <aside class='eqv-panel eqv-panel-left'>
           <div class='eqv-panel-head'>
             <h3>Ocean Controls</h3>

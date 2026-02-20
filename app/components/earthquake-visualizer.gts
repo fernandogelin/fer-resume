@@ -209,15 +209,18 @@ export default class EarthquakeVisualizer extends Component {
   }
 
   @action
-  async togglePushAlerts(): Promise<void> {
+  togglePushAlerts(): void {
     if (!('Notification' in window)) {
       this.pushAlertsEnabled = false;
       return;
     }
 
     if (Notification.permission === 'default') {
-      const permission = await Notification.requestPermission();
-      this.pushAlertsEnabled = permission === 'granted';
+      // Must call requestPermission synchronously from the user gesture (no await before it)
+      // so mobile Safari treats it as a valid gesture and shows the permission prompt.
+      void Notification.requestPermission().then((permission) => {
+        this.pushAlertsEnabled = permission === 'granted';
+      });
       return;
     }
 
@@ -225,9 +228,9 @@ export default class EarthquakeVisualizer extends Component {
   }
 
   @action
-  async setPushAlertsEnabled(checked: boolean): Promise<void> {
+  setPushAlertsEnabled(checked: boolean): void {
     if (checked === this.pushAlertsEnabled) return;
-    await this.togglePushAlerts();
+    this.togglePushAlerts();
   }
 
   @action
