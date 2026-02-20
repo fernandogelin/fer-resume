@@ -26,4 +26,10 @@ jobs:
       - name: Deploy to Firebase
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: npx firebase-tools deploy --only hosting:fer-resume --project fer-resume --token "$FIREBASE_TOKEN"
+        run: |
+          if [ -z "$FIREBASE_TOKEN" ]; then
+            echo "Missing FIREBASE_TOKEN secret in GitHub Actions settings."
+            exit 1
+          fi
+
+          npx firebase-tools deploy --non-interactive --only hosting:fer-resume --project fer-resume --token "$FIREBASE_TOKEN"
