@@ -760,3 +760,169 @@
     min-height: 55vh;
   }
 }
+
+.olv-app {
+  height: calc(100vh - 49px);
+}
+
+.olv-map-wrap {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle at 40% 20%, #0f2f4a, #051629 60%);
+}
+
+.olv-ocean-canvas,
+.olv-map-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.olv-map-svg {
+  z-index: 5;
+}
+
+.olv-sphere {
+  fill: rgb(3 20 38 / 28%);
+}
+
+.olv-graticule {
+  fill: none;
+  stroke: #385a79;
+  stroke-opacity: 0.35;
+  stroke-width: 0.6;
+}
+
+.olv-land {
+  fill: #edf2f7;
+}
+
+.olv-borders {
+  fill: none;
+  stroke: #6b8baa;
+  stroke-width: 0.8;
+}
+
+.olv-trail {
+  fill: none;
+  stroke: #8be1ff;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.olv-animal {
+  cursor: pointer;
+}
+
+.olv-animal-dot {
+  fill: #22d3ee;
+  stroke: #dff8ff;
+  stroke-width: 1;
+}
+
+.olv-animal.active .olv-animal-dot {
+  fill: #f59e0b;
+  stroke: #fff2d8;
+}
+
+.olv-animal-glyph {
+  font-size: 9px;
+  text-anchor: middle;
+  fill: #031a2d;
+  pointer-events: none;
+}
+
+.olv-animal-label {
+  font-size: 11px;
+  fill: #e3f5ff;
+  paint-order: stroke;
+  stroke: #0b2238;
+  stroke-width: 2px;
+}
+
+.olv-animal-label.olv-species-shark {
+  fill: #ffeb3b;
+}
+
+.olv-animal-label.olv-species-dolphin {
+  fill: #4caf50;
+}
+
+.olv-animal-label.olv-species-turtle {
+  fill: #ff9800;
+}
+
+.olv-animal-label.olv-species-seal {
+  fill: #9c27b0;
+}
+
+.olv-animal-label.olv-species-swordfish {
+  fill: #00bcd4;
+}
+
+.olv-animal-label.olv-species-alligator {
+  fill: #8bc34a;
+}
+
+.eqv-feed-item .badge.olv-species-shark {
+  background: #ffeb3b;
+  color: #2e2200;
+}
+
+.eqv-feed-item .badge.olv-species-dolphin {
+  background: #4caf50;
+  color: #09210d;
+}
+
+.eqv-feed-item .badge.olv-species-turtle {
+  background: #ff9800;
+  color: #331600;
+}
+
+.eqv-feed-item .badge.olv-species-seal {
+  background: #9c27b0;
+  color: #f8e8ff;
+}
+
+.eqv-feed-item .badge.olv-species-swordfish {
+  background: #00bcd4;
+  color: #042129;
+}
+
+.eqv-feed-item .badge.olv-species-alligator {
+  background: #8bc34a;
+  color: #162707;
+}
+
+.olv-buoy-dot {
+  fill: #f8fafc;
+  stroke: #1e3a5f;
+  stroke-width: 1;
+}
+
+.olv-buoy-wind {
+  stroke: #d1f0ff;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+}
+
+.olv-animal-profile {
+  margin-top: 0.75rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border);
+  display: grid;
+  gap: 0.3rem;
+}
+
+.olv-animal-profile h4 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.olv-animal-profile p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted-foreground);
+}

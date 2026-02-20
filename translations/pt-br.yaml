@@ -11,6 +11,7 @@ nav:
   projects: Projetos
   seatMap: Mapa de Assentos
   earthquakeVisualizer: Visualizador de Terremotos
+  oceanLive: Oceano ao Vivo
   seatMapBenchmark: Benchmark de Mapa de Assentos
 actions:
   choose_language: 'Escolha o idioma'

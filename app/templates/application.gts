@@ -56,6 +56,12 @@ const ApplicationTemplate: TOC<ApplicationTemplateSignature> = <template>
             </LinkTo>
           </ContextMenuItem>
 
+          <ContextMenuItem @asChild={{true}} as |item|>
+            <LinkTo @route='projects.ocean-live' class={{item.classes}}>
+              {{t 'nav.oceanLive'}}
+            </LinkTo>
+          </ContextMenuItem>
+
           <ContextMenuSeparator />
           <ContextMenuLabel>{{t 'actions.choose_language'}}</ContextMenuLabel>
           <ContextMenuRadioGroup

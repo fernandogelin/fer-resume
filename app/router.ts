@@ -12,5 +12,6 @@ Router.map(function () {
     this.route('seat-map');
     this.route('seat-map-benchmark');
     this.route('earthquake-visualizer');
+    this.route('ocean-live');
   });
 });

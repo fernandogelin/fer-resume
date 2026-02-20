@@ -1,0 +1,53 @@
+import type { BuoyStation, Species } from './types';
+
+export const OCEAN_LIVE_POLL_MS = 10 * 60_000;
+
+export const ATLANTIC_BUOYS: BuoyStation[] = [
+  { id: '41001', lat: 34.7, lng: -72.7, label: 'East Hatteras' },
+  { id: '41002', lat: 32.3, lng: -75.4, label: 'South Hatteras' },
+  { id: '41004', lat: 32.5, lng: -79.1, label: 'Edisto' },
+  { id: '41009', lat: 28.5, lng: -80.2, label: 'Canaveral Nearshore' },
+  { id: '41010', lat: 28.9, lng: -78.5, label: 'Canaveral East' },
+  { id: '41012', lat: 30.0, lng: -80.6, label: 'St. Augustine' },
+  { id: '41025', lat: 35.0, lng: -75.4, label: 'Diamond Shoals' },
+  { id: '41049', lat: 27.5, lng: -63.0, label: 'Western Atlantic Offshore' },
+  { id: '41043', lat: 21.0, lng: -64.9, label: 'Northeast Caribbean' },
+  { id: '41044', lat: 21.6, lng: -58.6, label: 'Southeast Caribbean' },
+  { id: '41046', lat: 23.8, lng: -68.4, label: 'Bermuda East' },
+  { id: '41047', lat: 27.5, lng: -71.5, label: 'Cape Charles East' },
+  { id: '41048', lat: 31.9, lng: -69.6, label: 'Central Atlantic' },
+  { id: '44011', lat: 41.1, lng: -66.6, label: 'Georges Bank' },
+  { id: '44008', lat: 40.5, lng: -69.4, label: 'Nantucket East' },
+  { id: '44020', lat: 41.4, lng: -70.2, label: 'Cape Cod Bay' },
+  { id: '44014', lat: 36.6, lng: -74.8, label: 'Virginia Beach' },
+  { id: '42001', lat: 25.9, lng: -89.7, label: 'Gulf of Mexico North' },
+  { id: '42003', lat: 26.0, lng: -85.6, label: 'Gulf of Mexico East' },
+  { id: '42019', lat: 27.9, lng: -95.3, label: 'Freeport Offshore' },
+  { id: '42020', lat: 26.9, lng: -96.7, label: 'Corpus Christi Offshore' },
+  { id: '42022', lat: 27.5, lng: -89.7, label: 'Louisiana Offshore' },
+  { id: '46042', lat: 36.8, lng: -122.4, label: 'Monterey Bay' },
+  { id: '46013', lat: 38.2, lng: -123.3, label: 'Bodega Bay' },
+  { id: '46014', lat: 39.2, lng: -123.9, label: 'Point Arena' },
+  { id: '46012', lat: 38.2, lng: -120.9, label: 'Half Moon Bay' },
+  { id: '46022', lat: 40.7, lng: -124.5, label: 'Eel River' },
+  { id: '46027', lat: 41.9, lng: -124.4, label: 'St. George Reef' },
+  { id: '46028', lat: 35.7, lng: -121.9, label: 'Cape San Martin' },
+  { id: '46050', lat: 44.7, lng: -124.5, label: 'Stonewall Bank' },
+  { id: '46089', lat: 45.9, lng: -125.8, label: 'Tillamook' },
+  { id: '46036', lat: 48.4, lng: -133.9, label: 'West Vancouver Island' },
+  { id: '46059', lat: 38.0, lng: -129.9, label: 'Northern CA Offshore' },
+  { id: '46026', lat: 37.8, lng: -122.8, label: 'San Francisco' },
+  { id: '46011', lat: 34.9, lng: -120.9, label: 'Santa Maria' },
+  { id: '51001', lat: 23.4, lng: -162.3, label: 'Hawaii Northwest' },
+  { id: '51002', lat: 17.0, lng: -157.8, label: 'Hawaii South' },
+  { id: '51003', lat: 19.2, lng: -160.7, label: 'Hawaii Central' },
+];
+
+export const SPECIES_LABELS: Record<Species, string> = {
+  shark: 'Sharks',
+  turtle: 'Turtles',
+  dolphin: 'Dolphins',
+  seal: 'Seals',
+  swordfish: 'Swordfish',
+  alligator: 'Alligators',
+};

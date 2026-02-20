@@ -9,6 +9,34 @@ import { fileURLToPath } from 'node:url';
 const projectRoot = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  server: {
+    proxy: {
+      '/api/ndbc': {
+        target: 'https://www.ndbc.noaa.gov',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/ndbc/, ''),
+      },
+      '/api/mapotic': {
+        target: 'https://www.mapotic.com/api/v1',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/mapotic/, ''),
+      },
+    },
+  },
+  preview: {
+    proxy: {
+      '/api/ndbc': {
+        target: 'https://www.ndbc.noaa.gov',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/ndbc/, ''),
+      },
+      '/api/mapotic': {
+        target: 'https://www.mapotic.com/api/v1',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/mapotic/, ''),
+      },
+    },
+  },
   resolve: {
     alias: [
       {
