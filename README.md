@@ -58,6 +58,15 @@ The service account used in CI must be allowed to act as the default App Engine 
 
 Alternatively, grant **Service Account User** at the project level to the deploy service account.
 
+**If deploy fails with "Request to ... firebaseextensions.googleapis.com ... had HTTP Error: 403"**
+
+The deploy service account needs permission to call the Firebase Extensions API. A project **Owner** should:
+
+1. Open [IAM & Admin](https://console.cloud.google.com/iam-admin/iam?project=fer-resume).
+2. Edit the deploy principal (same as above) and add the role **Firebase Extensions API Viewer** (or a role that includes `firebaseextensions.instances.list`).
+
+If that role is not available, ensure the [Firebase Extensions API](https://console.cloud.google.com/apis/library/firebaseextensions.googleapis.com?project=fer-resume) is enabled for the project and the deploy account has a role that can list extension instances.
+
 ## Further Reading / Useful Links
 
 * [ember.js](https://emberjs.com/)

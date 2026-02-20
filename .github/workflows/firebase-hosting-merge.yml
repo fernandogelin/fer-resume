@@ -24,7 +24,7 @@ jobs:
       - name: Write Firebase service account
         run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FER_RESUME }}' > ${{ runner.temp }}/fb-sa.json
       - name: Deploy Cloud Functions (NDBC/NHC proxy)
-        run: npx firebase-tools deploy --only functions --project fer-resume --non-interactive
+        run: npx firebase-tools deploy --only functions --project fer-resume --non-interactive --force
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/fb-sa.json
       - uses: FirebaseExtended/action-hosting-deploy@v0
