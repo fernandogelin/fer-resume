@@ -10,6 +10,7 @@ nav:
   resume: CV
   projects: Projets
   seatMap: Plan de Salle
+  earthquakeVisualizer: Visualiseur de Séismes
   seatMapBenchmark: Benchmark du Plan de Salle
 actions:
   choose_language: 'Choisir une langue'

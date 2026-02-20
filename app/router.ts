@@ -11,5 +11,6 @@ Router.map(function () {
   this.route('projects', function () {
     this.route('seat-map');
     this.route('seat-map-benchmark');
+    this.route('earthquake-visualizer');
   });
 });

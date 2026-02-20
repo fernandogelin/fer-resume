@@ -50,6 +50,12 @@ const ApplicationTemplate: TOC<ApplicationTemplateSignature> = <template>
             </LinkTo>
           </ContextMenuItem>
 
+          <ContextMenuItem @asChild={{true}} as |item|>
+            <LinkTo @route='projects.earthquake-visualizer' class={{item.classes}}>
+              {{t 'nav.earthquakeVisualizer'}}
+            </LinkTo>
+          </ContextMenuItem>
+
           <ContextMenuSeparator />
           <ContextMenuLabel>{{t 'actions.choose_language'}}</ContextMenuLabel>
           <ContextMenuRadioGroup

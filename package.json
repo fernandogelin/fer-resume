@@ -57,9 +57,11 @@
     "@glint/tsserver-plugin": "^2.1.0",
     "@rollup/plugin-babel": "^6.1.0",
     "@tailwindcss/vite": "^4.2.0",
+    "@types/d3": "^7.4.3",
     "@types/qunit": "^2.19.13",
     "@types/rsvp": "^4.0.9",
     "@types/three": "^0.183.0",
+    "@types/topojson-client": "^3.1.5",
     "babel-plugin-ember-template-compilation": "^3.1.0",
     "concurrently": "^9.2.1",
     "decorator-transforms": "^2.3.1",
@@ -119,12 +121,14 @@
     "@iconify-json/lucide": "^1.2.91",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "d3": "^7.9.0",
     "ember-click-outside": "^6.1.1",
     "ember-intl": "^8.1.0",
     "ember-provide-consume-context": "^0.9.0",
     "html2pdf.js": "^0.14.0",
     "lucide-static": "^0.574.0",
     "tailwind-merge": "^3.4.1",
-    "three": "^0.183.0"
+    "three": "^0.183.0",
+    "topojson-client": "^3.1.0"
   }
 }

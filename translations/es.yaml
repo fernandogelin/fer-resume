@@ -10,6 +10,7 @@ nav:
   resume: Resume
   projects: Proyectos
   seatMap: Mapa de Asientos
+  earthquakeVisualizer: Visualizador de Terremotos
   seatMapBenchmark: Benchmark de Mapa de Asientos
 actions:
   choose_language: 'Elige un idioma'
