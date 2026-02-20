@@ -6,12 +6,12 @@ module('Unit | Service | resume', function (hooks) {
   setupTest(hooks);
 
   test('it exists', function (assert) {
-    const service = this.owner.lookup('service:resume') as ResumeService;
+    const service: ResumeService = this.owner.lookup('service:resume');
     assert.ok(service);
   });
 
   test('it has resume data loaded', function (assert) {
-    const service = this.owner.lookup('service:resume') as ResumeService;
+    const service: ResumeService = this.owner.lookup('service:resume');
     assert.ok(service.data);
     assert.strictEqual(service.data.basics.name, 'Fernando Gelin');
     assert.ok(service.data.work.length > 0);

@@ -7,11 +7,18 @@ import {
 import translationsForEnSe from 'virtual:ember-intl/translations/en-se';
 import translationsForPtBr from 'virtual:ember-intl/translations/pt-br';
 
+interface IntlTestService {
+  addTranslations: (locale: string, translations: unknown) => void;
+  setLocale: (locales: string[]) => void;
+}
+
+interface OwnerWithLookup {
+  lookup: (name: 'service:intl') => IntlTestService;
+}
+
 function setupIntl(hooks: NestedHooks) {
   hooks.beforeEach(function () {
-    const intl = (
-      this as unknown as { owner: { lookup: (name: string) => any } }
-    ).owner.lookup('service:intl');
+    const intl = (this as unknown as { owner: OwnerWithLookup }).owner.lookup('service:intl');
     intl.addTranslations('en-se', translationsForEnSe);
     intl.addTranslations('pt-br', translationsForPtBr);
     intl.setLocale(['en-se']);

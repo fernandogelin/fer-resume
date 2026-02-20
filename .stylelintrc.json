@@ -1,0 +1,15 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["source", "custom-variant", "theme", "layer", "apply"]
+      }
+    ],
+    "import-notation": null,
+    "color-hex-length": null,
+    "rule-empty-line-before": null,
+    "declaration-empty-line-before": null
+  }
+}

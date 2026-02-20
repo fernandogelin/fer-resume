@@ -17,8 +17,8 @@
   "scripts": {
     "build": "vite build",
     "format": "prettier . --cache --write",
-    "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
-    "lint:css": "stylelint \"**/*.css\"",
+    "lint": "concurrently \"npm:lint:css\" \"npm:lint:hbs\" \"npm:lint:js\" \"npm:lint:types\" --names \"lint:\" --prefixColors auto",
+    "lint:css": "stylelint \"app/**/*.css\"",
     "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
     "lint:fix": "concurrently \"npm:lint:*:fix\" --names \"fix:\" --prefixColors auto && npm run format",
     "lint:format": "prettier . --cache --check",
