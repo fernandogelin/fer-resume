@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
+import { modifier } from 'ember-modifier';
 import CpuDemo from 'fer-resume/components/seat-map/cpu-demo';
 import type { SeatLayoutType } from 'fer-resume/components/seat-map/scene';
 import { t } from 'ember-intl';
@@ -22,13 +23,17 @@ interface BenchmarkSectionSignature {
     isBenchmarkRunning: boolean;
     benchmarkResult: BenchmarkResult | null;
     benchmarkError?: string | null;
-    benchmarkGpuBarStyle: string;
-    benchmarkCpuBarStyle: string;
+    benchmarkGpuBarWidth: string;
+    benchmarkCpuBarWidth: string;
     onRunBenchmark: () => void;
   };
 }
 
 export default class BenchmarkSection extends Component<BenchmarkSectionSignature> {
+  applyBarWidth = modifier((element: HTMLElement, [width]: [string]) => {
+    element.style.width = width;
+  });
+
   get hasBenchmarkResult(): boolean {
     return this.args.benchmarkResult !== null;
   }
@@ -92,7 +97,10 @@ export default class BenchmarkSection extends Component<BenchmarkSectionSignatur
                     ms</span>
                 </div>
                 <div class='h-2 rounded bg-muted overflow-hidden'>
-                  <div class='h-full bg-primary rounded' style={{@benchmarkGpuBarStyle}}></div>
+                  <div
+                    class='h-full bg-primary rounded'
+                    {{this.applyBarWidth @benchmarkGpuBarWidth}}
+                  ></div>
                 </div>
               </div>
               <div class='space-y-0.5'>
@@ -102,7 +110,10 @@ export default class BenchmarkSection extends Component<BenchmarkSectionSignatur
                     ms</span>
                 </div>
                 <div class='h-2 rounded bg-muted overflow-hidden'>
-                  <div class='h-full bg-slate-400 rounded' style={{@benchmarkCpuBarStyle}}></div>
+                  <div
+                    class='h-full bg-slate-400 rounded'
+                    {{this.applyBarWidth @benchmarkCpuBarWidth}}
+                  ></div>
                 </div>
               </div>
             </div>

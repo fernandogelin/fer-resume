@@ -53,14 +53,6 @@ class SeatMapBenchmarkPage extends Component {
     return `${Math.max(8, Math.min(100, width)).toFixed(1)}%`;
   }
 
-  get benchmarkGpuBarStyle(): string {
-    return `width:${this.benchmarkGpuBarWidth};`;
-  }
-
-  get benchmarkCpuBarStyle(): string {
-    return `width:${this.benchmarkCpuBarWidth};`;
-  }
-
   @action
   updateRows(event: Event): void {
     const val = parseInt((event.target as HTMLInputElement).value, 10);
@@ -153,8 +145,8 @@ class SeatMapBenchmarkPage extends Component {
             @isBenchmarkRunning={{this.isBenchmarkRunning}}
             @benchmarkResult={{this.benchmarkResult}}
             @benchmarkError={{if this.benchmarkError (t this.benchmarkError)}}
-            @benchmarkGpuBarStyle={{this.benchmarkGpuBarStyle}}
-            @benchmarkCpuBarStyle={{this.benchmarkCpuBarStyle}}
+            @benchmarkGpuBarWidth={{this.benchmarkGpuBarWidth}}
+            @benchmarkCpuBarWidth={{this.benchmarkCpuBarWidth}}
             @onRunBenchmark={{this.runBenchmark}}
           />
         </CardContent>

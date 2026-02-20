@@ -31,9 +31,10 @@ const ApplicationTemplate: TOC<ApplicationTemplateSignature> = <template>
         <ContextMenuTrigger
           class='text-sm font-medium text-muted-foreground transition-colors hover:text-foreground [&.active]:text-primary [&.active]:font-semibold'
         >
-          {{t 'nav.projects'}}
+          Fernando Gelin
         </ContextMenuTrigger>
         <ContextMenuContent class='min-w-56'>
+          <ContextMenuLabel>Fernando Gelin</ContextMenuLabel>
           <ContextMenuItem @asChild={{true}} as |item|>
             <LinkTo @route='index' class={{item.classes}}>
               {{t 'nav.resume'}}
@@ -42,16 +43,10 @@ const ApplicationTemplate: TOC<ApplicationTemplateSignature> = <template>
 
           <ContextMenuSeparator />
           <ContextMenuLabel>{{t 'nav.projects'}}</ContextMenuLabel>
-          <ContextMenuSeparator />
 
           <ContextMenuItem @asChild={{true}} as |item|>
             <LinkTo @route='projects.seat-map' class={{item.classes}}>
               {{t 'nav.seatMap'}}
-            </LinkTo>
-          </ContextMenuItem>
-          <ContextMenuItem @asChild={{true}} as |item|>
-            <LinkTo @route='projects.seat-map-benchmark' class={{item.classes}}>
-              {{t 'nav.seatMapBenchmark'}}
             </LinkTo>
           </ContextMenuItem>
 
