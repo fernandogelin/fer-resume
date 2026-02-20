@@ -1,0 +1,10 @@
+{
+  "name": "fer-resume-functions",
+  "description": "Proxy API for NDBC buoys and NHC storms (CORS)",
+  "main": "index.js",
+  "engines": { "node": ">=18" },
+  "private": true,
+  "dependencies": {
+    "firebase-functions": "^6.3.0"
+  }
+}

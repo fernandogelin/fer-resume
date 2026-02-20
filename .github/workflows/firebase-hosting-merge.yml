@@ -19,6 +19,14 @@ jobs:
         run: npm test
       - name: Build Production
         run: npm run build
+      - name: Install Functions dependencies
+        run: cd functions && npm ci
+      - name: Write Firebase service account
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FER_RESUME }}' > ${{ runner.temp }}/fb-sa.json
+      - name: Deploy Cloud Functions (NDBC/NHC proxy)
+        run: npx firebase-tools deploy --only functions --project fer-resume --non-interactive
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/fb-sa.json
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

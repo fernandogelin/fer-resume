@@ -2,16 +2,20 @@
   "hosting": {
     "site": "fer-resume",
     "public": "dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
-      }
+        "source": "/api/ndbc/**",
+        "function": { "functionId": "apiProxy", "region": "us-central1" }
+      },
+      {
+        "source": "/api/nhc/**",
+        "function": { "functionId": "apiProxy", "region": "us-central1" }
+      },
+      { "source": "**", "destination": "/index.html" }
     ]
+  },
+  "functions": {
+    "source": "functions"
   }
 }
