@@ -45,6 +45,7 @@ const Person: TOC<PersonSignature> = <template>
         class="max-w-full print:hidden"
       ></audio>
     </div>
+    <p class="text-sm text-muted-foreground">{{@person.phonetic_name}}</p>
     <p class="text-sm font-medium text-primary">{{@person.label}}</p>
   </div>
 </template>;
