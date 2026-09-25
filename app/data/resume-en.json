@@ -123,19 +123,19 @@
   "skills": [
     {
       "name": "AI & platforms",
-      "keywords": ["MCP", "LLM integration", "Agentic workflows"]
+      "keywords": ["AI product development", "Conversational experiences", "Agentic workflows", "Platform architecture"]
     },
     {
       "name": "Scientific computing",
-      "keywords": ["Python", "R / Shiny", "GATK", "Picard", "BWA", "D3.js"]
+      "keywords": ["Bioinformatics", "Genomic data analysis", "Data processing pipelines", "Scientific visualization"]
     },
     {
       "name": "Software engineering",
-      "keywords": ["TypeScript", "JavaScript", "React", "Ember.js", "Node.js", "REST APIs", "GraphQL"]
+      "keywords": ["Software architecture", "Web application development", "Systems integration", "Performance optimization"]
     },
     {
       "name": "Leadership",
-      "keywords": ["Engineering management", "Technical strategy", "Mentorship"]
+      "keywords": ["Engineering management", "Product strategy", "Technical roadmapping", "Cross-functional collaboration", "Mentorship"]
     }
   ],
   "publications": [

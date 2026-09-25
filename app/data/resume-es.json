@@ -123,19 +123,19 @@
   "skills": [
     {
       "name": "IA y plataformas",
-      "keywords": ["MCP", "Integración de LLM", "Flujos basados en agentes"]
+      "keywords": ["Desarrollo de productos de IA", "Experiencias conversacionales", "Flujos basados en agentes", "Arquitectura de plataformas"]
     },
     {
       "name": "Computación científica",
-      "keywords": ["Python", "R / Shiny", "GATK", "Picard", "BWA", "D3.js"]
+      "keywords": ["Bioinformática", "Análisis de datos genómicos", "Pipelines de procesamiento de datos", "Visualización científica"]
     },
     {
       "name": "Ingeniería de software",
-      "keywords": ["TypeScript", "JavaScript", "React", "Ember.js", "Node.js", "REST APIs", "GraphQL"]
+      "keywords": ["Arquitectura de software", "Desarrollo de aplicaciones web", "Integración de sistemas", "Optimización del rendimiento"]
     },
     {
       "name": "Liderazgo",
-      "keywords": ["Gestión de ingeniería", "Estrategia técnica", "Mentoría"]
+      "keywords": ["Gestión de ingeniería", "Estrategia de producto", "Planificación técnica", "Colaboración interdisciplinaria", "Mentoría"]
     }
   ],
   "publications": [
