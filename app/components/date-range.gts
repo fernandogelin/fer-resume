@@ -18,6 +18,7 @@ export default class DateRange extends Component<DateRangeSignature> {
     return new Intl.DateTimeFormat(this.intl.primaryLocale, {
       year: 'numeric',
       month: 'short',
+      timeZone: 'UTC',
     }).format(new Date(this.args.startDate));
   }
 
@@ -26,9 +27,10 @@ export default class DateRange extends Component<DateRangeSignature> {
       return new Intl.DateTimeFormat(this.intl.primaryLocale, {
         year: 'numeric',
         month: 'short',
+        timeZone: 'UTC',
       }).format(new Date(this.args.endDate));
     }
-    return this.intl.t('time.present') as unknown as string;
+    return this.intl.t('time.present');
   }
 
   <template>
