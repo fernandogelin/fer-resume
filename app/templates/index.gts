@@ -6,7 +6,7 @@ import WorkItem from 'fer-resume/components/work-item';
 import EducationItem from 'fer-resume/components/education-item';
 import PublicationItem from 'fer-resume/components/publication-item';
 import type { ResumeData } from 'fer-resume/types/resume';
-import { Laptop, GraduationCap, BookOpen } from 'lucide-static';
+import { Laptop, GraduationCap, BookOpen, Award } from 'lucide-static';
 
 interface IndexTemplateSignature {
   Args: {
@@ -32,6 +32,12 @@ const IndexTemplate: TOC<IndexTemplateSignature> = <template>
       <ResumeSection @titleKey='main.education' @icon={{GraduationCap}}>
         {{#each @model.education as |education|}}
           <EducationItem @model={{education}} />
+        {{/each}}
+      </ResumeSection>
+
+      <ResumeSection @titleKey='main.certifications' @icon={{Award}}>
+        {{#each @model.certifications as |certification|}}
+          <EducationItem @model={{certification}} />
         {{/each}}
       </ResumeSection>
 

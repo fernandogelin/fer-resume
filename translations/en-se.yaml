@@ -1,4 +1,5 @@
 main:
+  certifications: Certifications
   name: Name
   education: Education
   work: Work

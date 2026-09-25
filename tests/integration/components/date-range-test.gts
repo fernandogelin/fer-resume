@@ -16,6 +16,12 @@ module('Integration | Component | date-range', function (hooks) {
     assert.ok(text.includes('–'), 'contains separator');
   });
 
+  test('it preserves the month for first-of-month dates', async function (assert) {
+    await render(<template><DateRange @startDate='2007-12-01' @endDate='2009-05-01' /></template>);
+
+    assert.dom('span').hasText('Dec 2007 – May 2009');
+  });
+
   test('it renders "present" when endDate is null', async function (assert) {
     await render(<template><DateRange @startDate='2020-01-15' @endDate={{null}} /></template>);
 

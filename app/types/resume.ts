@@ -48,6 +48,7 @@ export interface ResumeData {
   basics: Basics;
   work: WorkEntry[];
   education: EducationEntry[];
+  certifications: EducationEntry[];
   skills: Skill[];
   publications: Publication[];
 }

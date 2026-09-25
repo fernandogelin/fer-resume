@@ -1,4 +1,5 @@
 main:
+  certifications: Certificações
   name: Nome
   education: "Educa\xE7\xE3o"
   work: "Experi\xEAncia Profissional"
