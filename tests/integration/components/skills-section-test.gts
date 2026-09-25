@@ -13,12 +13,11 @@ module('Integration | Component | skills-section', function (hooks) {
       { name: 'Backend', keywords: ['Node.js', 'Python'] },
     ];
 
-    await render(
-      <template><SkillsSection @skills={{skills}} /></template>,
-    );
+    await render(<template><SkillsSection @skills={{skills}} /></template>);
 
-    assert.dom('[data-slot="card"]').exists();
-    assert.dom('.text-sm.font-medium').exists({ count: 2 });
-    assert.dom('[data-slot="badge"]').exists({ count: 4 });
+    assert.dom('section').exists();
+    assert.dom('dt').exists({ count: 2 });
+    assert.dom('dt').hasText('Frontend:');
+    assert.dom('dd').hasText('React, TypeScript');
   });
 });
