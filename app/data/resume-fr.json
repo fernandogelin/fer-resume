@@ -1,7 +1,8 @@
 {
   "basics": {
     "name": "Fernando Gelin",
-    "phonetic_name": "fɚˈnændoʊ ʒeˈlĩ",
+    "phonetic_name": "/feʁˈnɐ̃du ʒeˈlĩ/",
+    "pronunciation_english": "fehr-NAHN-doo zheh-LEEN",
     "label": "Responsable des Produits IA, MarianaTek",
     "summary": "Leader en ingénierie et produit, avec une solide expérience pratique en architecture logicielle, développement des équipes et IA. Expérience dans la transformation de problèmes complexes en produits concrets, la définition de l’orientation technique et l’accompagnement des équipes de l’exploration à la mise en production.",
     "location": "San Francisco, CA",
@@ -35,7 +36,7 @@
     },
     {
       "company": "Xplor Technologies",
-      "position": "Responsable Senior Ingénierie | Architecte Logiciel Frontend",
+      "position": "Responsable Senior Ingénierie | Architecte Logiciel Frontend – MarianaTek",
       "location": "Télétravail",
       "startDate": "2023-08-01",
       "endDate": "2026-03-31",
@@ -50,7 +51,7 @@
     },
     {
       "company": "Xplor Technologies",
-      "position": "Ingénieur Frontend Senior",
+      "position": "Ingénieur Frontend Senior – MarianaTek",
       "location": "Télétravail",
       "startDate": "2021-01-01",
       "endDate": "2023-07-31",
@@ -62,8 +63,8 @@
       ]
     },
     {
-      "company": "Brown University – Centre de Calcul et Visualisation",
-      "position": "Ingénieur Senior en Logiciel de Recherche",
+      "company": "Brown University",
+      "position": "Ingénieur Senior en Logiciel de Recherche – Centre de Calcul et Visualisation",
       "location": "Providence, RI",
       "startDate": "2018-04-01",
       "endDate": "2021-01-31",
@@ -73,6 +74,18 @@
         "Implémenté des pipelines de streaming de données en temps réel pour des enregistrements synchronisés comportementaux et neurophysiologiques",
         "Créé des visualisations basées sur D3.js pour des ensembles de données de recherche complexes, permettant aux chercheurs d'explorer et analyser les résultats expérimentaux",
         "Publié des recherches évaluées par des pairs sur des frameworks reproductibles de tâches psychophysiologiques (Nature Medicine, Brazilian Journal of Psychiatry)"
+      ]
+    },
+    {
+      "company": "University of Washington",
+      "position": "Chercheur senior – UW Medicine Department of Psychiatry",
+      "location": "",
+      "startDate": "2014-05-01",
+      "endDate": "2016-06-30",
+      "highlights": [
+        "Analysé des séquences du génome humain avec GATK, Picard et BWA",
+        "Développé des pipelines de traitement de données en Python et une application R Shiny pour explorer et visualiser des données de variants génétiques",
+        "Développé une application Ember.js pour le laboratoire afin de générer des protocoles et de calculer les quantités de réactifs pour les réactions de séquençage ciblé"
       ]
     }
   ],
@@ -110,20 +123,20 @@
   ],
   "skills": [
     {
-      "name": "Frontend",
-      "keywords": ["React", "Svelte", "Vue", "TypeScript", "JavaScript", "Ember.js", "Web Components", "D3.js", "HTML", "CSS", "Tailwind CSS", "Storybook", "APIs Web Natives", "Design Systems", "Accessibilité (WCAG)"]
+      "name": "IA et plateformes",
+      "keywords": ["Développement de produits IA", "Expériences conversationnelles", "Workflows agentiques", "Architecture de plateformes"]
     },
     {
-      "name": "Infrastructure",
-      "keywords": ["Node.js", "REST APIs", "GraphQL", "AWS", "Docker", "Pipelines CI/CD", "Git"]
+      "name": "Calcul scientifique",
+      "keywords": ["Bioinformatique", "Analyse de données génomiques", "Pipelines de traitement de données", "Visualisation scientifique"]
     },
     {
-      "name": "Architecture",
-      "keywords": ["Microfrontends", "Stratégies Monorepo", "Optimisation des Performances"]
+      "name": "Ingénierie logicielle",
+      "keywords": ["Architecture logicielle", "Développement d’applications web", "Intégration de systèmes", "Optimisation des performances"]
     },
     {
       "name": "Leadership",
-      "keywords": ["Agile/Scrum", "Collaboration Transversale", "Recrutement et Mentorat", "Feuilles de Route Techniques"]
+      "keywords": ["Management des équipes techniques", "Stratégie produit", "Planification technique", "Collaboration transversale", "Mentorat"]
     }
   ],
   "publications": [

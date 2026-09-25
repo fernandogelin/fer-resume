@@ -1,7 +1,8 @@
 {
   "basics": {
     "name": "Fernando Gelin",
-    "phonetic_name": "fɚˈnændoʊ ʒeˈlĩ",
+    "phonetic_name": "/feʁˈnɐ̃du ʒeˈlĩ/",
+    "pronunciation_english": "fehr-NAHN-doo zheh-LEEN",
     "label": "Head de Produtos de IA, MarianaTek",
     "summary": "Líder de engenharia e produto com sólida experiência prática em arquitetura de software, desenvolvimento de equipes e IA. Experiência em transformar problemas complexos em produtos práticos, definir a direção técnica e liderar equipes da exploração à produção.",
     "location": "San Francisco, CA",
@@ -35,7 +36,7 @@
     },
     {
       "company": "Xplor Technologies",
-      "position": "Gerente Sênior de Engenharia | Arquiteto de Software Frontend",
+      "position": "Gerente Sênior de Engenharia | Arquiteto de Software Frontend – MarianaTek",
       "location": "Remoto",
       "startDate": "2023-08-01",
       "endDate": "2026-03-31",
@@ -50,7 +51,7 @@
     },
     {
       "company": "Xplor Technologies",
-      "position": "Engenheiro Frontend Sênior",
+      "position": "Engenheiro Frontend Sênior – MarianaTek",
       "location": "Remoto",
       "startDate": "2021-01-01",
       "endDate": "2023-07-31",
@@ -62,8 +63,8 @@
       ]
     },
     {
-      "company": "Brown University – Centro de Computação e Visualização",
-      "position": "Engenheiro de Software de Pesquisa Sênior",
+      "company": "Brown University",
+      "position": "Engenheiro de Software de Pesquisa Sênior – Centro de Computação e Visualização",
       "location": "Providence, RI",
       "startDate": "2018-04-01",
       "endDate": "2021-01-31",
@@ -73,6 +74,18 @@
         "Implementei pipelines de streaming de dados em tempo real para gravações sincronizadas comportamentais e neurofisiológicas",
         "Criei visualizações baseadas em D3.js para conjuntos de dados de pesquisa complexos, permitindo que pesquisadores explorem e analisem resultados experimentais",
         "Publiquei pesquisa peer-reviewed sobre frameworks reproduzíveis de tarefas psicofisiológicas (Nature Medicine, Brazilian Journal of Psychiatry)"
+      ]
+    },
+    {
+      "company": "University of Washington",
+      "position": "Pesquisador Sênior – UW Medicine Department of Psychiatry",
+      "location": "",
+      "startDate": "2014-05-01",
+      "endDate": "2016-06-30",
+      "highlights": [
+        "Analisei sequências do genoma humano usando GATK, Picard e BWA",
+        "Desenvolvi pipelines de processamento de dados em Python e uma aplicação R Shiny para explorar e visualizar dados de variantes genéticas",
+        "Desenvolvi uma aplicação Ember.js para o laboratório gerar protocolos e calcular quantidades de reagentes para reações de sequenciamento direcionado"
       ]
     }
   ],
@@ -110,20 +123,20 @@
   ],
   "skills": [
     {
-      "name": "Frontend",
-      "keywords": ["React", "Svelte", "Vue", "TypeScript", "JavaScript", "Ember.js", "Web Components", "D3.js", "HTML", "CSS", "Tailwind CSS", "Storybook", "APIs Web Nativas", "Design Systems", "Acessibilidade (WCAG)"]
+      "name": "IA e plataformas",
+      "keywords": ["Desenvolvimento de produtos de IA", "Experiências conversacionais", "Fluxos baseados em agentes", "Arquitetura de plataformas"]
     },
     {
-      "name": "Infraestrutura",
-      "keywords": ["Node.js", "REST APIs", "GraphQL", "AWS", "Docker", "Pipelines CI/CD", "Git"]
+      "name": "Computação científica",
+      "keywords": ["Bioinformática", "Análise de dados genômicos", "Pipelines de processamento de dados", "Visualização científica"]
     },
     {
-      "name": "Arquitetura",
-      "keywords": ["Microfrontends", "Estratégias de Monorepo", "Otimização de Performance"]
+      "name": "Engenharia de software",
+      "keywords": ["Arquitetura de software", "Desenvolvimento de aplicações web", "Integração de sistemas", "Otimização de desempenho"]
     },
     {
       "name": "Liderança",
-      "keywords": ["Agile/Scrum", "Colaboração Multifuncional", "Contratação e Mentoria", "Roadmaps Técnicos"]
+      "keywords": ["Gestão de engenharia", "Estratégia de produto", "Planejamento técnico", "Colaboração multifuncional", "Mentoria"]
     }
   ],
   "publications": [

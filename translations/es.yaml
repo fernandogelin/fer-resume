@@ -15,6 +15,7 @@ nav:
   oceanLive: Océano en Vivo
   seatMapBenchmark: Benchmark de Mapa de Asientos
 actions:
+  pronounce_name: Escuchar la pronunciación del nombre
   choose_language: 'Elige un idioma'
   download: Descargar Resume
   collapse_panel: Contraer panel

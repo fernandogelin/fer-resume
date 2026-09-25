@@ -24,10 +24,12 @@ const WorkItem: TOC<WorkItemSignature> = <template>
       </p>
       <div class="flex items-center gap-3 mt-1">
         <DateRange @startDate={{@model.startDate}} @endDate={{@model.endDate}} />
-        <span class="flex items-center gap-1 text-xs text-muted-foreground">
-          <Icon @svg={{MapPin}} @size={{14}} />
-          {{@model.location}}
-        </span>
+        {{#if @model.location}}
+          <span class="flex items-center gap-1 text-xs text-muted-foreground">
+            <Icon @svg={{MapPin}} @size={{14}} />
+            {{@model.location}}
+          </span>
+        {{/if}}
       </div>
       <ul class="text-sm mt-2 space-y-1 list-disc list-inside">
         {{#each @model.highlights as |highlight|}}
