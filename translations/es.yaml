@@ -1,4 +1,5 @@
 main:
+  certifications: Certificaciones
   name: Nombre
   education: "Educaci\xF3n"
   work: Experiencia Profesional

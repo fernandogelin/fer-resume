@@ -1,4 +1,5 @@
 main:
+  certifications: Certifications
   name: Nom
   education: 'Formation'
   work: "Exp\xE9rience Professionnelle"
