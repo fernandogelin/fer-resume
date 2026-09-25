@@ -2,7 +2,8 @@
   "basics": {
     "name": "Fernando Gelin",
     "phonetic_name": "fɚˈnændoʊ ʒeˈlĩ",
-    "label": "Frontend Engineering Manager",
+    "label": "Head of AI Products, MarianaTek",
+    "summary": "Engineering and product leader with a strong hands-on foundation in software architecture, team development, and AI. Experienced in translating complex problems into practical products, setting technical direction, and leading teams from exploration through production.",
     "location": "San Francisco, CA",
     "email": "fernando@fernandogelin.com",
     "profiles": [
@@ -13,18 +14,31 @@
       },
       {
         "network": "linkedin",
-        "username": "fernandogelin",
-        "url": "https://linkedin.com/in/fernandogelin"
+        "username": "fernando-gelin-b4a009289",
+        "url": "https://www.linkedin.com/in/fernando-gelin-b4a009289/"
       }
     ]
   },
   "work": [
     {
       "company": "Xplor Technologies",
+      "position": "Head of AI Products, MarianaTek",
+      "location": "Remote",
+      "startDate": "2026-04-01",
+      "endDate": null,
+      "highlights": [
+        "Build and deploy Xplor’s MCP connector, in-product AI features, and customer-facing agentic messaging, owning implementation through production deployment",
+        "Set AI strategy and roadmap across customer-facing products and the internal platform",
+        "Build conversational and agentic experiences for studio operators and their customers, spanning scheduling, member communications, and operational workflows",
+        "Establish the internal AI platform: tooling, infrastructure, and patterns that enable every engineer to ship AI features safely"
+      ]
+    },
+    {
+      "company": "Xplor Technologies",
       "position": "Senior Engineering Manager | Frontend Software Architect",
       "location": "Remote",
       "startDate": "2023-08-01",
-      "endDate": null,
+      "endDate": "2026-03-31",
       "highlights": [
         "Lead a team of 9 full-stack engineers building scalable web applications for boutique fitness studios, delivering seamless experiences across scheduling, payments, and client management",
         "Drive frontend architecture strategy including microfrontend adoption, enabling independent team deployments and faster iteration cycles",

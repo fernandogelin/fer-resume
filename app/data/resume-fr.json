@@ -2,7 +2,8 @@
   "basics": {
     "name": "Fernando Gelin",
     "phonetic_name": "fɚˈnændoʊ ʒeˈlĩ",
-    "label": "Responsable Ingénierie Frontend",
+    "label": "Responsable des Produits IA, MarianaTek",
+    "summary": "Leader en ingénierie et produit, avec une solide expérience pratique en architecture logicielle, développement des équipes et IA. Expérience dans la transformation de problèmes complexes en produits concrets, la définition de l’orientation technique et l’accompagnement des équipes de l’exploration à la mise en production.",
     "location": "San Francisco, CA",
     "email": "fernando@fernandogelin.com",
     "profiles": [
@@ -13,18 +14,31 @@
       },
       {
         "network": "linkedin",
-        "username": "fernandogelin",
-        "url": "https://linkedin.com/in/fernandogelin"
+        "username": "fernando-gelin-b4a009289",
+        "url": "https://www.linkedin.com/in/fernando-gelin-b4a009289/"
       }
     ]
   },
   "work": [
     {
       "company": "Xplor Technologies",
+      "position": "Responsable des Produits IA, MarianaTek",
+      "location": "Télétravail",
+      "startDate": "2026-04-01",
+      "endDate": null,
+      "highlights": [
+        "Développe et déploie le connecteur MCP de Xplor, les fonctionnalités IA intégrées au produit et la messagerie destinée aux clients reposant sur des agents, avec une responsabilité de l’implémentation à la mise en production",
+        "Définis la stratégie et la feuille de route IA pour les produits destinés aux clients et la plateforme interne",
+        "Développe des expériences conversationnelles et fondées sur des agents pour les exploitants de studios et leurs clients, couvrant la planification, les communications avec les membres et les processus opérationnels",
+        "Mets en place la plateforme IA interne : outils, infrastructure et pratiques permettant à chaque ingénieur de livrer des fonctionnalités IA en toute sécurité"
+      ]
+    },
+    {
+      "company": "Xplor Technologies",
       "position": "Responsable Senior Ingénierie | Architecte Logiciel Frontend",
       "location": "Télétravail",
       "startDate": "2023-08-01",
-      "endDate": null,
+      "endDate": "2026-03-31",
       "highlights": [
         "Dirige une équipe de 9 ingénieurs full-stack développant des applications web évolutives pour des studios de fitness boutique, offrant des expériences intégrées de planification, paiements et gestion clients",
         "Définis la stratégie d'architecture frontend incluant l'adoption de microfrontends, permettant des déploiements indépendants et des cycles d'itération plus rapides",
