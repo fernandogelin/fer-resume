@@ -74,6 +74,18 @@
         "Created D3.js-based visualizations for complex research datasets, enabling researchers to explore and analyze experimental results",
         "Published peer-reviewed research on reproducible psychophysiological task frameworks (Nature Medicine, Brazilian Journal of Psychiatry)"
       ]
+    },
+    {
+      "company": "University of Washington",
+      "position": "Senior Research Fellow",
+      "location": "",
+      "startDate": "2014-05-01",
+      "endDate": "2016-06-30",
+      "highlights": [
+        "Analyzed human genome sequences using GATK, Picard, and BWA",
+        "Built data processing pipelines in Python and an R Shiny application to explore and visualize genetic variant data",
+        "Built an Ember.js application for the lab to generate protocols and calculate reagent amounts for targeted sequencing reactions"
+      ]
     }
   ],
   "education": [
@@ -110,20 +122,20 @@
   ],
   "skills": [
     {
-      "name": "Frontend",
-      "keywords": ["React", "Svelte", "Vue", "TypeScript", "JavaScript", "Ember.js", "Web Components", "D3.js", "HTML", "CSS", "Tailwind CSS", "Storybook", "Native Web APIs", "Design Systems", "Accessibility (WCAG)"]
+      "name": "AI & platforms",
+      "keywords": ["MCP", "LLM integration", "Agentic workflows"]
     },
     {
-      "name": "Infrastructure",
-      "keywords": ["Node.js", "REST APIs", "GraphQL", "AWS", "Docker", "CI/CD Pipelines", "Git"]
+      "name": "Scientific computing",
+      "keywords": ["Python", "R / Shiny", "GATK", "Picard", "BWA", "D3.js"]
     },
     {
-      "name": "Architecture",
-      "keywords": ["Microfrontends", "Monorepo Strategies", "Performance Optimization"]
+      "name": "Software engineering",
+      "keywords": ["TypeScript", "JavaScript", "React", "Ember.js", "Node.js", "REST APIs", "GraphQL"]
     },
     {
       "name": "Leadership",
-      "keywords": ["Agile/Scrum", "Cross-functional Collaboration", "Hiring and Mentorship", "Technical Roadmapping"]
+      "keywords": ["Engineering management", "Technical strategy", "Mentorship"]
     }
   ],
   "publications": [

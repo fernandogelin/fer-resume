@@ -20,7 +20,6 @@ const IndexTemplate: TOC<IndexTemplateSignature> = <template>
   >
     <aside class='space-y-4'>
       <ProfileCard @person={{@model.basics}} />
-      <SkillsSection @skills={{@model.skills}} />
     </aside>
     <main>
       {{#if @model.basics.summary}}
@@ -51,6 +50,7 @@ const IndexTemplate: TOC<IndexTemplateSignature> = <template>
           <PublicationItem @model={{pub}} />
         {{/each}}
       </ResumeSection>
+      <SkillsSection @skills={{@model.skills}} />
     </main>
   </div>
 </template>;

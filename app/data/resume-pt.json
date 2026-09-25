@@ -74,6 +74,18 @@
         "Criei visualizações baseadas em D3.js para conjuntos de dados de pesquisa complexos, permitindo que pesquisadores explorem e analisem resultados experimentais",
         "Publiquei pesquisa peer-reviewed sobre frameworks reproduzíveis de tarefas psicofisiológicas (Nature Medicine, Brazilian Journal of Psychiatry)"
       ]
+    },
+    {
+      "company": "University of Washington",
+      "position": "Pesquisador Sênior",
+      "location": "",
+      "startDate": "2014-05-01",
+      "endDate": "2016-06-30",
+      "highlights": [
+        "Analisei sequências do genoma humano usando GATK, Picard e BWA",
+        "Desenvolvi pipelines de processamento de dados em Python e uma aplicação R Shiny para explorar e visualizar dados de variantes genéticas",
+        "Desenvolvi uma aplicação Ember.js para o laboratório gerar protocolos e calcular quantidades de reagentes para reações de sequenciamento direcionado"
+      ]
     }
   ],
   "education": [
@@ -110,20 +122,20 @@
   ],
   "skills": [
     {
-      "name": "Frontend",
-      "keywords": ["React", "Svelte", "Vue", "TypeScript", "JavaScript", "Ember.js", "Web Components", "D3.js", "HTML", "CSS", "Tailwind CSS", "Storybook", "APIs Web Nativas", "Design Systems", "Acessibilidade (WCAG)"]
+      "name": "IA e plataformas",
+      "keywords": ["MCP", "Integração de LLMs", "Fluxos baseados em agentes"]
     },
     {
-      "name": "Infraestrutura",
-      "keywords": ["Node.js", "REST APIs", "GraphQL", "AWS", "Docker", "Pipelines CI/CD", "Git"]
+      "name": "Computação científica",
+      "keywords": ["Python", "R / Shiny", "GATK", "Picard", "BWA", "D3.js"]
     },
     {
-      "name": "Arquitetura",
-      "keywords": ["Microfrontends", "Estratégias de Monorepo", "Otimização de Performance"]
+      "name": "Engenharia de software",
+      "keywords": ["TypeScript", "JavaScript", "React", "Ember.js", "Node.js", "REST APIs", "GraphQL"]
     },
     {
       "name": "Liderança",
-      "keywords": ["Agile/Scrum", "Colaboração Multifuncional", "Contratação e Mentoria", "Roadmaps Técnicos"]
+      "keywords": ["Gestão de engenharia", "Estratégia técnica", "Mentoria"]
     }
   ],
   "publications": [
