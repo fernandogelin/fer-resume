@@ -7,6 +7,7 @@ export interface Profile {
 export interface Basics {
   name: string;
   phonetic_name: string;
+  pronunciation_english?: string;
   label: string;
   summary?: string;
   location: string;
