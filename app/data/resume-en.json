@@ -27,7 +27,7 @@
       "startDate": "2026-04-01",
       "endDate": null,
       "highlights": [
-        "Build and deploy Xplor’s MCP connector, in-product AI features, and customer-facing agentic messaging, owning implementation through production deployment",
+        "Build and deploy MarianaTek’s MCP connector, in-product AI features, and customer-facing agentic messaging, owning implementation through production deployment",
         "Set AI strategy and roadmap across customer-facing products and the internal platform",
         "Build conversational and agentic experiences for studio operators and their customers, spanning scheduling, member communications, and operational workflows",
         "Establish the internal AI platform: tooling, infrastructure, and patterns that enable every engineer to ship AI features safely"
