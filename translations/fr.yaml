@@ -15,6 +15,7 @@ nav:
   oceanLive: Océan en Direct
   seatMapBenchmark: Benchmark du Plan de Salle
 actions:
+  pronounce_name: Écouter la prononciation du nom
   choose_language: 'Choisir une langue'
   download: "T\xE9l\xE9charger le CV"
   collapse_panel: Réduire le panneau
