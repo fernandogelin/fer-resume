@@ -8,6 +8,7 @@ export interface Basics {
   name: string;
   phonetic_name: string;
   label: string;
+  summary?: string;
   location: string;
   email: string;
   profiles: Profile[];

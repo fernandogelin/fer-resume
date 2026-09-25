@@ -23,6 +23,11 @@ const IndexTemplate: TOC<IndexTemplateSignature> = <template>
       <SkillsSection @skills={{@model.skills}} />
     </aside>
     <main>
+      {{#if @model.basics.summary}}
+        <p class='mb-6 text-sm leading-relaxed text-muted-foreground'>
+          {{@model.basics.summary}}
+        </p>
+      {{/if}}
       <ResumeSection @titleKey='main.work' @icon={{Laptop}}>
         {{#each @model.work as |work|}}
           <WorkItem @model={{work}} />

@@ -2,7 +2,8 @@
   "basics": {
     "name": "Fernando Gelin",
     "phonetic_name": "fɚˈnændoʊ ʒeˈlĩ",
-    "label": "Gerente de Ingeniería Frontend",
+    "label": "Responsable de Productos de IA, MarianaTek",
+    "summary": "Líder de ingeniería y producto con una sólida base práctica en arquitectura de software, desarrollo de equipos e IA. Experiencia en transformar problemas complejos en productos prácticos, definir la dirección técnica y liderar equipos desde la exploración hasta la producción.",
     "location": "San Francisco, CA",
     "email": "fernando@fernandogelin.com",
     "profiles": [
@@ -13,18 +14,31 @@
       },
       {
         "network": "linkedin",
-        "username": "fernandogelin",
-        "url": "https://linkedin.com/in/fernandogelin"
+        "username": "fernando-gelin-b4a009289",
+        "url": "https://www.linkedin.com/in/fernando-gelin-b4a009289/"
       }
     ]
   },
   "work": [
     {
       "company": "Xplor Technologies",
+      "position": "Responsable de Productos de IA, MarianaTek",
+      "location": "Remoto",
+      "startDate": "2026-04-01",
+      "endDate": null,
+      "highlights": [
+        "Desarrollo y despliego el conector MCP de MarianaTek, funcionalidades de IA en el producto y mensajería basada en agentes orientada a clientes, con responsabilidad desde la implementación hasta el despliegue en producción",
+        "Defino la estrategia y la hoja de ruta de IA para los productos orientados a clientes y la plataforma interna",
+        "Desarrollo experiencias conversacionales y basadas en agentes para operadores de estudios y sus clientes, que abarcan programación de clases, comunicación con miembros y flujos operativos",
+        "Establezco la plataforma interna de IA: herramientas, infraestructura y patrones que permiten a todos los ingenieros entregar funcionalidades de IA de forma segura"
+      ]
+    },
+    {
+      "company": "Xplor Technologies",
       "position": "Gerente Senior de Ingeniería | Arquitecto de Software Frontend",
       "location": "Remoto",
       "startDate": "2023-08-01",
-      "endDate": null,
+      "endDate": "2026-03-31",
       "highlights": [
         "Lidero un equipo de 9 ingenieros full-stack construyendo aplicaciones web escalables para estudios de fitness boutique, ofreciendo experiencias integradas en programación, pagos y gestión de clientes",
         "Defino la estrategia de arquitectura frontend incluyendo adopción de microfrontends, habilitando despliegues independientes y ciclos de iteración más rápidos",
