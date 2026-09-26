@@ -30,6 +30,7 @@
       "highlights": [
         "Build and deploy MarianaTek’s MCP connector, in-product AI features, and customer-facing agentic messaging, owning implementation through production deployment",
         "Set AI strategy and roadmap across customer-facing products and the internal platform",
+        "Define the strategy and process for agentic development across the software lifecycle, creating reusable AI agent skills for spec-driven development and collaboration among engineers, product managers, and designers",
         "Build conversational and agentic experiences for studio operators and their customers, spanning scheduling, member communications, and operational workflows",
         "Establish the internal AI platform: tooling, infrastructure, and patterns that enable every engineer to ship AI features safely"
       ]

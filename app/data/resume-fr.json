@@ -30,6 +30,7 @@
       "highlights": [
         "Développe et déploie le connecteur MCP de MarianaTek, les fonctionnalités IA intégrées au produit et la messagerie destinée aux clients reposant sur des agents, avec une responsabilité de l’implémentation à la mise en production",
         "Définis la stratégie et la feuille de route IA pour les produits destinés aux clients et la plateforme interne",
+        "Définis la stratégie et les processus de développement avec des agents tout au long du cycle de vie logiciel, en créant des skills réutilisables pour les agents IA qui soutiennent le développement guidé par les spécifications et la collaboration entre ingénieurs, chefs de produit et designers",
         "Développe des expériences conversationnelles et fondées sur des agents pour les exploitants de studios et leurs clients, couvrant la planification, les communications avec les membres et les processus opérationnels",
         "Mets en place la plateforme IA interne : outils, infrastructure et pratiques permettant à chaque ingénieur de livrer des fonctionnalités IA en toute sécurité"
       ]
