@@ -30,6 +30,7 @@
       "highlights": [
         "Développe et déploie le connecteur MCP de MarianaTek, les fonctionnalités IA intégrées au produit et la messagerie destinée aux clients reposant sur des agents, avec une responsabilité de l’implémentation à la mise en production",
         "Définis la stratégie et la feuille de route IA pour les produits destinés aux clients et la plateforme interne",
+        "Définis la stratégie et les processus de développement avec des agents tout au long du cycle de vie logiciel, en créant des skills réutilisables pour les agents IA qui soutiennent le développement guidé par les spécifications et la collaboration entre ingénieurs, chefs de produit et designers",
         "Développe des expériences conversationnelles et fondées sur des agents pour les exploitants de studios et leurs clients, couvrant la planification, les communications avec les membres et les processus opérationnels",
         "Mets en place la plateforme IA interne : outils, infrastructure et pratiques permettant à chaque ingénieur de livrer des fonctionnalités IA en toute sécurité"
       ]
@@ -41,12 +42,12 @@
       "startDate": "2023-08-01",
       "endDate": "2026-03-31",
       "highlights": [
-        "Dirige une équipe de 9 ingénieurs full-stack développant des applications web évolutives pour des studios de fitness boutique, offrant des expériences intégrées de planification, paiements et gestion clients",
-        "Définis la stratégie d'architecture frontend incluant l'adoption de microfrontends, permettant des déploiements indépendants et des cycles d'itération plus rapides",
-        "Conçois et implémente des fonctionnalités natives d'IA et des interfaces conversationnelles, intégrant des capacités LLM dans les flux de production",
-        "Collabore avec Produit, Design et la direction exécutive pour traduire les objectifs business en feuilles de route techniques, équilibrant livraison de features et stabilité de la plateforme",
-        "Promeut les meilleures pratiques frontend incluant l'accessibilité (WCAG), la cohérence du design system et l'optimisation des performances",
-        "Mentore des ingénieurs à tous les niveaux, conduit des revues d'architecture et favorise une culture d'excellence technique"
+        "Dirigé une équipe de 9 ingénieurs full-stack développant des applications web évolutives pour des studios de fitness boutique, offrant des expériences intégrées de planification, paiements et gestion clients",
+        "Défini la stratégie d'architecture frontend incluant l'adoption de microfrontends, permettant des déploiements indépendants et des cycles d'itération plus rapides",
+        "Conçu et implémenté des fonctionnalités natives d'IA et des interfaces conversationnelles, intégrant des capacités LLM dans les flux de production",
+        "Collaboré avec Produit, Design et la direction exécutive pour traduire les objectifs business en feuilles de route techniques, équilibrant livraison de features et stabilité de la plateforme",
+        "Promu les meilleures pratiques frontend incluant l'accessibilité (WCAG), la cohérence du design system et l'optimisation des performances",
+        "Accompagné des ingénieurs à tous les niveaux, conduit des revues d'architecture et favorisé une culture d'excellence technique"
       ]
     },
     {
@@ -56,8 +57,8 @@
       "startDate": "2021-01-01",
       "endDate": "2023-07-31",
       "highlights": [
-        "Dirigé les améliorations d'architecture frontend, migrant le monolithe Ember.js vers des frameworks modernes (React, TypeScript)",
-        "Conçu et maintenu un design system évolutif avec Storybook, améliorant la cohérence UI sur plusieurs applications",
+        "Mis à jour l'application Ember.js existante vers des versions plus récentes et développé des fonctionnalités dans des applications React",
+        "Lancé le design system de l'entreprise fondé sur les Web Components et intégré celui-ci à l'application Ember.js",
         "Dirigé les initiatives d'optimisation de performance, améliorant significativement les temps de chargement et la réactivité",
         "Collaboré avec Produit, Design et QA pour améliorer l'accessibilité et l'utilisabilité"
       ]
@@ -66,14 +67,38 @@
       "company": "Brown University",
       "position": "Ingénieur Senior en Logiciel de Recherche – Centre de Calcul et Visualisation",
       "location": "Providence, RI",
-      "startDate": "2018-04-01",
+      "startDate": "2019-10-01",
       "endDate": "2021-01-31",
       "highlights": [
+        "Développé, déployé et maintenu des applications web de recherche pour scientifiques et étudiants, des outils ponctuels aux systèmes distribués utilisés par des milliers d'étudiants",
+        "Encadré des stagiaires de premier cycle et des étudiants diplômés en contrôle de version, tests et développement logiciel collaboratif",
         "Développé des outils interactifs de visualisation de données et des applications web en collaboration avec des scientifiques de données et des équipes de recherche",
         "Développé Honeycomb, un framework open-source pour la collecte de données psychophysiologiques en temps réel, soutenant les recherches de l'Initiative BRAIN du NIH",
         "Implémenté des pipelines de streaming de données en temps réel pour des enregistrements synchronisés comportementaux et neurophysiologiques",
         "Créé des visualisations basées sur D3.js pour des ensembles de données de recherche complexes, permettant aux chercheurs d'explorer et analyser les résultats expérimentaux",
         "Publié des recherches évaluées par des pairs sur des frameworks reproductibles de tâches psychophysiologiques (Nature Medicine, Brazilian Journal of Psychiatry)"
+      ]
+    },
+    {
+      "company": "Brown University",
+      "position": "Ingénieur en Logiciel de Recherche – Centre de Calcul et Visualisation",
+      "location": "Providence, RI",
+      "startDate": "2018-04-01",
+      "endDate": "2019-10-31",
+      "highlights": [
+        "Travaillé au sein de la Data Science Practice puis du nouveau Centre de Calcul et Visualisation, en collaboration avec le Brown Center for Biomedical Informatics et le Computational Biology Core sur des logiciels de gestion, d'analyse et de visualisation des données de recherche",
+        "Accompagné chercheurs et étudiants dans la création d'environnements autonomes avec Docker et Singularity pour l'écosystème informatique sécurisé de Brown"
+      ]
+    },
+    {
+      "company": "Brown University",
+      "position": "Associé en Science des Données – Data Science Practice",
+      "location": "Providence, RI",
+      "startDate": "2016-11-01",
+      "endDate": "2018-04-30",
+      "highlights": [
+        "Travaillé avec des équipes de recherche de Brown sur l'analyse exploratoire, l'apprentissage automatique, la visualisation, le développement web et l'ingénierie logicielle",
+        "Analysé et visualisé des données avec le Rhode Island Innovative Policy Lab pour aider les chercheurs à concevoir et tester des politiques fondées sur les données"
       ]
     },
     {
@@ -84,8 +109,9 @@
       "endDate": "2016-06-30",
       "highlights": [
         "Analysé des séquences du génome humain avec GATK, Picard et BWA",
-        "Développé des pipelines de traitement de données en Python et une application R Shiny pour explorer et visualiser des données de variants génétiques",
-        "Développé une application Ember.js pour le laboratoire afin de générer des protocoles et de calculer les quantités de réactifs pour les réactions de séquençage ciblé"
+        "Développé des pipelines Python et shell pour le démultiplexage, l’alignement, l’analyse de couverture et l’identification de variants dans les données de séquençage ciblé",
+        "Créé une application R Shiny pour explorer et visualiser des données de variants génétiques",
+        "Développé une application Ember.js pour le laboratoire afin de générer des protocoles de sondes moléculaires inversées et de calculer les quantités de réactifs"
       ]
     }
   ],

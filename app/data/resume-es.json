@@ -30,6 +30,7 @@
       "highlights": [
         "Desarrollo y despliego el conector MCP de MarianaTek, funcionalidades de IA en el producto y mensajería basada en agentes orientada a clientes, con responsabilidad desde la implementación hasta el despliegue en producción",
         "Defino la estrategia y la hoja de ruta de IA para los productos orientados a clientes y la plataforma interna",
+        "Defino la estrategia y el proceso para el desarrollo con agentes a lo largo del ciclo de vida del software, creando habilidades reutilizables para agentes de IA que apoyan el desarrollo basado en especificaciones y la colaboración entre ingeniería, producto y diseño",
         "Desarrollo experiencias conversacionales y basadas en agentes para operadores de estudios y sus clientes, que abarcan programación de clases, comunicación con miembros y flujos operativos",
         "Establezco la plataforma interna de IA: herramientas, infraestructura y patrones que permiten a todos los ingenieros entregar funcionalidades de IA de forma segura"
       ]
@@ -41,12 +42,12 @@
       "startDate": "2023-08-01",
       "endDate": "2026-03-31",
       "highlights": [
-        "Lidero un equipo de 9 ingenieros full-stack construyendo aplicaciones web escalables para estudios de fitness boutique, ofreciendo experiencias integradas en programación, pagos y gestión de clientes",
-        "Defino la estrategia de arquitectura frontend incluyendo adopción de microfrontends, habilitando despliegues independientes y ciclos de iteración más rápidos",
-        "Diseño e implemento funcionalidades nativas de IA e interfaces conversacionales, integrando capacidades de LLM en flujos de producción",
-        "Colaboro con Producto, Diseño y liderazgo ejecutivo para traducir objetivos de negocio en hojas de ruta técnicas, equilibrando entrega de features con estabilidad de plataforma",
-        "Promuevo mejores prácticas de frontend incluyendo accesibilidad (WCAG), consistencia de design system y optimización de rendimiento",
-        "Mentoreo ingenieros de todos los niveles, conduzco revisiones de arquitectura y fomento una cultura de excelencia técnica"
+        "Lideré un equipo de 9 ingenieros full-stack construyendo aplicaciones web escalables para estudios de fitness boutique, ofreciendo experiencias integradas en programación, pagos y gestión de clientes",
+        "Definí la estrategia de arquitectura frontend incluyendo adopción de microfrontends, habilitando despliegues independientes y ciclos de iteración más rápidos",
+        "Diseñé e implementé funcionalidades nativas de IA e interfaces conversacionales, integrando capacidades de LLM en flujos de producción",
+        "Colaboré con Producto, Diseño y liderazgo ejecutivo para traducir objetivos de negocio en hojas de ruta técnicas, equilibrando entrega de features con estabilidad de plataforma",
+        "Promoví mejores prácticas de frontend incluyendo accesibilidad (WCAG), consistencia de design system y optimización de rendimiento",
+        "Orienté a ingenieros de todos los niveles, conduje revisiones de arquitectura y fomenté una cultura de excelencia técnica"
       ]
     },
     {
@@ -56,8 +57,8 @@
       "startDate": "2021-01-01",
       "endDate": "2023-07-31",
       "highlights": [
-        "Lideré mejoras en la arquitectura frontend, migrando monolito legado Ember.js a frameworks modernos (React, TypeScript)",
-        "Diseñé y mantuve un design system escalable con Storybook, mejorando la consistencia de UI en múltiples aplicaciones",
+        "Actualicé la aplicación Ember.js heredada a versiones más recientes y desarrollé funcionalidades en aplicaciones basadas en React",
+        "Inicié el sistema de diseño de la empresa basado en Web Components y lo integré en la aplicación Ember.js",
         "Lideré iniciativas de optimización de rendimiento, mejorando significativamente tiempos de carga y capacidad de respuesta",
         "Colaboré entre equipos con Producto, Diseño y QA para mejorar accesibilidad y usabilidad"
       ]
@@ -66,14 +67,38 @@
       "company": "Brown University",
       "position": "Ingeniero Senior de Software de Investigación – Centro de Computación y Visualización",
       "location": "Providence, RI",
-      "startDate": "2018-04-01",
+      "startDate": "2019-10-01",
       "endDate": "2021-01-31",
       "highlights": [
+        "Desarrollé, desplegué y mantuve aplicaciones web de investigación para científicos y estudiantes, desde herramientas puntuales hasta sistemas distribuidos utilizados por miles de estudiantes",
+        "Orienté a estudiantes de grado en prácticas y de posgrado en control de versiones, pruebas y desarrollo colaborativo de software",
         "Construí herramientas interactivas de visualización de datos y aplicaciones web en colaboración con científicos de datos y equipos de investigación",
         "Desarrollé Honeycomb, un framework open-source para recolección de datos psicofisiológicos en tiempo real, apoyando investigaciones de la Iniciativa BRAIN del NIH",
         "Implementé pipelines de streaming de datos en tiempo real para grabaciones sincronizadas conductuales y neurofisiológicas",
         "Creé visualizaciones basadas en D3.js para conjuntos de datos de investigación complejos, permitiendo a investigadores explorar y analizar resultados experimentales",
         "Publiqué investigación revisada por pares sobre frameworks reproducibles de tareas psicofisiológicas (Nature Medicine, Brazilian Journal of Psychiatry)"
+      ]
+    },
+    {
+      "company": "Brown University",
+      "position": "Ingeniero de Software de Investigación – Centro de Computación y Visualización",
+      "location": "Providence, RI",
+      "startDate": "2018-04-01",
+      "endDate": "2019-10-31",
+      "highlights": [
+        "Trabajé en la Data Science Practice y luego en el nuevo Centro de Computación y Visualización, colaborando con el Brown Center for Biomedical Informatics y el Computational Biology Core en software para gestión, análisis y visualización de datos de investigación",
+        "Ayudé a investigadores y estudiantes a crear entornos aislados con Docker y Singularity para el ecosistema de computación segura de Brown"
+      ]
+    },
+    {
+      "company": "Brown University",
+      "position": "Asociado de Ciencia de Datos – Data Science Practice",
+      "location": "Providence, RI",
+      "startDate": "2016-11-01",
+      "endDate": "2018-04-30",
+      "highlights": [
+        "Trabajé con grupos de investigación de Brown en análisis exploratorio de datos, aprendizaje automático, visualización, desarrollo web e ingeniería de software",
+        "Analicé y visualicé datos con el Rhode Island Innovative Policy Lab para ayudar a investigadores a diseñar y probar políticas basadas en datos"
       ]
     },
     {
@@ -84,8 +109,9 @@
       "endDate": "2016-06-30",
       "highlights": [
         "Analicé secuencias del genoma humano con GATK, Picard y BWA",
-        "Desarrollé pipelines de procesamiento de datos en Python y una aplicación R Shiny para explorar y visualizar datos de variantes genéticas",
-        "Desarrollé una aplicación Ember.js para el laboratorio que genera protocolos y calcula cantidades de reactivos para reacciones de secuenciación dirigida"
+        "Desarrollé pipelines en Python y shell para demultiplexación, alineación, análisis de cobertura e identificación de variantes en datos de secuenciación dirigida",
+        "Creé una aplicación R Shiny para explorar y visualizar datos de variantes genéticas",
+        "Desarrollé una aplicación Ember.js para uso en el laboratorio que generaba protocolos de sondas moleculares invertidas y calculaba cantidades de reactivos"
       ]
     }
   ],

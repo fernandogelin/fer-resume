@@ -30,6 +30,7 @@
       "highlights": [
         "Build and deploy MarianaTek’s MCP connector, in-product AI features, and customer-facing agentic messaging, owning implementation through production deployment",
         "Set AI strategy and roadmap across customer-facing products and the internal platform",
+        "Define the strategy and process for agentic development across the software lifecycle, creating reusable AI agent skills for spec-driven development and collaboration among engineers, product managers, and designers",
         "Build conversational and agentic experiences for studio operators and their customers, spanning scheduling, member communications, and operational workflows",
         "Establish the internal AI platform: tooling, infrastructure, and patterns that enable every engineer to ship AI features safely"
       ]
@@ -41,12 +42,12 @@
       "startDate": "2023-08-01",
       "endDate": "2026-03-31",
       "highlights": [
-        "Lead a team of 9 full-stack engineers building scalable web applications for boutique fitness studios, delivering seamless experiences across scheduling, payments, and client management",
-        "Drive frontend architecture strategy including microfrontend adoption, enabling independent team deployments and faster iteration cycles",
-        "Architect and implement AI-native features and conversational interfaces, integrating LLM capabilities into production workflows",
-        "Partner with Product, Design, and executive leadership to translate business objectives into technical roadmaps, balancing feature delivery with platform stability",
-        "Champion frontend best practices including accessibility (WCAG), design system consistency, and performance optimization",
-        "Mentor engineers at all levels, conduct architecture reviews, and foster a culture of technical excellence and ownership"
+        "Led a team of 9 full-stack engineers building scalable web applications for boutique fitness studios, delivering seamless experiences across scheduling, payments, and client management",
+        "Drove frontend architecture strategy including microfrontend adoption, enabling independent team deployments and faster iteration cycles",
+        "Architected and implemented AI-native features and conversational interfaces, integrating LLM capabilities into production workflows",
+        "Partnered with Product, Design, and executive leadership to translate business objectives into technical roadmaps, balancing feature delivery with platform stability",
+        "Championed frontend best practices including accessibility (WCAG), design system consistency, and performance optimization",
+        "Mentored engineers at all levels, conducted architecture reviews, and fostered a culture of technical excellence and ownership"
       ]
     },
     {
@@ -56,8 +57,8 @@
       "startDate": "2021-01-01",
       "endDate": "2023-07-31",
       "highlights": [
-        "Spearheaded frontend architecture improvements, transitioning legacy Ember.js monolith to modern frameworks (React, TypeScript)",
-        "Designed and maintained a scalable design system with Storybook, improving UI consistency across multiple applications",
+        "Upgraded the legacy Ember.js application to newer versions and built features in React-based applications",
+        "Started the company's Web Components-based design system and integrated it into the Ember.js application",
         "Led performance optimization initiatives, significantly improving load times and application responsiveness",
         "Collaborated cross-functionally with Product, Design, and QA to improve accessibility and usability"
       ]
@@ -66,14 +67,38 @@
       "company": "Brown University",
       "position": "Senior Research Software Engineer – Center for Computation and Visualization",
       "location": "Providence, RI",
-      "startDate": "2018-04-01",
+      "startDate": "2019-10-01",
       "endDate": "2021-01-31",
       "highlights": [
+        "Built, deployed, and maintained research web applications for scientists and students, from one-off tools to distributed systems used by thousands of students",
+        "Mentored undergraduate interns and graduate students in version control, testing, and collaborative software development",
         "Built interactive data visualization tools and web applications in close collaboration with data scientists and research teams",
         "Developed Honeycomb, an open-source framework for real-time psychophysiological data collection, supporting NIH BRAIN Initiative research",
         "Implemented real-time data streaming pipelines for synchronized behavioral and neurophysiological recordings",
         "Created D3.js-based visualizations for complex research datasets, enabling researchers to explore and analyze experimental results",
         "Published peer-reviewed research on reproducible psychophysiological task frameworks (Nature Medicine, Brazilian Journal of Psychiatry)"
+      ]
+    },
+    {
+      "company": "Brown University",
+      "position": "Research Software Engineer – Center for Computation and Visualization",
+      "location": "Providence, RI",
+      "startDate": "2018-04-01",
+      "endDate": "2019-10-31",
+      "highlights": [
+        "Worked in the Data Science Practice and then the new Center for Computation and Visualization, collaborating with the Brown Center for Biomedical Informatics and Computational Biology Core on research software for data management, analysis, and visualization",
+        "Supported researchers and students in creating self-contained Docker and Singularity environments for Brown’s secure computing ecosystem"
+      ]
+    },
+    {
+      "company": "Brown University",
+      "position": "Data Science Associate – Data Science Practice",
+      "location": "Providence, RI",
+      "startDate": "2016-11-01",
+      "endDate": "2018-04-30",
+      "highlights": [
+        "Worked with Brown research groups on exploratory data analysis, machine learning, visualization, web development, and software engineering",
+        "Analyzed and visualized data with the Rhode Island Innovative Policy Lab to help researchers design and test data-informed policy"
       ]
     },
     {
@@ -84,8 +109,9 @@
       "endDate": "2016-06-30",
       "highlights": [
         "Analyzed human genome sequences using GATK, Picard, and BWA",
-        "Built data processing pipelines in Python and an R Shiny application to explore and visualize genetic variant data",
-        "Built an Ember.js application for the lab to generate protocols and calculate reagent amounts for targeted sequencing reactions"
+        "Built Python and shell pipelines for demultiplexing, alignment, coverage analysis, and variant calling of targeted sequencing data",
+        "Created an R Shiny application to explore and visualize genetic variant data",
+        "Built an Ember.js application for lab use that generated molecular inversion probe protocols and calculated reagent amounts"
       ]
     }
   ],
