@@ -56,8 +56,8 @@
       "startDate": "2021-01-01",
       "endDate": "2023-07-31",
       "highlights": [
-        "Dirigé les améliorations d'architecture frontend, migrant le monolithe Ember.js vers des frameworks modernes (React, TypeScript)",
-        "Conçu et maintenu un design system évolutif avec Storybook, améliorant la cohérence UI sur plusieurs applications",
+        "Mis à jour l'application Ember.js existante vers des versions plus récentes et développé des fonctionnalités dans des applications React",
+        "Lancé le design system de l'entreprise fondé sur les Web Components et intégré celui-ci à l'application Ember.js",
         "Dirigé les initiatives d'optimisation de performance, améliorant significativement les temps de chargement et la réactivité",
         "Collaboré avec Produit, Design et QA pour améliorer l'accessibilité et l'utilisabilité"
       ]
