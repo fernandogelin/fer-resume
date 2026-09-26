@@ -4,6 +4,7 @@ import { Card, CardContent } from 'fer-resume/components/ui/card';
 import DateRange from 'fer-resume/components/date-range';
 import Icon from 'fer-resume/components/icon';
 import { Building2, User, MapPin } from 'lucide-static';
+import { t } from 'ember-intl';
 
 interface WorkItemSignature {
   Args: {
@@ -12,30 +13,44 @@ interface WorkItemSignature {
 }
 
 const WorkItem: TOC<WorkItemSignature> = <template>
-  <Card @class="shadow-none border-0 bg-transparent py-2">
-    <CardContent @class="px-0">
-      <h4 class="flex items-center gap-2 font-semibold text-sm">
-        <Icon @svg={{Building2}} @size={{16}} @class="text-muted-foreground" />
+  <Card @class='shadow-none border-0 bg-transparent py-2'>
+    <CardContent @class='px-0'>
+      <h4 class='flex items-center gap-2 font-semibold text-sm'>
+        <Icon @svg={{Building2}} @size={{16}} @class='text-muted-foreground' />
         {{@model.company}}
       </h4>
-      <p class="flex items-center gap-2 text-sm text-muted-foreground mt-1">
+      <p class='flex items-center gap-2 text-sm text-muted-foreground mt-1'>
         <Icon @svg={{User}} @size={{16}} />
         {{@model.position}}
       </p>
-      <div class="flex items-center gap-3 mt-1">
+      <div class='flex items-center gap-3 mt-1'>
         <DateRange @startDate={{@model.startDate}} @endDate={{@model.endDate}} />
         {{#if @model.location}}
-          <span class="flex items-center gap-1 text-xs text-muted-foreground">
+          <span class='flex items-center gap-1 text-xs text-muted-foreground'>
             <Icon @svg={{MapPin}} @size={{14}} />
             {{@model.location}}
           </span>
         {{/if}}
       </div>
-      <ul class="text-sm mt-2 space-y-1 list-disc list-inside">
+      <ul class='text-sm mt-2 space-y-1 list-disc list-inside'>
         {{#each @model.highlights as |highlight|}}
           <li>{{highlight}}</li>
         {{/each}}
       </ul>
+      {{#if @model.projects}}
+        <p class='mt-2 text-xs text-muted-foreground'>
+          {{t 'main.project_links'}}:
+          {{#each @model.projects as |project index|}}
+            {{#if index}} · {{/if}}
+            <a
+              href={{project.url}}
+              target='_blank'
+              rel='noopener noreferrer'
+              class='text-primary underline-offset-2 hover:underline'
+            >{{project.name}}</a>
+          {{/each}}
+        </p>
+      {{/if}}
     </CardContent>
   </Card>
 </template>;

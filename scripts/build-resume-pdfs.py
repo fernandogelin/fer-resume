@@ -17,6 +17,7 @@ pdfmetrics.registerFontFamily('ArialResume', normal='ArialResume', bold='ArialRe
 NAVY = colors.HexColor('#14283B')
 SLATE = colors.HexColor('#3E5060')
 BLUE = colors.HexColor('#186087')
+PROJECT_LABELS = {'en': 'Projects', 'pt': 'Projetos', 'es': 'Proyectos', 'fr': 'Projets'}
 LANGS = {
     'en': ('Experience', 'Education', 'Certification', 'Selected Publications', 'Expertise', 'Present'),
     'pt': ('Experiência', 'Formação', 'Certificação', 'Publicações Selecionadas', 'Competências', 'Atual'),
@@ -73,8 +74,17 @@ def build(lang):
         if work['location']:
             dates += f"  |  {work['location']}"
         group = [paragraph(heading, 'role'), paragraph(dates, 'meta')]
-        max_bullets = [4, 4, 2, 3, 2][work_index]
-        group += [paragraph('• ' + item, 'bullet') for item in work['highlights'][:max_bullets]]
+        max_bullets = [4, 4, 2, 3, 3][work_index]
+        highlights = work['highlights']
+        if work_index == 4 and len(highlights) >= 4:
+            highlights = [highlights[0], highlights[1], highlights[3]]
+        group += [paragraph('• ' + item, 'bullet') for item in highlights[:max_bullets]]
+        if work.get('projects'):
+            links = ' · '.join(
+                f'<link href="{escape(project["url"], quote=True)}" color="#186087">{escape(project["name"])}</link>'
+                for project in work['projects']
+            )
+            group.append(Paragraph(f'{PROJECT_LABELS[lang]}: {links}', styles['meta']))
         group.append(Spacer(1, 2))
         story.append(KeepTogether(group))
     section(story, labels[1])

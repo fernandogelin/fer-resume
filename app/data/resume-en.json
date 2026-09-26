@@ -84,9 +84,11 @@
       "endDate": "2016-06-30",
       "highlights": [
         "Analyzed human genome sequences using GATK, Picard, and BWA",
-        "Built data processing pipelines in Python and an R Shiny application to explore and visualize genetic variant data",
-        "Built an Ember.js application for the lab to generate protocols and calculate reagent amounts for targeted sequencing reactions"
-      ]
+        "Built Python and shell pipelines for demultiplexing, alignment, coverage analysis, and variant calling of targeted sequencing data",
+        "Created an R Shiny application to explore and visualize genetic variant data",
+        "Built an Ember.js application for lab use that generated molecular inversion probe protocols and calculated reagent amounts"
+      ],
+      "projects": [{"name": "mip-scripts", "url": "https://github.com/fernandogelin/mip-scripts"}, {"name": "mip-calculator", "url": "https://github.com/fernandogelin/mip-calculator"}]
     }
   ],
   "education": [
