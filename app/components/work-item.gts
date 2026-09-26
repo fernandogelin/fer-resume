@@ -4,7 +4,6 @@ import { Card, CardContent } from 'fer-resume/components/ui/card';
 import DateRange from 'fer-resume/components/date-range';
 import Icon from 'fer-resume/components/icon';
 import { Building2, User, MapPin } from 'lucide-static';
-import { t } from 'ember-intl';
 
 interface WorkItemSignature {
   Args: {
@@ -32,24 +31,12 @@ const WorkItem: TOC<WorkItemSignature> = <template>
           </span>
         {{/if}}
       </div>
-      <ul class='text-sm mt-2 space-y-1 list-disc list-inside'>
-        {{#each @model.highlights as |highlight|}}
-          <li>{{highlight}}</li>
-        {{/each}}
-      </ul>
-      {{#if @model.projects}}
-        <p class='mt-2 text-xs text-muted-foreground'>
-          {{t 'main.project_links'}}:
-          {{#each @model.projects as |project index|}}
-            {{#if index}} · {{/if}}
-            <a
-              href={{project.url}}
-              target='_blank'
-              rel='noopener noreferrer'
-              class='text-primary underline-offset-2 hover:underline'
-            >{{project.name}}</a>
+      {{#if @model.highlights.length}}
+        <ul class='text-sm mt-2 space-y-1 list-disc list-inside'>
+          {{#each @model.highlights as |highlight|}}
+            <li>{{highlight}}</li>
           {{/each}}
-        </p>
+        </ul>
       {{/if}}
     </CardContent>
   </Card>

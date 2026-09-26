@@ -66,14 +66,38 @@
       "company": "Brown University",
       "position": "Ingénieur Senior en Logiciel de Recherche – Centre de Calcul et Visualisation",
       "location": "Providence, RI",
-      "startDate": "2018-04-01",
+      "startDate": "2019-10-01",
       "endDate": "2021-01-31",
       "highlights": [
+        "Développé, déployé et maintenu des applications web de recherche pour scientifiques et étudiants, des outils ponctuels aux systèmes distribués utilisés par des milliers d'étudiants",
+        "Encadré des stagiaires de premier cycle et des étudiants diplômés en contrôle de version, tests et développement logiciel collaboratif",
         "Développé des outils interactifs de visualisation de données et des applications web en collaboration avec des scientifiques de données et des équipes de recherche",
         "Développé Honeycomb, un framework open-source pour la collecte de données psychophysiologiques en temps réel, soutenant les recherches de l'Initiative BRAIN du NIH",
         "Implémenté des pipelines de streaming de données en temps réel pour des enregistrements synchronisés comportementaux et neurophysiologiques",
         "Créé des visualisations basées sur D3.js pour des ensembles de données de recherche complexes, permettant aux chercheurs d'explorer et analyser les résultats expérimentaux",
         "Publié des recherches évaluées par des pairs sur des frameworks reproductibles de tâches psychophysiologiques (Nature Medicine, Brazilian Journal of Psychiatry)"
+      ]
+    },
+    {
+      "company": "Brown University",
+      "position": "Ingénieur en Logiciel de Recherche – Centre de Calcul et Visualisation",
+      "location": "Providence, RI",
+      "startDate": "2018-04-01",
+      "endDate": "2019-10-31",
+      "highlights": [
+        "Travaillé au sein de la Data Science Practice puis du nouveau Centre de Calcul et Visualisation, en collaboration avec le Brown Center for Biomedical Informatics et le Computational Biology Core sur des logiciels de gestion, d'analyse et de visualisation des données de recherche",
+        "Accompagné chercheurs et étudiants dans la création d'environnements autonomes avec Docker et Singularity pour l'écosystème informatique sécurisé de Brown"
+      ]
+    },
+    {
+      "company": "Brown University",
+      "position": "Associé en Science des Données – Data Science Practice",
+      "location": "Providence, RI",
+      "startDate": "2016-11-01",
+      "endDate": "2018-04-30",
+      "highlights": [
+        "Travaillé avec des équipes de recherche de Brown sur l'analyse exploratoire, l'apprentissage automatique, la visualisation, le développement web et l'ingénierie logicielle",
+        "Analysé et visualisé des données avec le Rhode Island Innovative Policy Lab pour aider les chercheurs à concevoir et tester des politiques fondées sur les données"
       ]
     },
     {
@@ -87,8 +111,7 @@
         "Développé des pipelines Python et shell pour le démultiplexage, l’alignement, l’analyse de couverture et l’identification de variants dans les données de séquençage ciblé",
         "Créé une application R Shiny pour explorer et visualiser des données de variants génétiques",
         "Développé une application Ember.js pour le laboratoire afin de générer des protocoles de sondes moléculaires inversées et de calculer les quantités de réactifs"
-      ],
-      "projects": [{"name": "mip-scripts", "url": "https://github.com/fernandogelin/mip-scripts"}, {"name": "mip-calculator", "url": "https://github.com/fernandogelin/mip-calculator"}]
+      ]
     }
   ],
   "education": [

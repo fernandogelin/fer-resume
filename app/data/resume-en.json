@@ -66,14 +66,38 @@
       "company": "Brown University",
       "position": "Senior Research Software Engineer – Center for Computation and Visualization",
       "location": "Providence, RI",
-      "startDate": "2018-04-01",
+      "startDate": "2019-10-01",
       "endDate": "2021-01-31",
       "highlights": [
+        "Built, deployed, and maintained research web applications for scientists and students, from one-off tools to distributed systems used by thousands of students",
+        "Mentored undergraduate interns and graduate students in version control, testing, and collaborative software development",
         "Built interactive data visualization tools and web applications in close collaboration with data scientists and research teams",
         "Developed Honeycomb, an open-source framework for real-time psychophysiological data collection, supporting NIH BRAIN Initiative research",
         "Implemented real-time data streaming pipelines for synchronized behavioral and neurophysiological recordings",
         "Created D3.js-based visualizations for complex research datasets, enabling researchers to explore and analyze experimental results",
         "Published peer-reviewed research on reproducible psychophysiological task frameworks (Nature Medicine, Brazilian Journal of Psychiatry)"
+      ]
+    },
+    {
+      "company": "Brown University",
+      "position": "Research Software Engineer – Center for Computation and Visualization",
+      "location": "Providence, RI",
+      "startDate": "2018-04-01",
+      "endDate": "2019-10-31",
+      "highlights": [
+        "Worked in the Data Science Practice and then the new Center for Computation and Visualization, collaborating with the Brown Center for Biomedical Informatics and Computational Biology Core on research software for data management, analysis, and visualization",
+        "Supported researchers and students in creating self-contained Docker and Singularity environments for Brown’s secure computing ecosystem"
+      ]
+    },
+    {
+      "company": "Brown University",
+      "position": "Data Science Associate – Data Science Practice",
+      "location": "Providence, RI",
+      "startDate": "2016-11-01",
+      "endDate": "2018-04-30",
+      "highlights": [
+        "Worked with Brown research groups on exploratory data analysis, machine learning, visualization, web development, and software engineering",
+        "Analyzed and visualized data with the Rhode Island Innovative Policy Lab to help researchers design and test data-informed policy"
       ]
     },
     {
@@ -87,8 +111,7 @@
         "Built Python and shell pipelines for demultiplexing, alignment, coverage analysis, and variant calling of targeted sequencing data",
         "Created an R Shiny application to explore and visualize genetic variant data",
         "Built an Ember.js application for lab use that generated molecular inversion probe protocols and calculated reagent amounts"
-      ],
-      "projects": [{"name": "mip-scripts", "url": "https://github.com/fernandogelin/mip-scripts"}, {"name": "mip-calculator", "url": "https://github.com/fernandogelin/mip-calculator"}]
+      ]
     }
   ],
   "education": [

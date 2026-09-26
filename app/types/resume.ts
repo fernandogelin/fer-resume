@@ -22,7 +22,6 @@ export interface WorkEntry {
   startDate: string;
   endDate: string | null;
   highlights: string[];
-  projects?: Array<{ name: string; url: string }>;
 }
 
 export interface EducationEntry {
